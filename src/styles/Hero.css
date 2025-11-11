@@ -1,0 +1,27 @@
+.hero {
+  position: relative;
+  height: 90vh;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero .overlay {
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 2rem;
+  border-radius: 10px;
+}
+
+.hero .overlay h1 {
+  color: white;
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+}
+
+.hero .overlay p {
+  color: #f5f5f5;
+  font-family: 'Poppins', sans-serif;
+}
