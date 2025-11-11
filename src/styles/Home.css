@@ -10,6 +10,7 @@
   background-repeat: no-repeat;
   background-position: center;
   position: relative;
+  padding-bottom: 6rem;
 }
 
 /* Optional semi-transparent overlay on the home page */
