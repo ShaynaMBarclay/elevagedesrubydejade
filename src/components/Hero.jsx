@@ -1,8 +1,8 @@
 import "../styles/Hero.css";
 
-export default function Hero({ title, subtitle, background }) {
+export default function Hero({ title, subtitle }) {
   return (
-    <section className="hero" style={{ backgroundImage: `url(${background})` }}>
+    <section className="hero">
       <div className="overlay">
         <h1>{title}</h1>
         <p>{subtitle}</p>

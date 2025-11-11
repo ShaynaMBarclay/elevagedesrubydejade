@@ -1,0 +1,64 @@
+.home-page {
+  min-height: 100%;
+  font-family: var(--font-body);
+  color: var(--dark);
+
+  /* Home page background */
+  background: url('/images/forest.jpg') center/cover no-repeat fixed;
+  background-size: cover;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: relative;
+}
+
+/* Optional semi-transparent overlay on the home page */
+.home-page::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-color: rgba(248, 248, 240, 0.35); /* adjust opacity */
+  z-index: 0;
+}
+
+/* Ensure all content is above overlay */
+.home-page > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* === Section Base === */
+section {
+  padding: 5rem 2rem;
+  text-align: center;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* === About === */
+.about-preview p {
+  margin-top: 1rem;
+  line-height: 1.6;
+}
+
+/* === Dogs / Puppies / Contact === */
+.dogs-preview,
+.puppies-preview,
+.contact-preview {
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  padding: 3rem 2rem;
+  margin-top: 2rem;
+}
+
+/* === Contact link === */
+.contact-link {
+  color: var(--primary);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.contact-link:hover {
+  text-decoration: underline;
+}
