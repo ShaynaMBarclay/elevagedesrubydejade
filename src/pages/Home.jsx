@@ -1,30 +1,23 @@
-import Hero from "../components/Hero";
+
 import Gallery from "../components/Gallery";
 import "../styles/Home.css";
 
 export default function Home() {
   return (
     <main className="home-page">
-      <Hero
-        title="Élevage des Ruby de Jade"
-        subtitle="Chien-loup tchécoslovaque — Passion, respect et harmonie avec la nature"
-      />
+    
 
       {/* === About Section === */}
       <section className="about-preview">
         <div className="content">
-          <h2>Notre Histoire</h2>
+          <h2>Des Ruby de Jade - Chien Loup Tchécoslovaque & Berger Blanc Suisse</h2>
           <p>
-            Bienvenue à l’Élevage des Ruby de Jade. Situé dans un cadre naturel
-            au cœur de la campagne, notre élevage se consacre à la passion du
-            Chien-loup tchécoslovaque. Nous mettons un point d’honneur à
-            respecter le bien-être, la socialisation et l’équilibre de nos
-            chiens.
+            Fort d'une expérience de 15 ans dans l'élevage de chien loup, j'ai le plaisir de vous partager ma passion pour cette race. Au plaisir de vous recevoir à la ferme découvrir nos chiens, qui grandissent et s'épanouissent avec d'autres races de chiens, moutons, chèvres, poules, lapins. 
           </p>
           <p>
-            Chaque portée est le fruit d’un travail réfléchi, d’une sélection
-            rigoureuse, et d’un amour profond pour cette race noble et fière.
+            La race nécessitant un travail important de socialisation, nous assurons suivi et partage de notre passion avec vous.
           </p>
+          <p>Sophie KNOPF</p>
         </div>
       </section>
 

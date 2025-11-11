@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { FaHome } from "react-icons/fa";
 import "../styles/Navbar.css";
 
 export default function Navbar() {
@@ -26,10 +27,15 @@ export default function Navbar() {
         </div>
 
         <div className={`nav-links ${isOpen ? "open" : ""}`}>
-          <Link to="/">Accueil</Link>
-          <Link to="/about">Notre Histoire</Link>
-          <Link to="/dogs">Nos Chiens</Link>
-          <Link to="/contact">Contact</Link>
+          <Link to="/" className="nav-home">
+          <FaHome size={20} />
+          </Link>
+          <Link to="/dogs">CHIENS</Link>
+          <Link to="/puppies">CHIOTS</Link>
+          <Link to="/news">ACTUALITÉS</Link>
+          <Link to="/Gallery">GALERIES</Link>
+          <Link to="/Liens">LIENS</Link>
+          <Link to="/contact">CONTACT</Link>
         </div>
 
         <div
