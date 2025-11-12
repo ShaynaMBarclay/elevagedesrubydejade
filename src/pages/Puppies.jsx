@@ -1,7 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import "../styles/Puppies.css";
 
 export default function Puppies() {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [activeCategory, setActiveCategory] = useState("chiots");
 
   const categories = [
@@ -10,6 +13,21 @@ export default function Puppies() {
     { id: "futures", label: "Futures Portées" },
     { id: "nes", label: "Chiots nés chez nous" },
   ];
+
+   // Set active category based on URL hash
+    useEffect(() => {
+      const hash = location.hash.replace("#", "");
+      if (categories.find((cat) => cat.id === hash)) {
+        setActiveCategory(hash);
+      }
+    }, [location.hash]);
+  
+    // Handle clicking a tab
+    const handleCategoryClick = (id) => {
+      setActiveCategory(id);
+      navigate(`#${id}`, { replace: true }); 
+    };
+  
 
   return (
     <main className="puppies-page">
@@ -25,9 +43,8 @@ export default function Puppies() {
           <button
             key={cat.id}
             className={`puppies-tab ${
-              activeCategory === cat.id ? "active" : ""
-            }`}
-            onClick={() => setActiveCategory(cat.id)}
+              activeCategory === cat.id ? "active" : ""}`}
+             onClick={() => handleCategoryClick(cat.id)}
           >
             {cat.label}
           </button>

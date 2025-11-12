@@ -12,6 +12,13 @@ export default function Home() {
     { id: "memoire", label: "En mémoire" },
   ];
 
+  const puppyCategories = [
+    { id: "chiots", label: "Chiots" },
+    { id: "disponibles", label: "Chiots disponibles" },
+    { id: "futures", label: "Futures Portées" },
+    { id: "nes", label: "Chiots nés chez nous" },
+  ];
+
   return (
     <main className="home-page">
       {/* === About Section === */}
@@ -36,23 +43,23 @@ export default function Home() {
           caractère équilibré et leur beauté conforme au standard de la race.
         </p>
 
-        {/* Category Tabs */}
+        {/* Dog Category Tabs */}
         <div className="dog-categories-home">
-            {dogCategories.map((cat) => (
-         <Link
-          key={cat.id}
-          to={`/dogs#${cat.id}`} 
-          className="dog-tab-home"
-         >
-          {cat.label}
-        </Link>
-         ))}
+          {dogCategories.map((cat) => (
+            <Link
+              key={cat.id}
+              to={`/dogs#${cat.id}`}
+              className="dog-tab-home"
+            >
+              {cat.label}
+            </Link>
+          ))}
         </div>
 
         <Gallery />
       </section>
 
-      {/* === Puppies Section === */}
+      {/* === Puppies Section with Categories === */}
       <section className="puppies-preview">
         <h2>Nos Chiots</h2>
         <p>
@@ -60,6 +67,19 @@ export default function Home() {
           d’attention et de soins. Ils sont prêts à rejoindre leur future
           famille dans les meilleures conditions possibles.
         </p>
+
+        {/* Puppies Category Tabs */}
+        <div className="puppies-categories-home">
+          {puppyCategories.map((cat) => (
+            <Link
+              key={cat.id}
+              to={`/puppies#${cat.id}`}
+              className="puppies-tab-home"
+            >
+              {cat.label}
+            </Link>
+          ))}
+        </div>
       </section>
 
       {/* === Contact Preview === */}
