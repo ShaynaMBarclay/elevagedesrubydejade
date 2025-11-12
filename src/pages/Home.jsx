@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import Gallery from "../components/Gallery";
 import "../styles/Home.css";
-import homeImg from "../assets/homeimg.jpg"; // import the image
+import homeImg from "../assets/homeimg.jpg"; 
+import updateImg from "../assets/updateimg.jpg";
 
 export default function Home() {
   const dogCategories = [
@@ -37,6 +38,38 @@ export default function Home() {
           </div>
           <div className="about-image">
             <img src={homeImg} alt="Élevage des Ruby de Jade" />
+          </div>
+        </div>
+      </section>
+
+        {/* === Update Section === */}
+      <section className="update-preview">
+        <div className="update-content">
+          <div className="update-text">
+            <h2>Portée 2025</h2>
+            <p>🐾 Les chiots de Ruby & Roberto arrivent cet automne ! 🐾</p>
+            <p>
+              Nous sommes heureux d’annoncer la prochaine portée à l’Élevage des Ruby de Jade.
+            </p>
+            <p>
+              Une union exceptionnelle entre Ruby (Severka III Oduhoste) et Roberto (Robert Plant Sing Immigrant Song Athanor Lupus) — deux lignées soigneusement sélectionnées pour leur tempérament équilibré, leur santé irréprochable et leur beauté naturelle.
+            </p>
+            <p>🐾 Ce qu’il faut savoir :</p>
+            <ul>
+              <li>0% de consanguinité sur 5 générations</li>
+              <li>Tests complets : MD / MDR1 / pelage</li>
+              <li>Hanches et coudes contrôlés</li>
+              <li>CSAU et TAN validés (Roberto)</li>
+            </ul>
+            <p>
+              Nos chiots grandiront dans un environnement familial, socialisés dès leurs premières semaines et habitués à différents stimuli pour rejoindre vos foyers sereinement.
+            </p>
+            <p>🐾 Chiots attendus cet automne – les réservations sont ouvertes !</p>
+            <p>📞 Infos & réservations : Sophie – 06 50 87 91 80</p>
+            <p>✉️ schneider.sof68@hotmail.fr</p>
+          </div>
+          <div className="update-image">
+            <img src={updateImg} alt="Portée 2025 Ruby & Roberto" />
           </div>
         </div>
       </section>
