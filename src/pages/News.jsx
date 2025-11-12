@@ -35,7 +35,10 @@ export default function News() {
         {activeCategory === "2025" && (
           <div className="update-section">
             <h2>Portée 2025</h2>
-            <div className="update-content">
+            <div className="update-content update-vertical">
+            <div className="update-image">
+                <img src={updateImg} alt="Portée 2025 Ruby & Roberto" />
+              </div>
               <div className="update-text">
                 <p>🐾 Les chiots de Ruby & Roberto arrivent cet automne ! 🐾</p>
                 <p>
@@ -57,9 +60,6 @@ export default function News() {
                 <p>🐾 Chiots attendus cet automne – les réservations sont ouvertes !</p>
                 <p>📞 Infos & réservations : Sophie – 06 50 87 91 80</p>
                 <p>✉️ schneider.sof68@hotmail.fr</p>
-              </div>
-              <div className="update-image">
-                <img src={updateImg} alt="Portée 2025 Ruby & Roberto" />
               </div>
             </div>
           </div>

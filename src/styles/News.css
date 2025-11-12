@@ -89,10 +89,20 @@
   text-align: center;
 }
 
+.update-content.update-vertical {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
 .update-image img {
-  max-width: 100%;
+  max-width: 600px; 
+  width: 100%;
+  height: auto;
   border-radius: 10px;
 }
+
 
 /* 2024 section */
 .news-2024 {
