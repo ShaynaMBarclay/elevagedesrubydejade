@@ -1,0 +1,59 @@
+.dogs-page {
+  font-family: var(--font-body);
+  text-align: center;
+  color: var(--dark);
+  padding: 6rem 2rem;
+  background-color: var(--light);
+}
+
+.dogs-page h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.dogs-page .intro {
+  max-width: 700px;
+  margin: 0 auto 2rem;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.dog-categories {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+
+.dog-tab {
+  background-color: transparent;
+  border: 2px solid var(--primary);
+  color: var(--primary);
+  font-family: 'Poppins', sans-serif;
+  padding: 0.6rem 1.5rem;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dog-tab:hover {
+  background-color: var(--primary);
+  color: white;
+}
+
+.dog-tab.active {
+  background-color: var(--primary);
+  color: white;
+}
+
+.dog-content {
+  max-width: 800px;
+  margin: 0 auto;
+  font-size: 1rem;
+  background: rgba(255, 255, 255, 0.85);
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
