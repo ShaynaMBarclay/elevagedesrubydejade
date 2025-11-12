@@ -52,6 +52,30 @@ section {
   margin-top: 2rem;
 }
 
+.dog-categories-home {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.8rem;
+  margin-bottom: 2rem;
+}
+
+.dog-tab-home {
+  padding: 0.5rem 1.2rem;
+  border: 2px solid var(--primary);
+  border-radius: 30px;
+  text-decoration: none;
+  color: var(--primary);
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.dog-tab-home:hover {
+  background-color: var(--primary);
+  color: white;
+}
+
+
 /* === Contact link === */
 .contact-link {
   color: var(--primary);

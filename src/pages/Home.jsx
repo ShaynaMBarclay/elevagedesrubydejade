@@ -1,12 +1,19 @@
-
+import { Link } from "react-router-dom";
 import Gallery from "../components/Gallery";
 import "../styles/Home.css";
 
 export default function Home() {
+  const dogCategories = [
+    { id: "chiens", label: "Chiens" },
+    { id: "males", label: "Mâles" },
+    { id: "femelles", label: "Femelles" },
+    { id: "resultats", label: "Résultats" },
+    { id: "retraites", label: "Retraités" },
+    { id: "memoire", label: "En mémoire" },
+  ];
+
   return (
     <main className="home-page">
-    
-
       {/* === About Section === */}
       <section className="about-preview">
         <div className="content">
@@ -21,13 +28,27 @@ export default function Home() {
         </div>
       </section>
 
-      {/* === Dogs Section === */}
+      {/* === Dogs Section with Categories === */}
       <section className="dogs-preview">
         <h2>Nos Chiens</h2>
         <p>
           Découvrez nos reproducteurs et nos femelles, sélectionnés pour leur
           caractère équilibré et leur beauté conforme au standard de la race.
         </p>
+
+        {/* Category Tabs */}
+        <div className="dog-categories-home">
+            {dogCategories.map((cat) => (
+         <Link
+          key={cat.id}
+          to={`/dogs#${cat.id}`} 
+          className="dog-tab-home"
+         >
+          {cat.label}
+        </Link>
+         ))}
+        </div>
+
         <Gallery />
       </section>
 

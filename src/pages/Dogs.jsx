@@ -1,7 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import "../styles/Dogs.css";
 
 export default function Dogs() {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [activeCategory, setActiveCategory] = useState("chiens");
 
   const categories = [
@@ -12,6 +15,20 @@ export default function Dogs() {
     { id: "retraites", label: "Retraités" },
     { id: "memoire", label: "En mémoire" },
   ];
+
+  // Set active category based on URL hash
+  useEffect(() => {
+    const hash = location.hash.replace("#", "");
+    if (categories.find((cat) => cat.id === hash)) {
+      setActiveCategory(hash);
+    }
+  }, [location.hash]);
+
+  // Handle clicking a tab
+  const handleCategoryClick = (id) => {
+    setActiveCategory(id);
+    navigate(`#${id}`, { replace: true }); 
+  };
 
   return (
     <main className="dogs-page">
@@ -26,10 +43,8 @@ export default function Dogs() {
         {categories.map((cat) => (
           <button
             key={cat.id}
-            className={`dog-tab ${
-              activeCategory === cat.id ? "active" : ""
-            }`}
-            onClick={() => setActiveCategory(cat.id)}
+            className={`dog-tab ${activeCategory === cat.id ? "active" : ""}`}
+            onClick={() => handleCategoryClick(cat.id)}
           >
             {cat.label}
           </button>
@@ -38,24 +53,12 @@ export default function Dogs() {
 
       {/* Category Content */}
       <div className="dog-content">
-        {activeCategory === "chiens" && (
-          <p>Sélectionnez une catégorie pour voir nos chiens.</p>
-        )}
-        {activeCategory === "males" && (
-          <p>Voici nos magnifiques mâles reproducteurs.</p>
-        )}
-        {activeCategory === "femelles" && (
-          <p>Nos femelles élevées avec amour et attention.</p>
-        )}
-        {activeCategory === "resultats" && (
-          <p>Découvrez les résultats et distinctions obtenus par nos chiens.</p>
-        )}
-        {activeCategory === "retraites" && (
-          <p>Nos chiens à la retraite profitent de la vie paisible à la ferme.</p>
-        )}
-        {activeCategory === "memoire" && (
-          <p>En mémoire de nos compagnons disparus, à jamais dans nos cœurs.</p>
-        )}
+        {activeCategory === "chiens" && <p>Sélectionnez une catégorie pour voir nos chiens.</p>}
+        {activeCategory === "males" && <p>Voici nos magnifiques mâles reproducteurs.</p>}
+        {activeCategory === "femelles" && <p>Nos femelles élevées avec amour et attention.</p>}
+        {activeCategory === "resultats" && <p>Découvrez les résultats et distinctions obtenus par nos chiens.</p>}
+        {activeCategory === "retraites" && <p>Nos chiens à la retraite profitent de la vie paisible à la ferme.</p>}
+        {activeCategory === "memoire" && <p>En mémoire de nos compagnons disparus, à jamais dans nos cœurs.</p>}
       </div>
     </main>
   );
