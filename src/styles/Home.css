@@ -36,10 +36,34 @@ section {
 }
 
 /* === About === */
-.about-preview p {
-  margin-top: 1rem;
-  line-height: 1.6;
+.about-content {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4rem;
+  justify-content: center;
 }
+
+.about-text {
+  flex: 1 1 400px;
+  text-align: left;
+  font-weight: 500;
+  background-color: rgba(255, 255, 255, 0.556);
+  padding: 1.5rem 2.5rem 2rem 2.5rem;
+  border-radius: 10px;
+}
+
+.about-image {
+  flex: 1 1 300px;
+  text-align: center;
+}
+
+.about-image img {
+  max-width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
 
 /* === Dogs / Puppies / Contact === */
 .dogs-preview,
