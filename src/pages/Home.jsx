@@ -67,6 +67,11 @@ export default function Home() {
             <p>🐾 Chiots attendus cet automne – les réservations sont ouvertes !</p>
             <p>📞 Infos & réservations : Sophie – 06 50 87 91 80</p>
             <p>✉️ schneider.sof68@hotmail.fr</p>
+            <div className="update-header">
+           <Link to="/news" className="news-button">
+             Actualités
+           </Link>
+         </div>
           </div>
           <div className="update-image">
             <img src={updateImg} alt="Portée 2025 Ruby & Roberto" />
