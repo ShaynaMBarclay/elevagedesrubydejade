@@ -1,5 +1,5 @@
 .home-page {
-  min-height: 100%;
+  min-height: 100vh;
   font-family: var(--font-body);
   color: var(--dark);
   background: url('/images/forest.jpg') center/cover no-repeat fixed;
