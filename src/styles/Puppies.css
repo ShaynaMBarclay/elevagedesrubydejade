@@ -1,4 +1,4 @@
-.dogs-page {
+.puppies-page {
   font-family: var(--font-body);
   text-align: center;
   color: var(--dark);
@@ -6,21 +6,22 @@
   background-color: var(--light);
 }
 
-.dogs-page h1 {
-  font-family: 'Playfair Display', serif;
+.puppies-title {
+  font-family: var(--font-heading);
+  text-align: center;
   font-size: 2.5rem;
-  margin-bottom: 1rem;
   color: var(--primary);
+  margin-bottom: 2rem;
 }
 
-.dogs-page .intro {
+.intro {
   max-width: 700px;
   margin: 0 auto 2rem;
   font-size: 1.1rem;
   line-height: 1.6;
 }
 
-.dog-categories {
+.puppies-categories {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -28,8 +29,8 @@
   margin-bottom: 3rem;
 }
 
-.dog-tab {
-   background: transparent;
+.puppies-tab {
+  background: transparent;
   border: 2px solid var(--primary);
   color: var(--primary);
   font-family: var(--font-body);
@@ -40,17 +41,17 @@
   transition: all 0.3s ease;
 }
 
-.dog-tab:hover {
+.puppies-tab:hover {
   background-color: var(--primary);
   color: white;
 }
 
-.dog-tab.active {
+.puppies-tab.active {
   background-color: var(--primary);
   color: white;
 }
 
-.dog-content {
+.puppies-content {
   max-width: 800px;
   margin: 0 auto;
   font-size: 1rem;
@@ -58,4 +59,10 @@
   padding: 2rem;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.puppies-content h2 {
+  font-family: var(--font-heading);
+  color: var(--primary);
+  margin-bottom: 1rem;
 }
