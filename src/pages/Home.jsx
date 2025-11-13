@@ -68,7 +68,7 @@ export default function Home() {
             <p>📞 Infos & réservations : Sophie – 06 50 87 91 80</p>
             <p>✉️ schneider.sof68@hotmail.fr</p>
             <div className="update-header">
-           <Link to="/news" className="news-button">
+           <Link to="/actualites" className="news-button">
              Actualités
            </Link>
          </div>
@@ -92,7 +92,7 @@ export default function Home() {
           {dogCategories.map((cat) => (
             <Link
               key={cat.id}
-              to={`/dogs#${cat.id}`}
+              to={`/chiens#${cat.id}`}
               className="dog-tab-home"
             >
               {cat.label}
@@ -117,7 +117,7 @@ export default function Home() {
           {puppyCategories.map((cat) => (
             <Link
               key={cat.id}
-              to={`/puppies#${cat.id}`}
+              to={`/chiots#${cat.id}`}
               className="puppies-tab-home"
             >
               {cat.label}

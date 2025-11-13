@@ -30,11 +30,11 @@ export default function Navbar() {
           <Link to="/" className="nav-home">
           <FaHome size={20} />
           </Link>
-          <Link to="/dogs">CHIENS</Link>
-          <Link to="/puppies">CHIOTS</Link>
-          <Link to="/news">ACTUALITÉS</Link>
-          <Link to="/Gallery">GALERIES</Link>
-          <Link to="/Liens">LIENS</Link>
+          <Link to="/chiens">CHIENS</Link>
+          <Link to="/chiots">CHIOTS</Link>
+          <Link to="/actualites">ACTUALITÉS</Link>
+          <Link to="/galeries">GALERIES</Link>
+          <Link to="/liens">LIENS</Link>
           <Link to="/contact">CONTACT</Link>
         </div>
 
