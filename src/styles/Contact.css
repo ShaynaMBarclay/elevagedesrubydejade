@@ -53,9 +53,22 @@
   box-shadow: 0 4px 10px rgba(0,0,0,0.05);
   margin-bottom: 3rem;
   max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0;
   text-align: center;
+}
+
+.contact-sections {
+  display: flex;
+  flex-wrap: nowrap; 
+  gap: 1rem; 
+  justify-content: center;
+  align-items: flex-start; 
+  margin-bottom: 4rem;
+}
+
+.contact-form-section {
+  flex: 2 1 500px; 
+  max-width: 600px;
 }
 
 .contact-form input,
@@ -85,7 +98,7 @@
 }
 
 .contact-form button:hover {
-  background-color: #654321;
+  background-color: #542e08;
 }
 
 /* Guestbook */
@@ -93,8 +106,9 @@
   background: rgba(255,255,255,0.8);
   border-radius: 10px;
   padding: 2rem;
-  max-width: 800px;
-  margin: 0 auto;
+  flex: 1 1 300px; 
+  max-width: 400px;
+  margin: 0;
   box-shadow: 0 4px 10px rgba(0,0,0,0.05);
   text-align: center;
 }
@@ -119,8 +133,15 @@
 }
 
 .guestbook-form button:hover {
-  background-color: #654321;
+  background-color: #542e08;
 }
+
+.guestbook-entries-section {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
 
 .guestbook-entries {
   margin-top: 2rem;
