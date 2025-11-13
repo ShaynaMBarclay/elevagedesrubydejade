@@ -1,0 +1,140 @@
+.contact-page {
+  min-height: 100vh;
+  font-family: var(--font-body);
+  color: var(--dark);
+  padding: 3rem 2rem;
+}
+
+.contact-page h1 {
+  text-align: center;
+  font-family: var(--font-heading);
+  color: var(--primary);
+  font-size: 3.5rem;
+  margin-top: 4rem;
+  margin-bottom: 1rem;
+}
+
+.contact-page .intro {
+  text-align: center;
+  margin-bottom: 3rem;
+  line-height: 1.6;
+}
+
+/* Contact Info */
+.contact-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  margin-bottom: 4rem;
+}
+
+.contact-image img {
+  max-width: 400px;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.contact-info {
+  max-width: 400px;
+  background: rgba(255,255,255,0.7);
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  text-align: center;
+}
+
+/* Contact Form */
+.contact-form-section {
+  background-color: rgba(255,255,255,0.8);
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  margin-bottom: 3rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 0.8rem;
+  margin: 0.5rem 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-family: inherit;
+}
+
+.contact-form textarea {
+  height: 150px;
+  resize: none;
+}
+
+.contact-form button {
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 0.8rem 2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.contact-form button:hover {
+  background-color: #654321;
+}
+
+/* Guestbook */
+.guestbook-section {
+  background: rgba(255,255,255,0.8);
+  border-radius: 10px;
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  text-align: center;
+}
+
+.guestbook-form input,
+.guestbook-form textarea {
+  width: 100%;
+  margin: 0.5rem 0;
+  padding: 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.guestbook-form button {
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 0.8rem 2rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.guestbook-form button:hover {
+  background-color: #654321;
+}
+
+.guestbook-entries {
+  margin-top: 2rem;
+}
+
+.guestbook-entry {
+  background-color: rgba(255,255,255,0.6);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.guestbook-entry h4 {
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
