@@ -1,0 +1,61 @@
+.secondary-nav {
+  position: sticky;
+  top: 83px; 
+  width: 100%;
+  height: 43px;
+  background-color: rgb(75, 98, 102);
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.secondary-nav.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.icon-links {
+  list-style: none;
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+  width: 100%;
+  max-width: 1200px; 
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Center logos container */
+.center-logos {
+  display: flex;
+  gap: 2rem; 
+  justify-content: center;
+  align-items: center;
+}
+
+/* Logo sizes */
+.purina-logo {
+  height: 45px; 
+  width: 8rem;
+}
+
+.facebook-logo {
+  height: 45px;
+  width: 3.4rem;
+}
+
+/* Chiens-de-France text link */
+.cdf-link {
+  color: #fff;
+  font-size: 14px;
+  opacity: 0.85;
+  text-decoration: none;
+  padding: 2px 6px;
+  border-radius: 4px;
+  transition: opacity 0.2s ease;
+}
+
+.cdf-link:hover {
+  opacity: 1;
+}
