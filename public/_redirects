@@ -1,10 +1,11 @@
+# Catch-all for React Router
 /*    /index.html   200
 
-# SEO-friendly redirects (example)
-#/old-about      /about       301
-#/old-dogs       /chiens      301
-#/old-puppies    /chiots      301
-#/old-contact    /contact     301
-#/old-news       /actualites  301
-#/old-gallery    /galeries    301
-#/old-links      /liens       301
+# SEO-friendly redirects for current routes
+/about         /about         200
+/chiens        /chiens        200
+/chiots        /chiots        200
+/contact       /contact       200
+/actualites    /actualites    200
+/galeries      /galeries      200
+/liens         /liens         200
