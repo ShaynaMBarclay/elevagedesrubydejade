@@ -27,3 +27,42 @@
   margin-top: 1rem;
   color: rgba(255, 255, 255, 0.7);
 }
+
+/* === Responsive Queries === */
+@media (max-width: 1024px) {
+  .footer {
+    padding: 1.5rem 0.8rem;
+  }
+
+  .footer-copy {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer {
+    padding: 1.2rem 0.6rem;
+  }
+
+  .footer-content p {
+    font-size: 0.9rem;
+  }
+
+  .footer-copy {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer {
+    padding: 1rem 0.5rem;
+  }
+
+  .footer-content p {
+    font-size: 0.85rem;
+  }
+
+  .footer-copy {
+    font-size: 0.7rem;
+  }
+}
