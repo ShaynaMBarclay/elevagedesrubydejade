@@ -204,3 +204,121 @@ section {
 .contact-link:hover {
   text-decoration: underline;
 }
+
+/* === Responsive Queries === */
+
+/* Tablets (1024px and below) */
+@media (max-width: 1024px) {
+  .home-page {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+    background-attachment: scroll; 
+  }
+
+  section {
+    padding: 5rem 1.5rem;
+  }
+
+  .about-text {
+    font-size: 1.5rem;
+  }
+
+  .update-text {
+    font-size: 1.5rem;
+  }
+
+  .about-content,
+  .update-content {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .news-button {
+    font-size: 2.3rem;
+    border-radius: 45px;
+    
+  }
+
+  .dogs-preview,
+  .puppies-preview,
+  .contact-preview {
+    padding: 2rem 1.5rem;
+    font-size: 1.7rem;
+  }
+
+  .dog-categories-home,
+  .puppies-categories-home {
+    gap: 0.5rem;
+  }
+
+  .dog-tab-home,
+  .puppies-tab-home {
+    font-size: 1.7rem;
+    border-radius: 45px;
+  }
+}
+
+/* Mobile devices (768px and below) */
+@media (max-width: 768px) {
+  .home-page {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+
+  section {
+    padding: 2rem 1rem;
+  }
+
+  .about-text,
+  .update-text {
+    font-size: 0.95rem;
+  }
+
+  .update-text h2 {
+    font-size: 1.3rem;
+  }
+
+  .news-button {
+    font-size: 0.95rem;
+    padding: 0.35rem 1rem;
+  }
+
+  .dog-tab-home,
+  .puppies-tab-home {
+    padding: 0.35rem 0.9rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* Small mobile (480px and below) */
+@media (max-width: 480px) {
+  .home-page {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  section {
+    padding: 1.5rem 0.8rem;
+  }
+
+  .about-text,
+  .update-text {
+    font-size: 0.9rem;
+    padding: 1rem 1rem;
+  }
+
+  .update-text h2 {
+    font-size: 1.1rem;
+  }
+
+  .news-button {
+    font-size: 0.85rem;
+    padding: 0.3rem 0.8rem;
+  }
+
+  .dog-tab-home,
+  .puppies-tab-home {
+    padding: 0.3rem 0.8rem;
+    font-size: 0.85rem;
+  }
+}
