@@ -159,3 +159,197 @@
   color: var(--primary);
   margin-bottom: 0.5rem;
 }
+
+/* === Responsive === */
+
+/* Tablets / Medium Screens */
+@media (max-width: 1024px) {
+  .contact-page {
+    padding: 3rem 2rem;
+  }
+
+  .contact-page h1 {
+    font-size: 4rem;
+    margin-top: 6rem;
+  }
+
+  .contact-page .intro {
+    font-size: 2rem;
+    margin-bottom: 2.5rem;
+  }
+
+  /* Stack main contact content vertically and center */
+  .contact-content,
+  .contact-sections {
+    flex-direction: column;
+    gap: 2.5rem;
+    align-items: center;
+  }
+
+  /* Full-width boxes */
+  .contact-image img,
+  .contact-info,
+  .contact-form-section,
+  .guestbook-section,
+  .guestbook-entry {
+    max-width: 100%;
+    width: 90%;
+    padding: 2rem;
+    margin: 0 auto;
+  }
+
+  .contact-info {
+    font-size: 2rem;
+  }
+
+  .contact-image {
+    display: flex;
+    justify-content: center;
+  }
+
+  /* Inputs */
+.contact-form input,
+.guestbook-form input {
+  font-size: 1.4rem;   
+  padding: 1rem;
+}
+
+/* Textareas (message part) */
+.contact-form textarea,
+.guestbook-form textarea {
+  font-size: 1.7rem;    
+  padding: 2rem;
+  height: 300px;        
+  resize: vertical;     
+}
+
+
+  .contact-form button,
+  .guestbook-form button {
+    width: auto;  
+     padding: 0.8rem 2rem;
+    font-size: 1.6rem;
+    border-radius: 50px;      
+  }
+
+  .guestbook-entries {
+    gap: 2rem;
+  }
+
+  .guestbook-entries-section {
+    font-size: 2rem;
+  }
+
+  .guestbook-section h2,
+  .contact-form-section h2 {
+    font-size: 2.2rem;
+  }
+}
+
+/* Mobile / Small Screens */
+@media (max-width: 768px) {
+  .contact-page {
+    padding: 2.5rem 1.5rem;
+  }
+
+  .contact-page h1 {
+    font-size: 3rem;
+    margin-top: 1.5rem;
+  }
+
+  .contact-page .intro {
+    font-size: 1.3rem;
+    margin-bottom: 2rem;
+  }
+
+  .contact-content,
+  .contact-sections {
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .contact-image img,
+  .contact-info,
+  .contact-form-section,
+  .guestbook-section,
+  .guestbook-entry {
+    max-width: 100%;
+    width: 95%;
+    padding: 2rem;
+    margin: 0 auto;
+  }
+
+  .contact-image {
+    display: flex;
+    justify-content: center;
+  }
+
+  .contact-form input,
+  .contact-form textarea,
+  .guestbook-form input,
+  .guestbook-form textarea {
+    font-size: 1.3rem;
+    padding: 1.1rem;
+  }
+
+  .contact-form button,
+  .guestbook-form button {
+    font-size: 1.3rem;
+    padding: 1.1rem 2rem;
+  }
+}
+
+/* Extra Small / Narrow Mobile Screens */
+@media (max-width: 480px) {
+  .contact-page {
+    padding: 2rem 1rem;
+  }
+
+  .contact-page h1 {
+    font-size: 2.5rem;
+    margin-top: 1rem;
+  }
+
+  .contact-page .intro {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .contact-content,
+  .contact-sections {
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  .contact-image img,
+  .contact-info,
+  .contact-form-section,
+  .guestbook-section,
+  .guestbook-entry {
+    max-width: 100%;
+    width: 100%;
+    padding: 2rem;
+    margin: 0 auto;
+  }
+
+  .contact-image {
+    display: flex;
+    justify-content: center;
+  }
+
+  .contact-form input,
+  .contact-form textarea,
+  .guestbook-form input,
+  .guestbook-form textarea {
+    font-size: 1.2rem;
+    padding: 1rem;
+  }
+
+  .contact-form button,
+  .guestbook-form button {
+    font-size: 1.2rem;
+    padding: 1rem 2rem;
+  }
+}
