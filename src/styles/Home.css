@@ -259,12 +259,12 @@ section {
 
   .dog-categories-home,
   .puppies-categories-home {
-    gap: 0.5rem;
+    gap: 1rem;
   }
 
   .dog-tab-home,
   .puppies-tab-home {
-    font-size: 1.7rem;
+    font-size: 2rem;
     border-radius: 45px;
   }
 }
