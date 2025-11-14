@@ -1,4 +1,5 @@
 import "../styles/Links.css";
+import purinaLogo from "../assets/purinalogo.avif"
 
 export default function Links() {
   return (
@@ -8,6 +9,27 @@ export default function Links() {
         Retrouvez ici une sélection de liens utiles concernant l’élevage,
         les associations, les clubs et nos partenaires.
       </p>
+
+      {/* Top Featured Links */}
+      <div className="featured-links">
+        {/* Purina Logo Link */}
+        <a
+          href="https://www.purina.fr/"
+          target="_blank"
+          className="purina-link"
+        >
+          <img src={purinaLogo} alt="Purina" />
+        </a>
+
+        {/* Facebook Button */}
+        <a
+          href="https://www.facebook.com/DesRubyDeJade/"
+          target="_blank"
+          className="facebook-button"
+        >
+          <i className="fab fa-facebook-f"></i> Suivez-nous sur Facebook
+        </a>
+      </div>
 
       <section className="links-section">
         <h2>Associations</h2>

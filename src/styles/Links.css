@@ -1,3 +1,47 @@
+
+.featured-links {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-bottom: 3rem;
+}
+
+/* Purina logo */
+.purina-link img {
+  height: 80px;
+  width: auto;
+  transition: 0.3s;
+  border-radius: 10px;
+}
+
+.purina-link img:hover {
+  transform: scale(1.05);
+}
+
+.facebook-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background-color: #3b5998;
+  color: white;
+  padding: 0.8rem 1.4rem;
+  border-radius: 30px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.3s;
+  font-size: 1rem;
+}
+
+.facebook-button i {
+  font-size: 1.2rem;
+}
+
+.facebook-button:hover {
+  background-color: #30497d;
+  transform: scale(1.04);
+}
+
 .links-page {
   min-height: 100vh;
   padding: 3rem 2rem;
