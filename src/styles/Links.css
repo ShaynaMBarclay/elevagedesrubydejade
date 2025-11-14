@@ -1,0 +1,59 @@
+.links-page {
+  min-height: 100vh;
+  padding: 3rem 2rem;
+  font-family: var(--font-body);
+  color: var(--dark);
+  text-align: center;
+}
+
+.links-page h1 {
+  font-family: var(--font-heading);
+  color: var(--primary);
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  margin-top: 4rem;
+}
+
+.links-page .intro {
+  margin-bottom: 3rem;
+  line-height: 1.6;
+}
+
+/* Category Sections */
+.links-section {
+  background: rgba(255,255,255,0.8);
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 700px;
+  margin: 2rem auto;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+  text-align: left;
+}
+
+.links-section h2 {
+  font-family: var(--font-heading);
+  color: var(--primary);
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+}
+
+.links-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.links-section li {
+  margin-bottom: 0.8rem;
+}
+
+.links-section a {
+  color: var(--dark);
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+.links-section a:hover {
+  color: var(--primary);
+  text-decoration: underline;
+}

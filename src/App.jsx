@@ -8,6 +8,7 @@ import Dogs from "./pages/Dogs";
 import Puppies from "./pages/Puppies";
 import Contact from "./pages/Contact";
 import Gallery from "./pages/Gallery";
+import Links from "./pages/Liens";
 import News from "./pages/News";
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/actualites" element={<News />} />
             <Route path="/galeries" element={<Gallery />} />
+            <Route path="/liens" element={<Links />} />
           </Routes>
         </main>
         <Footer />

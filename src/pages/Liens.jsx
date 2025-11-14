@@ -1,11 +1,69 @@
-import React from 'react'
+import "../styles/Links.css";
 
-const Liens = () => {
+export default function Links() {
   return (
-    <div>
-      
-    </div>
-  )
-}
+    <main className="links-page">
+      <h1>Liens Utiles</h1>
+      <p className="intro">
+        Retrouvez ici une sélection de liens utiles concernant l’élevage,
+        les associations, les clubs et nos partenaires.
+      </p>
 
-export default Liens
+      <section className="links-section">
+        <h2>Associations</h2>
+        <ul>
+          <li>
+            <a href="https://barf-asso.fr/" target="_blank">
+              Association Barf-Asso
+            </a>
+          </li>
+        </ul>
+      </section>
+
+      <section className="links-section">
+        <h2>Clubs</h2>
+        <ul>
+          <li>
+            <a href="https://www.cbei.fr/" target="_blank">
+              Club de race CBEI
+            </a>
+          </li>
+
+          <li>
+            <a
+              href="http://www.chien-loup-tchecoslovaque.com/"
+              target="_blank"
+            >
+              Club de Race du Chien Loup Tchécoslovaque
+            </a>
+          </li>
+        </ul>
+      </section>
+
+      <section className="links-section">
+        <h2>Divers</h2>
+        <ul>
+          <li>
+            <a
+              href="https://www.centrale-canine.fr/des-ruby-de-jade"
+              target="_blank"
+            >
+              Page de l'élevage SCC
+            </a>
+          </li>
+        </ul>
+      </section>
+
+      <section className="links-section">
+        <h2>Éleveurs</h2>
+        <ul>
+          <li>
+            <a href="https://www.athanorlupus.it/" target="_blank">
+              Éleveur ami — Athanor Lupus
+            </a>
+          </li>
+        </ul>
+      </section>
+    </main>
+  );
+}
