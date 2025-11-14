@@ -1,0 +1,10 @@
+# === Page Redirects ===
+/dogs           /dogs-page       301
+/puppies        /puppies-page    301
+/news           /news-page       301
+/gallery        /gallery-page    301
+/links          /links-page      301
+/contact        /contact-page    301
+
+# === Catch-all for React Router ===
+/*              /index.html     200
