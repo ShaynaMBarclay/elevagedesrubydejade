@@ -75,10 +75,7 @@ main {
 
 /* Tablets: 768px - 1024px */
 @media (max-width: 1024px) {
-  #root, .app-layout {
-   
-  }
-
+ 
   body {
     font-size: 0.95rem;
   }
@@ -94,10 +91,7 @@ main {
 
 /* Phones: 320px - 599px */
 @media (max-width: 599px) {
-  #root, .app-layout {
-    padding: 0 0.25rem;
-  }
-
+  
   body {
     font-size: 0.85rem;
   }

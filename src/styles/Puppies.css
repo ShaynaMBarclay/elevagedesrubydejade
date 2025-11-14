@@ -66,3 +66,84 @@
   color: var(--primary);
   margin-bottom: 1rem;
 }
+
+@media (max-width: 1024px) {
+  .puppies-page {
+    padding: 10rem 1.5rem;
+  }
+
+  .puppies-title {
+    font-size: 3.4rem;
+  }
+
+  .intro {
+    font-size: 1.7rem;
+  }
+
+  .puppies-categories {
+    gap: 0.8rem;
+  }
+
+  .puppies-tab {
+    font-size: 1.7rem;
+    border-radius: 45px;
+  }
+
+  .puppies-content {
+    padding: 1.8rem;
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .puppies-page {
+    padding: 4rem 1rem;
+  }
+
+  .puppies-title {
+    font-size: 1.9rem;
+  }
+
+  .intro {
+    font-size: 0.95rem;
+  }
+
+  .puppies-categories {
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .puppies-tab {
+    width: 100%;
+    padding: 0.5rem 1rem;
+  }
+
+  .puppies-content {
+    padding: 1.5rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .puppies-page {
+    padding: 3rem 0.5rem;
+  }
+
+  .puppies-title {
+    font-size: 1.6rem;
+  }
+
+  .intro {
+    font-size: 0.9rem;
+  }
+
+  .puppies-tab {
+    font-size: 0.85rem;
+    padding: 0.45rem 0.8rem;
+  }
+
+  .puppies-content {
+    padding: 1.2rem;
+    font-size: 0.85rem;
+  }
+}
