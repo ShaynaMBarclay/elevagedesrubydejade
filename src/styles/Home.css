@@ -221,6 +221,16 @@ section {
 
   .about-text {
     font-size: 1.5rem;
+    margin: 1rem;
+  }
+
+  .about-image  {
+    margin: 3rem;
+  }
+
+
+  .update-preview {
+    margin: 1.5rem;
   }
 
   .update-text {
@@ -244,6 +254,7 @@ section {
   .contact-preview {
     padding: 2rem 1.5rem;
     font-size: 1.7rem;
+    margin: 2rem;
   }
 
   .dog-categories-home,

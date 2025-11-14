@@ -31,7 +31,7 @@
 /* === Responsive Queries === */
 @media (max-width: 1024px) {
   .footer {
-    padding: 1.5rem 0.8rem;
+    padding: 1.5rem 0;
   }
 
   .footer-copy {
@@ -41,7 +41,7 @@
 
 @media (max-width: 768px) {
   .footer {
-    padding: 1.2rem 0.6rem;
+    padding: 1.2rem 0;
   }
 
   .footer-content p {
@@ -55,7 +55,7 @@
 
 @media (max-width: 480px) {
   .footer {
-    padding: 1rem 0.5rem;
+    padding: 1rem 0;
   }
 
   .footer-content p {
