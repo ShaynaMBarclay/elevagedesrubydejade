@@ -16,10 +16,15 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Close mobile menu when clicking a link
+  const handleLinkClick = () => {
+    if (isOpen) setIsOpen(false);
+  };
+
   return (
     <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
       <div className="nav-container">
-         <div className="nav-logo-group">
+        <div className="nav-logo-group">
           <Link to="/" className="nav-logo">
             Élevage des Ruby de Jade
           </Link>
@@ -27,15 +32,15 @@ export default function Navbar() {
         </div>
 
         <div className={`nav-links ${isOpen ? "open" : ""}`}>
-          <Link to="/" className="nav-home">
-          <FaHome size={20} />
+          <Link to="/" className="nav-home" onClick={handleLinkClick}>
+            <FaHome size={20} />
           </Link>
-          <Link to="/chiens">CHIENS</Link>
-          <Link to="/chiots">CHIOTS</Link>
-          <Link to="/actualites">ACTUALITÉS</Link>
-          <Link to="/galeries">GALERIES</Link>
-          <Link to="/liens">LIENS</Link>
-          <Link to="/contact">CONTACT</Link>
+          <Link to="/chiens" onClick={handleLinkClick}>CHIENS</Link>
+          <Link to="/chiots" onClick={handleLinkClick}>CHIOTS</Link>
+          <Link to="/actualites" onClick={handleLinkClick}>ACTUALITÉS</Link>
+          <Link to="/galeries" onClick={handleLinkClick}>GALERIES</Link>
+          <Link to="/liens" onClick={handleLinkClick}>LIENS</Link>
+          <Link to="/contact" onClick={handleLinkClick}>CONTACT</Link>
         </div>
 
         <div

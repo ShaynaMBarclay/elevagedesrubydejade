@@ -70,3 +70,42 @@ main {
   scrollbar-width: thin;
   scrollbar-color: var(--primary) rgba(248, 248, 240, 0.3);
 }
+
+/* === Media Queries for Responsive Layout === */
+
+/* Tablets: 768px - 1024px */
+@media (max-width: 1024px) {
+  #root, .app-layout {
+    padding: 0 1rem;
+  }
+
+  body {
+    font-size: 0.95rem;
+  }
+}
+
+/* Small Tablets / Large Phones: 600px - 767px */
+@media (max-width: 767px) {
+  #root, .app-layout {
+    padding: 0 0.5rem;
+  }
+
+  body {
+    font-size: 0.9rem;
+  }
+}
+
+/* Phones: 320px - 599px */
+@media (max-width: 599px) {
+  #root, .app-layout {
+    padding: 0 0.25rem;
+  }
+
+  body {
+    font-size: 0.85rem;
+  }
+
+  main {
+    flex: 1 0 auto;
+  }
+}
