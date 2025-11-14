@@ -3,6 +3,7 @@
   text-align: center;
   color: var(--dark);
   padding: 6rem 2rem;
+  min-height: 100vh;
   background-color: var(--light);
 }
 
