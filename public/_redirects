@@ -1,10 +1,10 @@
-# === Page Redirects ===
-/dogs           /dogs-page       301
-/puppies        /puppies-page    301
-/news           /news-page       301
-/gallery        /gallery-page    301
-/links          /links-page      301
-/contact        /contact-page    301
+/*    /index.html   200
 
-# === Catch-all for React Router ===
-/*              /index.html     200
+# SEO-friendly redirects (example)
+#/old-about      /about       301
+#/old-dogs       /chiens      301
+#/old-puppies    /chiots      301
+#/old-contact    /contact     301
+#/old-news       /actualites  301
+#/old-gallery    /galeries    301
+#/old-links      /liens       301
