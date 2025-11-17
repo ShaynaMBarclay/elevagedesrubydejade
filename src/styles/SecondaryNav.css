@@ -36,6 +36,7 @@
 
 /* Logo sizes */
 .purina-logo {
+  padding-top: 0.2rem;
   height: 45px; 
   width: 8rem;
 }

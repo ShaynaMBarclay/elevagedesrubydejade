@@ -1,12 +1,19 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "../styles/Dogs.css";
+import tinaImg from "../assets/tina.jpg"; // Berger Blanc Suisse female
+import severkaImg from "../assets/severka.jpg"; // Chien-loup tchecoslovaque females
+import ubyImg from "../assets/uby.jpg";
+import undyImg from "../assets/undy.jpg";
 
 export default function Dogs() {
   const location = useLocation();
   const navigate = useNavigate();
-  const [activeCategory, setActiveCategory] = useState("chiens");
 
+  const [activeCategory, setActiveCategory] = useState("chiens");
+  const [activeDogType, setActiveDogType] = useState("all");
+
+  // Main dog categories
   const categories = [
     { id: "chiens", label: "Chiens" },
     { id: "males", label: "Mâles" },
@@ -16,7 +23,53 @@ export default function Dogs() {
     { id: "memoire", label: "En mémoire" },
   ];
 
-  // Set active category based on URL hash
+  // Dog type filters
+  const dogTypes = [
+    { id: "all", label: "Tous" },
+    { id: "tcheque", label: "Chien-loup tchecoslovaque" },
+    { id: "berger", label: "Berger Blanc Suisse" },
+  ];
+
+  // Sample dog data
+  const allDogs = [
+    {
+      id: 1,
+      name: "Tina De l'empreinte des Bergers",
+      type: "berger",
+      category: "femelles",
+      image: tinaImg,
+    },
+    {
+      id: 2,
+      name: "Severka iii od Úhošt&#283;",
+      type: "tcheque",
+      category: "femelles",
+      image: severkaImg,
+    },
+    {
+      id: 3,
+      name: "Uby Des Ruby De Jade",
+      type: "tcheque",
+      category: "femelles",
+      image: ubyImg,
+    },
+    {
+      id: 4,
+      name: "Undy Des Ruby De Jade",
+      type: "tcheque",
+      category: "femelles",
+      image: undyImg,
+    },
+  ];
+
+  // Filter dogs based on active dog type and category
+  const filteredDogs = allDogs.filter(
+    (dog) =>
+      (activeDogType === "all" || dog.type === activeDogType) &&
+      (activeCategory === "chiens" || dog.category === activeCategory)
+  );
+
+  // Sync category with URL hash
   useEffect(() => {
     const hash = location.hash.replace("#", "");
     if (categories.find((cat) => cat.id === hash)) {
@@ -24,21 +77,36 @@ export default function Dogs() {
     }
   }, [location.hash]);
 
-  // Handle clicking a tab
   const handleCategoryClick = (id) => {
     setActiveCategory(id);
-    navigate(`#${id}`, { replace: true }); 
+    navigate(`#${id}`, { replace: true });
+  };
+
+  const handleDogTypeClick = (id) => {
+    setActiveDogType(id);
   };
 
   return (
     <main className="dogs-page">
       <h1>Nos Chiens</h1>
       <p className="intro">
-        Découvrez nos reproducteurs, femelles, et anciens compagnons — chaque
-        chien fait partie de notre grande famille.
+        Découvrez nos reproducteurs, femelles, et compagnons — chaque chien fait partie de notre famille.
       </p>
 
-      {/* Category Tabs */}
+      {/* DOG TYPE FILTERS */}
+      <div className="dog-type-filters">
+        {dogTypes.map((type) => (
+          <button
+            key={type.id}
+            className={`dog-type-pill ${activeDogType === type.id ? "active" : ""}`}
+            onClick={() => handleDogTypeClick(type.id)}
+          >
+            {type.label}
+          </button>
+        ))}
+      </div>
+
+      {/* MAIN CATEGORIES */}
       <div className="dog-categories">
         {categories.map((cat) => (
           <button
@@ -51,14 +119,20 @@ export default function Dogs() {
         ))}
       </div>
 
-      {/* Category Content */}
+      {/* DOG GRID */}
       <div className="dog-content">
-        {activeCategory === "chiens" && <p>Sélectionnez une catégorie pour voir nos chiens.</p>}
-        {activeCategory === "males" && <p>Voici nos magnifiques mâles reproducteurs.</p>}
-        {activeCategory === "femelles" && <p>Nos femelles élevées avec amour et attention.</p>}
-        {activeCategory === "resultats" && <p>Découvrez les résultats et distinctions obtenus par nos chiens.</p>}
-        {activeCategory === "retraites" && <p>Nos chiens à la retraite profitent de la vie paisible à la ferme.</p>}
-        {activeCategory === "memoire" && <p>En mémoire de nos compagnons disparus, à jamais dans nos cœurs.</p>}
+        {filteredDogs.length === 0 ? (
+          <p>Aucun chien disponible pour cette sélection.</p>
+        ) : (
+          <div className="dog-grid">
+            {filteredDogs.map((dog) => (
+              <div key={dog.id} className="dog-card">
+                <img src={dog.image} alt={dog.name} />
+                <p className="dog-name">{dog.name}</p>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </main>
   );
