@@ -1,14 +1,22 @@
 import { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 import "../styles/Puppies.css";
 import testPuppyImg from "../assets/tina.jpg";
 
 export default function Puppies() {
   const location = useLocation();
   const navigate = useNavigate();
+
   const [activeCategory, setActiveCategory] = useState("chiots");
   const [activeDogType, setActiveDogType] = useState("all");
+
+  // Puppy categories (similar to Dogs categories)
+  const categories = [
+    { id: "chiots", label: "Chiots" },
+    { id: "disponibles", label: "Chiots disponibles" },
+    { id: "futures", label: "Futures Portées" },
+    { id: "nes", label: "Chiots nés chez nous" },
+  ];
 
   // Dog type filters (same as Dogs page)
   const dogTypes = [
@@ -17,20 +25,28 @@ export default function Puppies() {
     { id: "berger", label: "Berger Blanc Suisse" },
   ];
 
-  // Main puppy categories
-  const categories = [
-    { id: "chiots", label: "Chiots" },
-    { id: "disponibles", label: "Chiots disponibles" },
-    { id: "futures", label: "Futures Portées" },
-    { id: "nes", label: "Chiots nés chez nous" },
+  // Example puppy data
+  const allPuppies = [
+    {
+      id: "test-puppy",
+      name: "Chiot Test",
+      type: "berger",
+      category: "chiots",
+      image: testPuppyImg,
+    },
+    // Add more puppies here...
   ];
+
+  const filteredPuppies = allPuppies.filter(
+    (puppy) =>
+      (activeDogType === "all" || puppy.type === activeDogType) &&
+      (activeCategory === "chiots" || puppy.category === activeCategory)
+  );
 
   // Sync category with URL hash
   useEffect(() => {
     const hash = location.hash.replace("#", "");
-    if (categories.find((cat) => cat.id === hash)) {
-      setActiveCategory(hash);
-    }
+    if (categories.find((cat) => cat.id === hash)) setActiveCategory(hash);
   }, [location.hash]);
 
   const handleCategoryClick = (id) => {
@@ -38,19 +54,16 @@ export default function Puppies() {
     navigate(`#${id}`, { replace: true });
   };
 
-  const handleDogTypeClick = (id) => {
-    setActiveDogType(id);
-  };
+  const handleDogTypeClick = (id) => setActiveDogType(id);
 
   return (
     <main className="puppies-page">
       <h1 className="puppies-title">Nos Chiots</h1>
       <p className="intro">
-        Découvrez nos chiots disponibles, les futures portées, et ceux nés chez
-        nous. Chaque chiot est élevé avec soin et amour.
+        Découvrez nos chiots disponibles, les futures portées, et ceux nés chez nous. Chaque chiot est élevé avec soin et amour.
       </p>
 
-      {/* DOG TYPE FILTERS */}
+      {/* Dog type filters */}
       <div className="dog-type-filters">
         {dogTypes.map((type) => (
           <button
@@ -63,7 +76,7 @@ export default function Puppies() {
         ))}
       </div>
 
-      {/* Category Tabs */}
+      {/* Category tabs */}
       <div className="puppies-categories">
         {categories.map((cat) => (
           <button
@@ -76,25 +89,20 @@ export default function Puppies() {
         ))}
       </div>
 
-      {/* Category Content */}
+      {/* Category content */}
       <div className="puppies-content">
-        <p>
-          <strong>Type de chien :</strong>{" "}
-          {dogTypes.find((d) => d.id === activeDogType).label}
-        </p>
-
-        {activeCategory === "chiots" && <p>Sélectionnez une catégorie pour découvrir nos chiots.</p>}
-        {activeCategory === "disponibles" && <p>Voici nos chiots actuellement disponibles à l’adoption.</p>}
-        {activeCategory === "futures" && <p>Consultez nos futures portées à venir — restez à l’écoute pour les annonces.</p>}
-        {activeCategory === "nes" && <p>Découvrez les chiots nés chez nous, issus de nos lignées d’exception.</p>}
-
-          {/* TEST PUPPY */}
-        {activeCategory === "chiots" && (
-          <div className="puppy-card">
-            <Link to="/chiots/test-puppy">
-              <img src={testPuppyImg} alt="Chiot Test" className="puppy-img" />
-              <h3>Chiot Test</h3>
-            </Link>
+        {filteredPuppies.length === 0 ? (
+          <p>Aucun chiot disponible pour cette sélection.</p>
+        ) : (
+          <div className="dog-grid">
+            {filteredPuppies.map((puppy) => (
+              <div key={puppy.id} className="dog-card">
+                <Link to={`/Chiots/${puppy.id}`}>
+                  <img src={puppy.image} alt={puppy.name} />
+                  <p className="dog-name">{puppy.name}</p>
+                </Link>
+              </div>
+            ))}
           </div>
         )}
       </div>
