@@ -68,18 +68,20 @@ export default function PuppyDetail() {
       </div>
 
       {/* Parents */}
-      <div className="puppy-category parents">
-        <h2>Les parents</h2>
-        <div>
-          <p>Père: {puppy.parents.father}</p>
-          <img src={puppy.parents.fatherImg} alt={puppy.parents.father} />
-        </div>
-        <div>
-          <p>Mère: {puppy.parents.mother}</p>
-          <img src={puppy.parents.motherImg} alt={puppy.parents.mother} />
-        </div>
-        <button className="pedigree-btn">Voir le pédigree complet</button>
-      </div>
+<div className="puppy-category parents">
+  <h2>Les parents</h2>
+  <div>
+    <p>Père: {puppy.parents.father}</p>
+    <img src={puppy.parents.fatherImg} alt={puppy.parents.father} />
+  </div>
+  <div>
+    <p>Mère: {puppy.parents.mother}</p>
+    <img src={puppy.parents.motherImg} alt={puppy.parents.mother} />
+  </div>
+</div>
+{/* Pedigree button below the parents */}
+<button className="pedigree-btn">Voir le pédigree complet</button>
+
 
       {/* Palmares */}
       <div className="puppy-category palmares">
