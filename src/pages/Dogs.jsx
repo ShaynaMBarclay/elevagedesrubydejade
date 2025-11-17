@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "../styles/Dogs.css";
-import tinaImg from "../assets/tina.jpg"; // Berger Blanc Suisse female
-import severkaImg from "../assets/severka.jpg"; // Chien-loup tchecoslovaque females
+import tinaImg from "../assets/tina.jpg"; 
+import severkaImg from "../assets/severka.jpg"; 
 import ubyImg from "../assets/uby.jpg";
 import undyImg from "../assets/undy.jpg";
 
@@ -13,7 +14,6 @@ export default function Dogs() {
   const [activeCategory, setActiveCategory] = useState("chiens");
   const [activeDogType, setActiveDogType] = useState("all");
 
-  // Main dog categories
   const categories = [
     { id: "chiens", label: "Chiens" },
     { id: "males", label: "Mâles" },
@@ -23,14 +23,12 @@ export default function Dogs() {
     { id: "memoire", label: "En mémoire" },
   ];
 
-  // Dog type filters
   const dogTypes = [
     { id: "all", label: "Tous" },
     { id: "tcheque", label: "Chien-loup tchecoslovaque" },
     { id: "berger", label: "Berger Blanc Suisse" },
   ];
 
-  // Sample dog data
   const allDogs = [
     {
       id: 1,
@@ -41,7 +39,7 @@ export default function Dogs() {
     },
     {
       id: 2,
-      name: "Severka iii od Úhošt&#283;",
+      name: "Severka iii od Úhoště",
       type: "tcheque",
       category: "femelles",
       image: severkaImg,
@@ -62,19 +60,15 @@ export default function Dogs() {
     },
   ];
 
-  // Filter dogs based on active dog type and category
   const filteredDogs = allDogs.filter(
     (dog) =>
       (activeDogType === "all" || dog.type === activeDogType) &&
       (activeCategory === "chiens" || dog.category === activeCategory)
   );
 
-  // Sync category with URL hash
   useEffect(() => {
     const hash = location.hash.replace("#", "");
-    if (categories.find((cat) => cat.id === hash)) {
-      setActiveCategory(hash);
-    }
+    if (categories.find((cat) => cat.id === hash)) setActiveCategory(hash);
   }, [location.hash]);
 
   const handleCategoryClick = (id) => {
@@ -82,9 +76,7 @@ export default function Dogs() {
     navigate(`#${id}`, { replace: true });
   };
 
-  const handleDogTypeClick = (id) => {
-    setActiveDogType(id);
-  };
+  const handleDogTypeClick = (id) => setActiveDogType(id);
 
   return (
     <main className="dogs-page">
@@ -93,7 +85,6 @@ export default function Dogs() {
         Découvrez nos reproducteurs, femelles, et compagnons — chaque chien fait partie de notre famille.
       </p>
 
-      {/* DOG TYPE FILTERS */}
       <div className="dog-type-filters">
         {dogTypes.map((type) => (
           <button
@@ -106,7 +97,6 @@ export default function Dogs() {
         ))}
       </div>
 
-      {/* MAIN CATEGORIES */}
       <div className="dog-categories">
         {categories.map((cat) => (
           <button
@@ -119,7 +109,6 @@ export default function Dogs() {
         ))}
       </div>
 
-      {/* DOG GRID */}
       <div className="dog-content">
         {filteredDogs.length === 0 ? (
           <p>Aucun chien disponible pour cette sélection.</p>
@@ -127,8 +116,11 @@ export default function Dogs() {
           <div className="dog-grid">
             {filteredDogs.map((dog) => (
               <div key={dog.id} className="dog-card">
-                <img src={dog.image} alt={dog.name} />
-                <p className="dog-name">{dog.name}</p>
+                {/* Link to DogDetail page */}
+                <Link to={`/Chiens/${dog.id}`}>
+                  <img src={dog.image} alt={dog.name} />
+                  <p className="dog-name">{dog.name}</p>
+                </Link>
               </div>
             ))}
           </div>

@@ -3,6 +3,7 @@ import "./styles/App.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import SecondaryNav from "./components/SecondaryNav";
+import DogDetail from "./components/DogDetail";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Dogs from "./pages/Dogs";
@@ -23,6 +24,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/chiens" element={<Dogs />} />
+            <Route path="/Chiens/:id" element={<DogDetail />} />
             <Route path="/chiots" element={<Puppies />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/actualites" element={<News />} />
