@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "../styles/Puppies.css";
+import testPuppyImg from "../assets/tina.jpg";
 
 export default function Puppies() {
   const location = useLocation();
@@ -85,6 +87,16 @@ export default function Puppies() {
         {activeCategory === "disponibles" && <p>Voici nos chiots actuellement disponibles à l’adoption.</p>}
         {activeCategory === "futures" && <p>Consultez nos futures portées à venir — restez à l’écoute pour les annonces.</p>}
         {activeCategory === "nes" && <p>Découvrez les chiots nés chez nous, issus de nos lignées d’exception.</p>}
+
+          {/* TEST PUPPY */}
+        {activeCategory === "chiots" && (
+          <div className="puppy-card">
+            <Link to="/chiots/test-puppy">
+              <img src={testPuppyImg} alt="Chiot Test" className="puppy-img" />
+              <h3>Chiot Test</h3>
+            </Link>
+          </div>
+        )}
       </div>
     </main>
   );

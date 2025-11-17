@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import SecondaryNav from "./components/SecondaryNav";
 import DogDetail from "./components/DogDetail";
+import PuppyDetail from "./components/PuppyDetail";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Dogs from "./pages/Dogs";
@@ -26,6 +27,7 @@ function App() {
             <Route path="/chiens" element={<Dogs />} />
             <Route path="/Chiens/:id" element={<DogDetail />} />
             <Route path="/chiots" element={<Puppies />} />
+            <Route path="/chiots/:id" element={<PuppyDetail />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/actualites" element={<News />} />
             <Route path="/galeries" element={<Gallery />} />
