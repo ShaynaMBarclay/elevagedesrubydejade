@@ -1,10 +1,10 @@
 .dog-detail-page {
   font-family: var(--font-body);
+  text-align: center;
   color: var(--dark);
   padding: 6rem 2rem;
   min-height: 100vh;
   background-color: var(--light);
-  text-align: center;
 }
 
 .dog-detail-page a {
@@ -29,55 +29,34 @@
   margin: 1rem 0;
 }
 
-.dog-detail-tabs {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1rem;
-  margin-bottom: 2rem;
-}
-
-.dog-detail-tab {
-  background: transparent;
-  border: 2px solid var(--primary);
-  color: var(--primary);
-  padding: 0.6rem 1.5rem;
-  border-radius: 30px;
-  cursor: pointer;
-  font-family: var(--font-body);
-  font-weight: 500;
-  transition: all 0.3s ease;
-}
-
-.dog-detail-tab:hover {
-  background-color: var(--primary);
-  color: white;
-}
-
-.dog-detail-tab.active {
-  background-color: var(--primary);
-  color: white;
-}
-
-.dog-detail-content {
-  max-width: 900px;
-  margin: 0 auto;
+/* ===== Section styling similar to PuppyDetail ===== */
+.dog-category {
+  max-width: 800px;
+  margin: 2rem auto;
+  background: rgba(255, 255, 255, 0.85);
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
   text-align: left;
 }
 
-.informations p,
-.parents p,
-.palmares p,
-.results-list p {
-  margin: 0.5rem 0;
+.dog-category h2 {
+  font-family: var(--font-heading);
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+
+.dog-category p,
+.dog-category li {
   font-size: 1rem;
+  margin: 0.5rem 0;
 }
 
 .parents {
   display: flex;
   justify-content: center;
   gap: 2rem;
-  margin: 1rem 0;
+  flex-wrap: wrap;
 }
 
 .parents div {
@@ -106,14 +85,10 @@
 }
 
 .pedigree-btn:hover {
-  background-color: #004d99; /* slightly darker */
+  background-color: #004d99;
 }
 
 .palmares {
-  background: rgba(255, 255, 255, 0.85);
-  padding: 2rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
   text-align: center;
 }
 
@@ -149,6 +124,7 @@
   padding: 1.5rem;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  text-align: left;
 }
 
 /* === Responsive === */
@@ -176,11 +152,6 @@
 
   .dog-detail-page h1 {
     font-size: 1.8rem;
-  }
-
-  .dog-detail-tab {
-    font-size: 0.85rem;
-    padding: 0.45rem 0.8rem;
   }
 
   .pedigree-btn {
