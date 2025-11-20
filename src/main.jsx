@@ -1,9 +1,14 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import App from './App.jsx'
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import App from './App.jsx';
+import { AdminProvider } from "./contexts/AdminContext";
 
-createRoot(document.getElementById('root')).render(
+const root = createRoot(document.getElementById("root"));
+
+root.render(
   <StrictMode>
-    <App />
-  </StrictMode>,
-)
+    <AdminProvider>
+      <App />
+    </AdminProvider>
+  </StrictMode>
+);

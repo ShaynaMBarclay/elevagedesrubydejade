@@ -3,8 +3,10 @@ import "./styles/App.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import SecondaryNav from "./components/SecondaryNav";
+
 import DogDetail from "./components/DogDetail";
 import PuppyDetail from "./components/PuppyDetail";
+
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Dogs from "./pages/Dogs";
@@ -13,6 +15,10 @@ import Contact from "./pages/Contact";
 import Gallery from "./pages/Gallery";
 import Links from "./pages/Liens";
 import News from "./pages/News";
+
+import AdminLogin from "./pages/AdminLogin";
+
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -25,13 +31,25 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/chiens" element={<Dogs />} />
-            <Route path="/Chiens/:id" element={<DogDetail />} />
+            <Route path="/chiens/:id" element={<DogDetail />} />
             <Route path="/chiots" element={<Puppies />} />
             <Route path="/chiots/:id" element={<PuppyDetail />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/actualites" element={<News />} />
             <Route path="/galeries" element={<Gallery />} />
             <Route path="/liens" element={<Links />} />
+
+            {/* Admin Pages */}
+            <Route path="/admin/login" element={<AdminLogin />} />
+
+            <Route
+              path="/admin"
+              element={
+                <ProtectedRoute>
+          
+                </ProtectedRoute>
+              }
+            />
           </Routes>
         </main>
         <Footer />

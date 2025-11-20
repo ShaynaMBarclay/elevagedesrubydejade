@@ -1,16 +1,20 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate, Link } from "react-router-dom";
+import axios from "axios";
 import "../styles/Puppies.css";
+import { useAdmin } from "../contexts/AdminContext";
 import testPuppyImg from "../assets/tina.jpg";
 
 export default function Puppies() {
   const location = useLocation();
   const navigate = useNavigate();
+  const { isAdmin } = useAdmin();
 
+  const [puppies, setPuppies] = useState([]);
   const [activeCategory, setActiveCategory] = useState("chiots");
   const [activeDogType, setActiveDogType] = useState("all");
 
-  // Puppy categories (similar to Dogs categories)
+  // Puppy categories
   const categories = [
     { id: "chiots", label: "Chiots" },
     { id: "disponibles", label: "Chiots disponibles" },
@@ -18,15 +22,15 @@ export default function Puppies() {
     { id: "nes", label: "Chiots nés chez nous" },
   ];
 
-  // Dog type filters (same as Dogs page)
+  // Dog types
   const dogTypes = [
     { id: "all", label: "Tous" },
     { id: "tcheque", label: "Chien-loup tchecoslovaque" },
     { id: "berger", label: "Berger Blanc Suisse" },
   ];
 
-  // Example puppy data
-  const allPuppies = [
+  // Static local puppies
+  const localPuppies = [
     {
       id: "test-puppy",
       name: "Chiot Test",
@@ -34,16 +38,41 @@ export default function Puppies() {
       category: "chiots",
       image: testPuppyImg,
     },
-    // Add more puppies here...
+    // Add more local puppies if needed
   ];
 
-  const filteredPuppies = allPuppies.filter(
+  // Fetch puppies from backend and merge with local ones
+  useEffect(() => {
+    async function fetchPuppies() {
+      try {
+        const res = await axios.get("http://localhost:4000/api/chiots");
+        const backendPuppies = res.data.map((p) => ({
+          id: p.id,
+          name: p.name,
+          type: p.type,
+          category: p.category,
+          image: p.image?.url || testPuppyImg,
+        }));
+        // Merge local + backend without duplicates
+        const merged = [...localPuppies];
+        backendPuppies.forEach((bp) => {
+          if (!merged.find((p) => p.id === bp.id)) merged.push(bp);
+        });
+        setPuppies(merged);
+      } catch (err) {
+        console.error("Failed to fetch puppies:", err);
+        setPuppies(localPuppies); // fallback
+      }
+    }
+    fetchPuppies();
+  }, []);
+
+  const filteredPuppies = puppies.filter(
     (puppy) =>
       (activeDogType === "all" || puppy.type === activeDogType) &&
       (activeCategory === "chiots" || puppy.category === activeCategory)
   );
 
-  // Sync category with URL hash
   useEffect(() => {
     const hash = location.hash.replace("#", "");
     if (categories.find((cat) => cat.id === hash)) setActiveCategory(hash);
@@ -89,6 +118,13 @@ export default function Puppies() {
         ))}
       </div>
 
+      {/* Add puppy button for admin */}
+      {isAdmin && (
+        <div className="admin-actions">
+          <button onClick={() => navigate("/admin/add-puppy")}>Ajouter un chiot</button>
+        </div>
+      )}
+
       {/* Category content */}
       <div className="puppies-content">
         {filteredPuppies.length === 0 ? (
@@ -101,6 +137,27 @@ export default function Puppies() {
                   <img src={puppy.image} alt={puppy.name} />
                   <p className="dog-name">{puppy.name}</p>
                 </Link>
+
+                {/* Admin edit/delete */}
+                {isAdmin && (
+                  <div className="admin-actions">
+                    <button onClick={() => navigate(`/admin/edit-puppy/${puppy.id}`)}>Modifier</button>
+                    <button
+                      onClick={async () => {
+                        if (window.confirm("Supprimer ce chiot ?")) {
+                          try {
+                            await axios.delete(`http://localhost:4000/api/chiots/${puppy.id}`);
+                            setPuppies((prev) => prev.filter((p) => p.id !== puppy.id));
+                          } catch (err) {
+                            console.error("Failed to delete puppy:", err);
+                          }
+                        }
+                      }}
+                    >
+                      Supprimer
+                    </button>
+                  </div>
+                )}
               </div>
             ))}
           </div>

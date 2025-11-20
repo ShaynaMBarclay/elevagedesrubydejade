@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 import "../styles/Dogs.css";
+import { useAdmin } from "../contexts/AdminContext"; // Admin context
 import tinaImg from "../assets/tina.jpg"; 
 import severkaImg from "../assets/severka.jpg"; 
 import ubyImg from "../assets/uby.jpg";
@@ -10,6 +10,7 @@ import undyImg from "../assets/undy.jpg";
 export default function Dogs() {
   const location = useLocation();
   const navigate = useNavigate();
+  const { isAdmin } = useAdmin(); // Get admin state
 
   const [activeCategory, setActiveCategory] = useState("chiens");
   const [activeDogType, setActiveDogType] = useState("all");
@@ -30,34 +31,10 @@ export default function Dogs() {
   ];
 
   const allDogs = [
-    {
-      id: 1,
-      name: "Tina De l'empreinte des Bergers",
-      type: "berger",
-      category: "femelles",
-      image: tinaImg,
-    },
-    {
-      id: 2,
-      name: "Severka iii od Úhoště",
-      type: "tcheque",
-      category: "femelles",
-      image: severkaImg,
-    },
-    {
-      id: 3,
-      name: "Uby Des Ruby De Jade",
-      type: "tcheque",
-      category: "femelles",
-      image: ubyImg,
-    },
-    {
-      id: 4,
-      name: "Undy Des Ruby De Jade",
-      type: "tcheque",
-      category: "femelles",
-      image: undyImg,
-    },
+    { id: 1, name: "Tina De l'empreinte des Bergers", type: "berger", category: "femelles", image: tinaImg },
+    { id: 2, name: "Severka iii od Úhoště", type: "tcheque", category: "femelles", image: severkaImg },
+    { id: 3, name: "Uby Des Ruby De Jade", type: "tcheque", category: "femelles", image: ubyImg },
+    { id: 4, name: "Undy Des Ruby De Jade", type: "tcheque", category: "femelles", image: undyImg },
   ];
 
   const filteredDogs = allDogs.filter(
@@ -78,12 +55,35 @@ export default function Dogs() {
 
   const handleDogTypeClick = (id) => setActiveDogType(id);
 
+  // Placeholder admin actions
+  const handleAddDog = () => {
+    navigate("/chiens/add"); // Redirect to a form page
+  };
+  const handleEditDog = (id) => {
+    navigate(`/chiens/edit/${id}`);
+  };
+  const handleDeleteDog = (id) => {
+    if (window.confirm("Êtes-vous sûr de vouloir supprimer ce chien ?")) {
+      console.log("Deleting dog:", id);
+      // TODO: call backend API to delete
+    }
+  };
+
   return (
     <main className="dogs-page">
       <h1>Nos Chiens</h1>
       <p className="intro">
         Découvrez nos reproducteurs, femelles, et compagnons — chaque chien fait partie de notre famille.
       </p>
+
+      {/* Admin Add Button */}
+      {isAdmin && (
+        <div className="admin-controls">
+          <button onClick={handleAddDog} className="add-dog-button">
+            Ajouter un chien
+          </button>
+        </div>
+      )}
 
       <div className="dog-type-filters">
         {dogTypes.map((type) => (
@@ -116,11 +116,22 @@ export default function Dogs() {
           <div className="dog-grid">
             {filteredDogs.map((dog) => (
               <div key={dog.id} className="dog-card">
-                {/* Link to DogDetail page */}
-                <Link to={`/Chiens/${dog.id}`}>
+                <Link to={`/chiens/${dog.id}`}>
                   <img src={dog.image} alt={dog.name} />
                   <p className="dog-name">{dog.name}</p>
                 </Link>
+
+                {/* Admin Edit/Delete Buttons */}
+                {isAdmin && (
+                  <div className="admin-dog-actions">
+                    <button onClick={() => handleEditDog(dog.id)} className="edit-button">
+                      Éditer
+                    </button>
+                    <button onClick={() => handleDeleteDog(dog.id)} className="delete-button">
+                      Supprimer
+                    </button>
+                  </div>
+                )}
               </div>
             ))}
           </div>
