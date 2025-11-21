@@ -1,5 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { useState } from "react";
+import { useAdmin } from "../contexts/AdminContext";
 import tinaImg from "../assets/tina.jpg"; 
 import severkaImg from "../assets/severka.jpg"; 
 import ubyImg from "../assets/uby.jpg";
@@ -8,6 +9,7 @@ import "../styles/DogDetail.css";
 
 export default function DogDetail() {
   const { id } = useParams();
+  const { isAdmin } = useAdmin();
   const [activeYear, setActiveYear] = useState("2025");
 
   const allDogs = [
@@ -142,6 +144,16 @@ export default function DogDetail() {
       <p>{dog.sex} {dog.type} née le {dog.birth}</p>
       <img src={dog.image} alt={dog.name} />
 
+      {/* ADMIN BUTTONS (only show if logged in) */}
+      {isAdmin && (
+        <div className="admin-controls">
+          <Link to={`/chiens/edit/${dog.id}`} className="edit-btn">
+           Modifier
+          </Link>
+         <button className="delete-btn">Supprimer</button>
+        </div>
+        )}
+
       {/* Informations */}
       <div className="dog-category informations">
         <h2>Informations</h2>
@@ -162,19 +174,19 @@ export default function DogDetail() {
       </div>
 
       {/* Parents */}
-<div className="dog-category parents">
-  <h2>Les parents</h2>
-  <div>
-    <p>Père: {dog.parents.father}</p>
-    <img src={dog.parents.fatherImg} alt={dog.parents.father} />
-  </div>
-  <div>
-    <p>Mère: {dog.parents.mother}</p>
-    <img src={dog.parents.motherImg} alt={dog.parents.mother} />
-  </div>
-</div>
-{/* Pedigree button below the parents */}
-<button className="pedigree-btn">Voir le pédigree complet</button>
+      <div className="dog-category parents">
+        <h2>Les parents</h2>
+        <div>
+          <p>Père: {dog.parents.father}</p>
+          <img src={dog.parents.fatherImg} alt={dog.parents.father} />
+        </div>
+        <div>
+          <p>Mère: {dog.parents.mother}</p>
+          <img src={dog.parents.motherImg} alt={dog.parents.mother} />
+        </div>
+      </div>
+
+      <button className="pedigree-btn">Voir le pédigree complet</button>
 
       {/* Palmares */}
       <div className="dog-category palmares">
@@ -186,7 +198,7 @@ export default function DogDetail() {
         ) : <p>À venir</p>}
       </div>
 
-      {/* Résultats with year filters */}
+      {/* Résultats */}
       <div className="dog-category results">
         <h2>Résultats</h2>
         <div className="years-filter">
