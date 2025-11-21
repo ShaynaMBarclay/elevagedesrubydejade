@@ -129,6 +129,136 @@
   text-align: left;
 }
 
+/* Container for the dog's images */
+.dog-images {
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  gap: 15px; 
+  overflow-x: auto; 
+  padding: 15px 0;
+  margin: 2rem 0;
+}
+
+/* Each image */
+.dog-images img {
+  height: 300px; 
+  width: auto;
+  border-radius: 12px;
+  object-fit: cover;
+  flex-shrink: 0; 
+  transition: transform 0.2s ease;
+  cursor: pointer;
+}
+
+/* Hover effect for images */
+.dog-images img:hover {
+  transform: scale(1.05);
+}
+
+.dog-images::-webkit-scrollbar {
+  height: 10px;
+}
+
+.dog-images::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 5px;
+}
+
+.dog-images::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 5px;
+}
+
+.dog-images::-webkit-scrollbar-thumb:hover {
+  background: #999;
+}
+
+/* Admin controls container */
+.admin-controls {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin: 1.5rem 0;
+  flex-wrap: wrap;
+}
+
+/* Unified button style */
+.admin-controls a,
+.admin-controls button {
+  display: inline-block;
+  padding: 0.6rem 1.5rem;
+  font-weight: 600;
+  font-size: 1rem;
+  border-radius: 30px; /* pill shape */
+  border: 2px solid var(--primary);
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  min-width: 120px; /* ensures equal width */
+  transition: all 0.3s ease;
+}
+
+/* Edit button */
+.edit-btn {
+  background-color: var(--primary);
+  color: white;
+}
+
+.edit-btn:hover {
+  background-color: white;
+  color: var(--primary);
+}
+
+/* Delete button */
+.delete-btn {
+  background-color: transparent;
+  color: var(--primary);
+}
+
+.delete-btn:hover {
+  background-color: var(--primary);
+  color: white;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .admin-controls {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .admin-controls a,
+  .admin-controls button {
+    width: 100%;
+  }
+}
+
+
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .dog-images img {
+    height: 250px;
+  }
+}
+
+@media (max-width: 768px) {
+  .dog-images {
+    gap: 10px;
+  }
+  .dog-images img {
+    height: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dog-images img {
+    height: 150px;
+  }
+}
+
+
 /* === Responsive === */
 @media (max-width: 1024px) {
   .dog-detail-page {
