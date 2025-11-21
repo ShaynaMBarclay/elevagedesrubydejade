@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate, Link } from "react-router-dom";
 import "../styles/Dogs.css";
-import { useAdmin } from "../contexts/AdminContext"; // Admin context
+import { useAdmin } from "../contexts/AdminContext"; 
 import tinaImg from "../assets/tina.jpg"; 
 import severkaImg from "../assets/severka.jpg"; 
 import ubyImg from "../assets/uby.jpg";
@@ -10,7 +10,7 @@ import undyImg from "../assets/undy.jpg";
 export default function Dogs() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { isAdmin } = useAdmin(); // Get admin state
+  const { isAdmin } = useAdmin(); 
 
   const [activeCategory, setActiveCategory] = useState("chiens");
   const [activeDogType, setActiveDogType] = useState("all");
@@ -37,12 +37,15 @@ export default function Dogs() {
     { id: 4, name: "Undy Des Ruby De Jade", type: "tcheque", category: "femelles", image: undyImg },
   ];
 
-  const filteredDogs = allDogs.filter(
-    (dog) =>
-      (activeDogType === "all" || dog.type === activeDogType) &&
-      (activeCategory === "chiens" || dog.category === activeCategory)
-  );
+  const filteredDogs = allDogs.filter((dog) => {
+  if (dog.retraite && activeCategory !== "retraites") return false;
+  if (dog.memoire && activeCategory !== "memoire") return false;
 
+  return (
+    (activeDogType === "all" || dog.type === activeDogType) &&
+    (activeCategory === "chiens" || dog.category === activeCategory)
+  );
+});
   useEffect(() => {
     const hash = location.hash.replace("#", "");
     if (categories.find((cat) => cat.id === hash)) setActiveCategory(hash);

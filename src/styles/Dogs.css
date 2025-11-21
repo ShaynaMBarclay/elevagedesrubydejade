@@ -116,6 +116,94 @@
 }
 
 
+/* === Admin Controls === */
+.admin-controls {
+  margin-bottom: 3rem; 
+  text-align: center;
+}
+
+/* Add Dog Button */
+.add-dog-button {
+  padding: 0.7rem 1.5rem; 
+  font-size: 1.2rem;
+  border-radius: 30px;
+  background-color: var(--primary);
+  color: white;
+  border: 2px solid var(--primary);
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  margin-bottom: 2rem;
+}
+
+.add-dog-button:hover {
+  background-color: white;
+  color: var(--primary);
+}
+
+/* Admin Edit/Delete Buttons inside dog card */
+.admin-dog-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem; 
+  margin-top: 1rem; 
+}
+
+/* Edit and Delete Buttons */
+.edit-button,
+.delete-button {
+  padding: 0.5rem; 
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  border-radius: 30px;
+  border: 2px solid var(--primary);
+  background-color: transparent;
+  color: var(--primary);
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.edit-button:hover {
+  background-color: var(--primary);
+  color: white;
+}
+
+.delete-button {
+  border-color: #dc3545;
+  color: #dc3545;
+}
+
+.delete-button:hover {
+  background-color: #dc3545;
+  color: white;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .add-dog-button,
+  .edit-button,
+  .delete-button {
+    padding: 0.45rem 1rem;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .add-dog-button,
+  .edit-button,
+  .delete-button {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+  }
+
+  .admin-dog-actions {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+
 /* === Dogs Page Responsive === */
 @media (max-width: 1024px) {
   .dogs-page {
