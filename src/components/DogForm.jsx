@@ -4,6 +4,7 @@ import { db, storage } from "../firebase";
 import { collection, addDoc, doc, updateDoc, getDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import "../styles/EditDog.css";
+import placeholder from "../assets/placeholder.png"; // placeholder image
 
 export default function DogForm({ dogId, isEdit = false }) {
   const navigate = useNavigate();
@@ -40,7 +41,7 @@ export default function DogForm({ dogId, isEdit = false }) {
   const [newImages, setNewImages] = useState([]);
   const [newParentImages, setNewParentImages] = useState({ father: null, mother: null });
 
-  // If editing, load existing dog
+  // Load existing dog if editing
   useEffect(() => {
     if (isEdit && dogId) {
       const fetchDog = async () => {
@@ -64,12 +65,16 @@ export default function DogForm({ dogId, isEdit = false }) {
   const handleParentChange = (e, parent) => {
     setFormData({
       ...formData,
-      parents: { ...formData.parents, [parent]: { ...formData.parents[parent], [e.target.name]: e.target.value } },
+      parents: {
+        ...formData.parents,
+        [parent]: { ...formData.parents[parent], [e.target.name]: e.target.value },
+      },
     });
   };
 
   const handleImageUpload = (e) => setNewImages([...newImages, ...e.target.files]);
-  const handleParentImageUpload = (e, parent) => setNewParentImages({ ...newParentImages, [parent]: e.target.files[0] });
+  const handleParentImageUpload = (e, parent) =>
+    setNewParentImages({ ...newParentImages, [parent]: e.target.files[0] });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -126,7 +131,11 @@ export default function DogForm({ dogId, isEdit = false }) {
         <label>Race</label>
         <select name="breed" value={formData.breed} onChange={handleChange}>
           <option value="">Sélectionner la race</option>
-          {dogBreeds.map((b) => <option key={b} value={b}>{b}</option>)}
+          {dogBreeds.map((b) => (
+            <option key={b} value={b}>
+              {b}
+            </option>
+          ))}
         </select>
 
         <label>Sexe</label>
@@ -155,12 +164,22 @@ export default function DogForm({ dogId, isEdit = false }) {
         <input name="rating" value={formData.rating} onChange={handleChange} />
 
         <label>
-          <input type="checkbox" name="retraite" checked={formData.retraite} onChange={(e) => setFormData({ ...formData, retraite: e.target.checked })} />
+          <input
+            type="checkbox"
+            name="retraite"
+            checked={formData.retraite}
+            onChange={(e) => setFormData({ ...formData, retraite: e.target.checked })}
+          />
           Retraité
         </label>
 
         <label>
-          <input type="checkbox" name="memoire" checked={formData.memoire} onChange={(e) => setFormData({ ...formData, memoire: e.target.checked })} />
+          <input
+            type="checkbox"
+            name="memoire"
+            checked={formData.memoire}
+            onChange={(e) => setFormData({ ...formData, memoire: e.target.checked })}
+          />
           En mémoire
         </label>
 
@@ -176,15 +195,46 @@ export default function DogForm({ dogId, isEdit = false }) {
         {["father", "mother"].map((parent) => (
           <div key={parent}>
             <label>{parent === "father" ? "Père" : "Mère"}</label>
-            <input name="name" value={formData.parents[parent].name} onChange={(e) => handleParentChange(e, parent)} />
+            <input
+              name="name"
+              value={formData.parents[parent].name}
+              onChange={(e) => handleParentChange(e, parent)}
+            />
             <input type="file" accept="image/*" onChange={(e) => handleParentImageUpload(e, parent)} />
+
+            <img
+              src={
+                newParentImages[parent]
+                  ? URL.createObjectURL(newParentImages[parent])
+                  : formData.parents[parent].image || placeholder
+              }
+              alt={formData.parents[parent].name || parent}
+              style={{ width: "150px", height: "150px", objectFit: "cover" }}
+            />
           </div>
         ))}
 
         <h2>Photos</h2>
         <input type="file" multiple accept="image/*" onChange={(e) => handleImageUpload(e)} className="full" />
 
-        <button type="submit" className="save-btn">{isEdit ? "Mettre à jour" : "Enregistrer"}</button>
+        <div className="dog-images-preview">
+          {(formData.images.length > 0 || newImages.length > 0) ? (
+            <>
+              {formData.images.map((img, idx) => (
+                <img key={idx} src={img || placeholder} alt={`dog-${idx}`} style={{ width: "150px", height: "150px", objectFit: "cover" }} />
+              ))}
+              {newImages.map((file, idx) => (
+                <img key={`new-${idx}`} src={URL.createObjectURL(file)} alt={`new-dog-${idx}`} style={{ width: "150px", height: "150px", objectFit: "cover" }} />
+              ))}
+            </>
+          ) : (
+            <img src={placeholder} alt="placeholder" style={{ width: "150px", height: "150px", objectFit: "cover" }} />
+          )}
+        </div>
+
+        <button type="submit" className="save-btn">
+          {isEdit ? "Mettre à jour" : "Enregistrer"}
+        </button>
       </form>
     </main>
   );
