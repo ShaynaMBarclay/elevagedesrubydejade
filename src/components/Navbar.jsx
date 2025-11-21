@@ -2,12 +2,12 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaHome } from "react-icons/fa";
 import "../styles/Navbar.css";
-import { useAdmin } from "../contexts/AdminContext"; // Import admin context
+import { useAdmin } from "../contexts/AdminContext"; 
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const { isAdmin, logout } = useAdmin(); // Get admin state and logout function
+  const { isAdmin, logout } = useAdmin();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,8 +25,8 @@ export default function Navbar() {
   }, [isOpen]);
 
   const handleLogout = () => {
-    logout();           // Clear admin state
-    navigate("/");      // Redirect to home page
+    logout();           
+    navigate("/");    
   };
 
   return (

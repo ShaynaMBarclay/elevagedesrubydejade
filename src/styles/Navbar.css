@@ -115,6 +115,29 @@
   transform: rotate(-45deg) translate(5px, -5px);
 }
 
+/* === Inline Logout Button === */
+.logout-button {
+  font-family: var(--font-body);
+  font-weight: 500;
+  color: white;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  padding: 0.3rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  align-self: center;
+}
+
+.logout-button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-color: white;
+  transform: translateY(-1px);
+}
+
+
+
 @media (max-width: 768px) {
   .nav-links {
     display: none !important; 

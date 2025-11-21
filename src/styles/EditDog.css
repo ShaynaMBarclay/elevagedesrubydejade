@@ -108,6 +108,17 @@
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
+/* Parent image previews */
+.parent-block img.preview-img {
+  width: 130px;
+  height: 130px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  margin-top: 0.5rem;
+}
+
 .delete-photo-btn {
   position: absolute;
   top: 5px;

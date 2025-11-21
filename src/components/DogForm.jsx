@@ -193,26 +193,32 @@ export default function DogForm({ dogId, isEdit = false }) {
 
         <h2>Parents</h2>
         {["father", "mother"].map((parent) => (
-          <div key={parent}>
-            <label>{parent === "father" ? "Père" : "Mère"}</label>
-            <input
-              name="name"
-              value={formData.parents[parent].name}
-              onChange={(e) => handleParentChange(e, parent)}
-            />
-            <input type="file" accept="image/*" onChange={(e) => handleParentImageUpload(e, parent)} />
+  <div key={parent} className="parent-block">
+    <label>{parent === "father" ? "Père" : "Mère"}</label>
 
-            <img
-              src={
-                newParentImages[parent]
-                  ? URL.createObjectURL(newParentImages[parent])
-                  : formData.parents[parent].image || placeholder
-              }
-              alt={formData.parents[parent].name || parent}
-              style={{ width: "150px", height: "150px", objectFit: "cover" }}
-            />
-          </div>
-        ))}
+    <input
+      name="name"
+      value={formData.parents[parent].name}
+      onChange={(e) => handleParentChange(e, parent)}
+    />
+
+    <input
+      type="file"
+      accept="image/*"
+      onChange={(e) => handleParentImageUpload(e, parent)}
+    />
+
+    <img
+      src={
+        newParentImages[parent]
+          ? URL.createObjectURL(newParentImages[parent])
+          : formData.parents[parent].image || placeholder
+      }
+      alt={formData.parents[parent].name || parent}
+      className="preview-img"
+    />
+  </div>
+))}
 
         <h2>Photos</h2>
         <input type="file" multiple accept="image/*" onChange={(e) => handleImageUpload(e)} className="full" />

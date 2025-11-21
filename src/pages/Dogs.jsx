@@ -77,20 +77,43 @@ export default function Dogs() {
   const handleDogTypeClick = (id) => setActiveDogType(id);
 
   // Filter dogs dynamically
-  const filteredDogs = dogs.filter(
-    (dog) =>
-      (activeDogType === "all" || dog.type === activeDogType) &&
-      (activeCategory === "chiens" || dog.category === activeCategory)
-  );
+  const filteredDogs = dogs.filter((dog) => {
+    // Status categories
+    if (activeCategory === "retraites") return dog.retraite;
+    if (activeCategory === "memoire") return dog.memoire;
+
+    // Regular categories
+    const categoryMatch =
+      activeCategory === "chiens"
+        ? true
+        : activeCategory === "males"
+        ? dog.sex === "Mâle"
+        : activeCategory === "femelles"
+        ? dog.sex === "Femelle"
+        : activeCategory === "resultats"
+        ? dog.category === "resultats"
+        : false;
+
+    const typeMatch =
+      activeDogType === "all"
+        ? true
+        : activeDogType === "tcheque"
+        ? dog.breed === "Chien-loup tchecoslovaque"
+        : activeDogType === "berger"
+        ? dog.breed === "Berger Blanc Suisse"
+        : false;
+
+    return categoryMatch && typeMatch;
+  });
 
   return (
     <main className="dogs-page">
       <h1>Nos Chiens</h1>
       <p className="intro">
-        Découvrez nos reproducteurs, femelles, et compagnons — chaque chien fait partie de notre famille.
+        Découvrez nos reproducteurs, femelles, et compagnons — chaque chien fait partie de notre
+        famille.
       </p>
 
-      {/* Admin: Add Dog button */}
       {isAdmin && (
         <div className="admin-add-dog">
           <Link to="/chiens/add" className="add-dog-btn">
@@ -99,7 +122,7 @@ export default function Dogs() {
         </div>
       )}
 
-      {/* Dog Type Filters */}
+      {/* ---- Dog Type Filters ---- */}
       <div className="dog-type-filters">
         {dogTypes.map((type) => (
           <button
@@ -112,7 +135,7 @@ export default function Dogs() {
         ))}
       </div>
 
-      {/* Categories Tabs */}
+      {/* ---- Categories Tabs ---- */}
       <div className="dog-categories">
         {categories.map((cat) => (
           <button
@@ -125,7 +148,7 @@ export default function Dogs() {
         ))}
       </div>
 
-      {/* Dog Grid */}
+      {/* ---- Dog Grid ---- */}
       <div className="dog-content">
         {loading ? (
           <p>Loading dogs...</p>
