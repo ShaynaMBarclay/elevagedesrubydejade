@@ -76,35 +76,39 @@ export default function Dogs() {
 
   const handleDogTypeClick = (id) => setActiveDogType(id);
 
-  // Filter dogs dynamically
   const filteredDogs = dogs.filter((dog) => {
-    // Status categories
-    if (activeCategory === "retraites") return dog.retraite;
-    if (activeCategory === "memoire") return dog.memoire;
+  // Exclude dogs that are retired or in memory from normal categories
+  const isSpecial = dog.retraite || dog.memoire;
 
-    // Regular categories
-    const categoryMatch =
-      activeCategory === "chiens"
-        ? true
-        : activeCategory === "males"
-        ? dog.sex === "Mâle"
-        : activeCategory === "femelles"
-        ? dog.sex === "Femelle"
-        : activeCategory === "resultats"
-        ? dog.category === "resultats"
-        : false;
+  // Status categories
+  if (activeCategory === "retraites") return dog.retraite;
+  if (activeCategory === "memoire") return dog.memoire;
 
-    const typeMatch =
-      activeDogType === "all"
-        ? true
-        : activeDogType === "tcheque"
-        ? dog.breed === "Chien-loup tchecoslovaque"
-        : activeDogType === "berger"
-        ? dog.breed === "Berger Blanc Suisse"
-        : false;
+  // Regular categories (exclude retired/memoire)
+  if (isSpecial) return false;
 
-    return categoryMatch && typeMatch;
-  });
+  const categoryMatch =
+    activeCategory === "chiens"
+      ? true
+      : activeCategory === "males"
+      ? dog.sex === "Mâle"
+      : activeCategory === "femelles"
+      ? dog.sex === "Femelle"
+      : activeCategory === "resultats"
+      ? dog.category === "resultats"
+      : false;
+
+  const typeMatch =
+    activeDogType === "all"
+      ? true
+      : activeDogType === "tcheque"
+      ? dog.breed === "Chien-loup tchecoslovaque"
+      : activeDogType === "berger"
+      ? dog.breed === "Berger Blanc Suisse"
+      : false;
+
+  return categoryMatch && typeMatch;
+});
 
   return (
     <main className="dogs-page">
