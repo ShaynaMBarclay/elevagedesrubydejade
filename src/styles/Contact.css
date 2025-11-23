@@ -160,6 +160,22 @@
   margin-bottom: 0.5rem;
 }
 
+.guestbook-delete-btn {
+background-color: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 0.8rem 2rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.guestbook-delete-btn:hover {
+  background-color: #542e08;
+}
+
+
+
 /* === Responsive === */
 
 /* Tablets / Medium Screens */

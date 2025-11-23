@@ -1,12 +1,44 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../styles/Contact.css";
 import contactImg from "../assets/contactimg.jpg";
+import { db } from "../firebase"; 
+import {
+  collection,
+  addDoc,
+  deleteDoc,
+  doc,
+  onSnapshot,
+  query,
+  orderBy,
+  serverTimestamp,
+} from "firebase/firestore";
+import { useAdmin } from "../contexts/AdminContext";
 
 export default function Contact() {
+  const { isAdmin } = useAdmin();
+
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+
   const [guestName, setGuestName] = useState("");
   const [guestMessage, setGuestMessage] = useState("");
+
   const [guestbook, setGuestbook] = useState([]);
+  const guestbookRef = collection(db, "guestbook");
+
+  useEffect(() => {
+    const q = query(guestbookRef, orderBy("timestamp", "desc"));
+
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      setGuestbook(
+        snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }))
+      );
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -18,13 +50,22 @@ export default function Contact() {
     setFormData({ name: "", email: "", message: "" });
   };
 
-  const handleGuestSubmit = (e) => {
+  const handleGuestSubmit = async (e) => {
     e.preventDefault();
-    if (guestName && guestMessage) {
-      setGuestbook([{ name: guestName, message: guestMessage }, ...guestbook]);
-      setGuestName("");
-      setGuestMessage("");
-    }
+    if (!guestName || !guestMessage) return;
+
+    await addDoc(guestbookRef, {
+      name: guestName,
+      message: guestMessage,
+      timestamp: serverTimestamp(),
+    });
+
+    setGuestName("");
+    setGuestMessage("");
+  };
+
+  const handleDeleteEntry = async (id) => {
+    await deleteDoc(doc(db, "guestbook", id));
   };
 
   return (
@@ -48,7 +89,6 @@ export default function Contact() {
         </div>
       </div>
 
-      {/* === Contact Form & Guestbook Inputs === */}
       <div className="contact-sections">
         <section className="contact-form-section">
           <h2>Envoyer un message</h2>
@@ -80,6 +120,7 @@ export default function Contact() {
           </form>
         </section>
 
+        {/* Guestbook form */}
         <section className="guestbook-section">
           <h2>Livre d’or</h2>
           <p>
@@ -104,19 +145,28 @@ export default function Contact() {
         </section>
       </div>
 
-      {/* Guestbook Entries */}
+      {/* Display guestbook entries */}
       <section className="guestbook-entries-section">
         {guestbook.length === 0 ? (
           <p>Aucun message pour le moment. Soyez le premier à laisser un mot !</p>
         ) : (
-          guestbook.map((entry, index) => (
-            <div key={index} className="guestbook-entry">
+          guestbook.map((entry) => (
+            <div key={entry.id} className="guestbook-entry">
               <h4>{entry.name}</h4>
               <p>{entry.message}</p>
+
+              {isAdmin && (
+                <button
+                  className="guestbook-delete-btn"
+                  onClick={() => handleDeleteEntry(entry.id)}
+                >
+                  Supprimer
+                </button>
+              )}
             </div>
           ))
         )}
       </section>
     </main>
   );
-} 
+}
