@@ -150,21 +150,31 @@ export default function Contact() {
         {guestbook.length === 0 ? (
           <p>Aucun message pour le moment. Soyez le premier à laisser un mot !</p>
         ) : (
-          guestbook.map((entry) => (
-            <div key={entry.id} className="guestbook-entry">
-              <h4>{entry.name}</h4>
-              <p>{entry.message}</p>
+        guestbook.map((entry) => (
+  <div key={entry.id} className="guestbook-entry">
+    <h4>{entry.name}</h4>
+    <p>{entry.message}</p>
 
-              {isAdmin && (
-                <button
-                  className="guestbook-delete-btn"
-                  onClick={() => handleDeleteEntry(entry.id)}
-                >
-                  Supprimer
-                </button>
-              )}
-            </div>
-          ))
+    {entry.timestamp && (
+      <small className="guestbook-timestamp">
+        {entry.timestamp.toDate().toLocaleString("fr-FR", {
+          dateStyle: "long",
+          timeStyle: "medium",
+        })}
+      </small>
+    )}
+
+    {isAdmin && (
+      <button
+        className="guestbook-delete-btn"
+        onClick={() => handleDeleteEntry(entry.id)}
+      >
+        Supprimer
+      </button>
+    )}
+  </div>
+))
+
         )}
       </section>
     </main>
