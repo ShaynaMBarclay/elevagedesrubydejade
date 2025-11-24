@@ -1,0 +1,27 @@
+.album-form-page {
+  max-width: 800px;
+  margin: auto;
+  padding: 1rem;
+}
+
+.album-form-page h1 {
+  text-align: center;
+}
+
+.album-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.album-form input,
+.album-form select {
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+
+.album-form button {
+  padding: 0.75rem;
+  font-size: 1rem;
+  cursor: pointer;
+}

@@ -1,77 +1,92 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { db, storage } from "../firebase";
+import { collection, getDocs } from "firebase/firestore";
+import { getDownloadURL, ref } from "firebase/storage";
+import { useAdmin } from "../contexts/AdminContext";
+import { useNavigate } from "react-router-dom";
 import "../styles/Gallery.css";
-import lazyImg from "../assets/lazy.jpg";
-import expo1Image from "../assets/expo1.jpg";
-import expo2Image from "../assets/expo2.jpg";
+import placeholder from "../assets/placeholder.png";
 
 export default function Gallery() {
-  const [filter, setFilter] = useState("photos"); 
-  const [photoSection, setPhotoSection] = useState("expo"); 
+  const { isAdmin } = useAdmin();
+  const navigate = useNavigate();
 
-  const enExpo = [
-    { id: 1, src: expo1Image, alt: "Expo photo 1" },
-    { id: 2, src: expo2Image, alt: "Expo photo 2" },
-  ];
+  const [galleries, setGalleries] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const enFamille = [
-    { id: 3, src: lazyImg, alt: "Chien en famille" },
-  ];
+  // Fetch galleries from Firestore
+  useEffect(() => {
+    async function fetchGalleries() {
+      try {
+        const snapshot = await getDocs(collection(db, "galleries"));
+        const galleryData = await Promise.all(
+          snapshot.docs.map(async (docSnap) => {
+            const data = docSnap.data();
+            const mediaArray = data.media || [];
+
+            // Get preview image (first media)
+            let previewImage = placeholder;
+            if (mediaArray.length > 0) {
+              try {
+                const firstImage = mediaArray.find((m) => m.type === "image");
+                if (firstImage) {
+                  previewImage = await getDownloadURL(ref(storage, firstImage.url));
+                }
+              } catch {}
+            }
+
+            return { id: docSnap.id, ...data, previewImage };
+          })
+        );
+
+        setGalleries(galleryData);
+        setLoading(false);
+      } catch (err) {
+        console.error("Error fetching galleries:", err);
+        setLoading(false);
+      }
+    }
+
+    fetchGalleries();
+  }, []);
 
   return (
     <main className="gallery-page">
       <h1>Galerie</h1>
 
-      {/* === FILTER BAR === */}
-      <div className="filter-bar">
-        <div
-          className={`filter-pill ${filter === "photos" ? "active" : ""}`}
-          onClick={() => setFilter("photos")}
-        >
-          Photos
+      {isAdmin && (
+        <div className="admin-controls">
+          <button
+            onClick={() => navigate("/gallery/add")}
+            className="add-album-btn"
+          >
+            Créer un nouvel album
+          </button>
+          <div className="admin-banner">Mode Admin Activé</div>
         </div>
-        <div
-          className={`filter-pill ${filter === "videos" ? "active" : ""}`}
-          onClick={() => setFilter("videos")}
-        >
-          Vidéos
-        </div>
-      </div>
-
-      {filter === "photos" && (
-        <>
-          {/* Sub-filter for photos */}
-          <div className="photo-subfilters">
-            <div
-              className={`sub-pill ${photoSection === "expo" ? "active" : ""}`}
-              onClick={() => setPhotoSection("expo")}
-            >
-              En Expo
-            </div>
-            <div
-              className={`sub-pill ${photoSection === "famille" ? "active" : ""}`}
-              onClick={() => setPhotoSection("famille")}
-            >
-              En Famille
-            </div>
-          </div>
-
-          {/* Gallery Section */}
-          <div className="gallery-grid">
-            {(photoSection === "expo" ? enExpo : enFamille).map((img) => (
-              <div key={img.id} className="gallery-item">
-                {img.src ? (
-                  <img src={img.src} alt={img.alt}  loading="lazy" />
-                ) : (
-                  <div className="placeholder">Image à venir</div>
-                )}
-              </div>
-            ))}
-          </div>
-        </>
       )}
 
-      {filter === "videos" && (
-        <div className="no-videos">Aucune vidéo disponible pour le moment 🎥</div>
+      {loading ? (
+        <p>Chargement des albums...</p>
+      ) : galleries.length === 0 ? (
+        <p>Aucun album disponible.</p>
+      ) : (
+        <div className="album-grid">
+          {galleries.map((album) => (
+            <div
+              key={album.id}
+              className="album-card"
+              onClick={() => navigate(`/gallery/${album.id}`)}
+            >
+              <img
+                src={album.previewImage}
+                alt={album.name}
+                className="album-preview"
+              />
+              <p className="album-name">{album.name}</p>
+            </div>
+          ))}
+        </div>
       )}
     </main>
   );

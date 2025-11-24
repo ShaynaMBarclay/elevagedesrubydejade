@@ -14,6 +14,8 @@ import Dogs from "./pages/Dogs";
 import Puppies from "./pages/Puppies";
 import Contact from "./pages/Contact";
 import Gallery from "./pages/Gallery";
+import AlbumDetail from "./pages/AlbumDetail";
+import AlbumForm from "./components/AlbumForm";
 import Links from "./pages/Liens";
 import News from "./pages/News";
 import EditDog from "./pages/EditDog";
@@ -47,6 +49,10 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/actualites" element={<News />} />
             <Route path="/galeries" element={<Gallery />} />
+            <Route path="/gallery/add" element={<AlbumForm />} />
+            <Route path="/gallery/edit/:albumId" element={<AlbumForm isEdit={true} />} />
+            <Route path="/gallery/:albumId" element={<AlbumDetail />} />
+
             <Route path="/liens" element={<Links />} />
 
             {/* Admin Pages */}
