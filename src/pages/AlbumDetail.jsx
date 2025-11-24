@@ -21,7 +21,7 @@ export default function AlbumDetail() {
   const [album, setAlbum] = useState(null);
   const [loading, setLoading] = useState(true);
   const [newFiles, setNewFiles] = useState([]);
-  const [filter, setFilter] = useState("all"); // all, images, videos
+  const [filter, setFilter] = useState("all"); 
 
   // Fetch album
   useEffect(() => {
@@ -187,7 +187,9 @@ export default function AlbumDetail() {
               </button>
             )}
           </div>
+          
         ))}
+        
       </div>
     </main>
   );

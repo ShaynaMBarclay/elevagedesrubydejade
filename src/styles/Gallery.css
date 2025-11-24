@@ -49,17 +49,18 @@
 
 .gallery-item img,
 .gallery-item video {
-  width: 100%; /* Makes media fill container width */
-  max-height: 400px; /* Optional: prevents super tall videos */
-  object-fit: cover; /* Keeps images/videos properly cropped */
+  width: 100%; 
+  max-height: 400px; 
+  object-fit: cover;
   display: block;
-  border-radius: 8px; /* Optional: rounded corners */
+  border-radius: 8px; 
   box-shadow: 0 2px 18px rgba(0,0,0,0.2);
 }
 
 .gallery-item video {
-  height: auto; /* maintain aspect ratio */
+  height: auto;
 }
+
 
 
 .placeholder {

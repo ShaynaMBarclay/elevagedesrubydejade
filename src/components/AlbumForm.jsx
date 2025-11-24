@@ -10,10 +10,10 @@ export default function AlbumForm({ albumId, isEdit = false }) {
 
   const [formData, setFormData] = useState({
     name: "",
-    media: [], // { type: "image"|"video", url: string, name: string }
+    media: [], // Existing uploaded media
   });
 
-  const [newFiles, setNewFiles] = useState([]);
+  const [newFiles, setNewFiles] = useState([]); // Files added in this session
 
   useEffect(() => {
     if (isEdit && albumId) {
@@ -31,7 +31,14 @@ export default function AlbumForm({ albumId, isEdit = false }) {
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const handleFileUpload = (e) => setNewFiles([...newFiles, ...e.target.files]);
+  const handleFileUpload = (e) => {
+    // Append new files without overwriting previous selections
+    setNewFiles((prev) => [...prev, ...Array.from(e.target.files)]);
+  };
+
+  const handleRemoveNewFile = (index) => {
+    setNewFiles((prev) => prev.filter((_, i) => i !== index));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -71,8 +78,13 @@ export default function AlbumForm({ albumId, isEdit = false }) {
 
         <div className="media-upload-wrapper">
           <label>Ajouter des fichiers</label>
-          <input type="file" multiple accept="image/*,video/*" onChange={handleFileUpload} />
-          
+          <input
+            type="file"
+            multiple
+            accept="image/*,video/*"
+            onChange={handleFileUpload}
+          />
+
           {isEdit && (
             <button
               type="button"
@@ -84,7 +96,9 @@ export default function AlbumForm({ albumId, isEdit = false }) {
           )}
         </div>
 
+        {/* Preview Grid */}
         <div className="preview-grid">
+          {/* Existing uploaded media */}
           {formData.media.map((m, i) => (
             <div key={i} className="preview-item">
               {m.type === "image" ? (
@@ -94,11 +108,20 @@ export default function AlbumForm({ albumId, isEdit = false }) {
               )}
             </div>
           ))}
+
+          {/* Newly selected media before upload */}
           {newFiles.map((f, i) => {
             const url = URL.createObjectURL(f);
             const type = f.type.startsWith("image") ? "image" : "video";
             return (
               <div key={"new" + i} className="preview-item">
+                <button
+                  type="button"
+                  className="remove-preview-btn"
+                  onClick={() => handleRemoveNewFile(i)}
+                >
+                  ×
+                </button>
                 {type === "image" ? (
                   <img src={url} alt={f.name} loading="lazy" />
                 ) : (
