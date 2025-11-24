@@ -31,8 +31,10 @@
 }
 
 .gallery-item {
-  margin: 0;       
+  margin: 0;
   padding: 0;
+  max-width: 400px; 
+  width: 100%;
 }
 
 .gallery-item img {
@@ -44,6 +46,21 @@
   display: block;
   box-shadow: 0 2px 18px rgb(0, 0, 0);
 }
+
+.gallery-item img,
+.gallery-item video {
+  width: 100%; /* Makes media fill container width */
+  max-height: 400px; /* Optional: prevents super tall videos */
+  object-fit: cover; /* Keeps images/videos properly cropped */
+  display: block;
+  border-radius: 8px; /* Optional: rounded corners */
+  box-shadow: 0 2px 18px rgba(0,0,0,0.2);
+}
+
+.gallery-item video {
+  height: auto; /* maintain aspect ratio */
+}
+
 
 .placeholder {
   background: rgba(200,200,200,0.2);
@@ -194,6 +211,21 @@
   background-color: #e18c2d; 
 }
 
+.delete-album-btn {
+  background-color: #ff6f61;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  transition: 0.2s ease;
+}
+
+.delete-album-btn:hover {
+  background-color: #ff4c3b;
+}
 
 
 /* === Gallery Page Responsive === */

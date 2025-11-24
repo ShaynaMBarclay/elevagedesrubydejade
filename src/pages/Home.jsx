@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import Gallery from "../components/Gallery";
+//import Gallery from "../pages/Gallery";
 import "../styles/Home.css";
 import homeImg from "../assets/homeimg.jpg"; 
 import updateImg from "../assets/updateimg.jpg";
@@ -100,7 +100,7 @@ export default function Home() {
           ))}
         </div>
 
-        <Gallery />
+        {/*<Gallery />*/}
       </section>
 
       {/* === Puppies Section with Categories === */}

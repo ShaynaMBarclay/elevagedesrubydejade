@@ -21,6 +21,7 @@ export default function AlbumDetail() {
   const [album, setAlbum] = useState(null);
   const [loading, setLoading] = useState(true);
   const [newFiles, setNewFiles] = useState([]);
+  const [filter, setFilter] = useState("all"); // all, images, videos
 
   // Fetch album
   useEffect(() => {
@@ -31,7 +32,6 @@ export default function AlbumDetail() {
 
         if (docSnap.exists()) {
           const data = docSnap.data();
-          // Resolve URLs
           const mediaWithUrls = await Promise.all(
             (data.media || []).map(async (m) => {
               let url = m.url;
@@ -59,12 +59,8 @@ export default function AlbumDetail() {
     fetchAlbum();
   }, [albumId, navigate]);
 
-  // Handle file selection
-  const handleFileChange = (e) => {
-    setNewFiles(Array.from(e.target.files));
-  };
+  const handleFileChange = (e) => setNewFiles(Array.from(e.target.files));
 
-  // Upload new media
   const handleUpload = async () => {
     if (!newFiles.length) return;
 
@@ -90,9 +86,7 @@ export default function AlbumDetail() {
         (data.media || []).map(async (m) => {
           let url = m.url;
           try {
-            if (!url.startsWith("http")) {
-              url = await getDownloadURL(ref(storage, m.url));
-            }
+            if (!url.startsWith("http")) url = await getDownloadURL(ref(storage, m.url));
           } catch {}
           return { ...m, url };
         })
@@ -103,7 +97,6 @@ export default function AlbumDetail() {
     }
   };
 
-  // Delete media
   const handleDeleteMedia = async (item) => {
     if (!window.confirm(`Supprimer "${item.name}" ?`)) return;
 
@@ -115,7 +108,6 @@ export default function AlbumDetail() {
         media: arrayRemove({ url: item.url, name: item.name, type: item.type }),
       });
 
-      // Refresh album
       setAlbum((prev) => ({
         ...prev,
         media: prev.media.filter((m) => m.url !== item.url),
@@ -128,34 +120,58 @@ export default function AlbumDetail() {
   if (loading) return <p>Chargement de l'album...</p>;
   if (!album) return <p>Album non trouvé.</p>;
 
+  // Filter media based on filter state
+  const filteredMedia = album.media.filter((m) => {
+    if (filter === "all") return true;
+    if (filter === "images") return m.type === "image";
+    if (filter === "videos") return m.type === "video";
+    return true;
+  });
+
   return (
     <main className="gallery-page">
       <h1>{album.name}</h1>
+
       {isAdmin && (
-  <div className="admin-controls">
-    {/* File input */}
-    <input
-      type="file"
-      multiple
-      onChange={handleFileChange}
-      accept="image/*,video/*"
-      className="file-input"
-    />
-    
-    <button
-      onClick={handleUpload}
-      className="upload-btn"
-      style={{ marginTop: "0.5rem" }}
-    >
-      Ajouter médias
-    </button>
-  </div>
-)}
-      
+        <div className="admin-controls">
+          <input
+            type="file"
+            multiple
+            onChange={handleFileChange}
+            accept="image/*,video/*"
+            className="file-input"
+          />
+          <button onClick={handleUpload} className="upload-btn" style={{ marginTop: "0.5rem" }}>
+            Ajouter médias
+          </button>
+        </div>
+      )}
+
+      {/* Filter buttons */}
+      <div className="photo-subfilters">
+        <button
+          className={`sub-pill ${filter === "all" ? "active" : ""}`}
+          onClick={() => setFilter("all")}
+        >
+          Tous
+        </button>
+        <button
+          className={`sub-pill ${filter === "images" ? "active" : ""}`}
+          onClick={() => setFilter("images")}
+        >
+          Photos
+        </button>
+        <button
+          className={`sub-pill ${filter === "videos" ? "active" : ""}`}
+          onClick={() => setFilter("videos")}
+        >
+          Vidéos
+        </button>
+      </div>
 
       <div className="gallery-grid">
-        {album.media.length === 0 && <p>Aucun média pour cet album.</p>}
-        {album.media.map((m, i) => (
+        {filteredMedia.length === 0 && <p>Aucun média pour cette catégorie.</p>}
+        {filteredMedia.map((m, i) => (
           <div key={i} className="gallery-item">
             {m.type === "image" ? (
               <img src={m.url || placeholder} alt={m.name} loading="lazy" />

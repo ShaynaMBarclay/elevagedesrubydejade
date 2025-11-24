@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { db, storage } from "../firebase";
-import { collection, getDocs } from "firebase/firestore";
-import { getDownloadURL, ref } from "firebase/storage";
+import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
+import { getDownloadURL, ref, deleteObject } from "firebase/storage";
 import { useAdmin } from "../contexts/AdminContext";
 import { useNavigate } from "react-router-dom";
 import "../styles/Gallery.css";
@@ -50,6 +50,29 @@ export default function Gallery() {
     fetchGalleries();
   }, []);
 
+  // Delete an entire album
+  const handleDeleteAlbum = async (album) => {
+    if (!window.confirm(`Supprimer l'album "${album.name}" ?`)) return;
+
+    try {
+      // Delete all media in storage
+      if (album.media) {
+        for (const m of album.media) {
+          const fileRef = ref(storage, m.url);
+          await deleteObject(fileRef).catch(() => {});
+        }
+      }
+
+      // Delete the Firestore document
+      await deleteDoc(doc(db, "galleries", album.id));
+
+      // Update state
+      setGalleries((prev) => prev.filter((g) => g.id !== album.id));
+    } catch (err) {
+      console.error("Error deleting album:", err);
+    }
+  };
+
   return (
     <main className="gallery-page">
       <h1>Galerie</h1>
@@ -72,17 +95,27 @@ export default function Gallery() {
       ) : (
         <div className="album-grid">
           {galleries.map((album) => (
-            <div
-              key={album.id}
-              className="album-card"
-              onClick={() => navigate(`/gallery/${album.id}`)}
-            >
-              <img
-                src={album.previewImage}
-                alt={album.name}
-                className="album-preview"
-              />
-              <p className="album-name">{album.name}</p>
+            <div key={album.id} className="album-card">
+              <div
+                onClick={() => navigate(`/gallery/${album.id}`)}
+                style={{ cursor: "pointer" }}
+              >
+                <img
+                  src={album.previewImage}
+                  alt={album.name}
+                  className="album-preview"
+                />
+                <p className="album-name">{album.name}</p>
+              </div>
+
+              {isAdmin && (
+                <button
+                  className="delete-album-btn"
+                  onClick={() => handleDeleteAlbum(album)}
+                >
+                  Supprimer l'album
+                </button>
+              )}
             </div>
           ))}
         </div>
