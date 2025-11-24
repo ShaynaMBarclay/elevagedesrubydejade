@@ -4,12 +4,13 @@ import { db, storage } from "../firebase";
 import { collection, addDoc, doc, updateDoc, getDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import "../styles/EditDog.css";
-import placeholder from "../assets/placeholder.png"; // placeholder image
+import placeholder from "../assets/placeholder.png";
 
 export default function DogForm({ dogId, isEdit = false }) {
   const navigate = useNavigate();
 
   const dogBreeds = ["Chien-loup tchecoslovaque", "Berger Blanc Suisse"];
+
   const [formData, setFormData] = useState({
     name: "",
     type: "",
@@ -33,19 +34,23 @@ export default function DogForm({ dogId, isEdit = false }) {
       mother: { name: "", image: "" },
     },
     images: [],
-    category: "chiots",
+    category: "chiots", // <-- THIS CHOOSES DOGS OR PUPPIES COLLECTION
     retraite: false,
     memoire: false,
   });
 
   const [newImages, setNewImages] = useState([]);
-  const [newParentImages, setNewParentImages] = useState({ father: null, mother: null });
+  const [newParentImages, setNewParentImages] = useState({
+    father: null,
+    mother: null,
+  });
 
-  // Load existing dog if editing
+  // Load existing dog/puppy if editing
   useEffect(() => {
     if (isEdit && dogId) {
       const fetchDog = async () => {
-        const docRef = doc(db, "dogs", dogId);
+        const col = formData.category === "chiots" ? "puppies" : "dogs";
+        const docRef = doc(db, col, dogId);
         const snapshot = await getDoc(docRef);
         if (snapshot.exists()) setFormData(snapshot.data());
       };
@@ -53,12 +58,16 @@ export default function DogForm({ dogId, isEdit = false }) {
     }
   }, [isEdit, dogId]);
 
-  const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleChange = (e) =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const handleNested = (e, section) => {
     setFormData({
       ...formData,
-      [section]: { ...formData[section], [e.target.name]: e.target.value },
+      [section]: {
+        ...formData[section],
+        [e.target.name]: e.target.value,
+      },
     });
   };
 
@@ -67,66 +76,113 @@ export default function DogForm({ dogId, isEdit = false }) {
       ...formData,
       parents: {
         ...formData.parents,
-        [parent]: { ...formData.parents[parent], [e.target.name]: e.target.value },
+        [parent]: {
+          ...formData.parents[parent],
+          [e.target.name]: e.target.value,
+        },
       },
     });
   };
 
-  const handleImageUpload = (e) => setNewImages([...newImages, ...e.target.files]);
+  const handleImageUpload = (e) =>
+    setNewImages([...newImages, ...e.target.files]);
+
   const handleParentImageUpload = (e, parent) =>
-    setNewParentImages({ ...newParentImages, [parent]: e.target.files[0] });
+    setNewParentImages({
+      ...newParentImages,
+      [parent]: e.target.files[0],
+    });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const collectionName =
+        formData.category === "chiots" ? "puppies" : "dogs";
+
       let docRef;
 
       if (isEdit && dogId) {
-        docRef = doc(db, "dogs", dogId);
-        await updateDoc(docRef, { ...formData, images: formData.images, parents: formData.parents });
+        docRef = doc(db, collectionName, dogId);
+        await updateDoc(docRef, {
+          ...formData,
+          images: formData.images,
+          parents: formData.parents,
+        });
       } else {
-        docRef = await addDoc(collection(db, "dogs"), { ...formData, images: [], parents: formData.parents });
+        docRef = await addDoc(collection(db, collectionName), {
+          ...formData,
+          images: [],
+        });
       }
 
       const finalDocId = docRef.id || dogId;
 
-      // Upload new dog images
-      const uploadedURLs = [...formData.images];
+      // Upload new images
+      const uploadedImages = [...formData.images];
       for (let file of newImages) {
-        const fileRef = ref(storage, `dogs/${finalDocId}/${Date.now()}-${file.name}`);
+        const fileRef = ref(
+          storage,
+          `${collectionName}/${finalDocId}/${Date.now()}-${file.name}`
+        );
         await uploadBytes(fileRef, file);
         const url = await getDownloadURL(fileRef);
-        uploadedURLs.push(url);
+        uploadedImages.push(url);
       }
 
       // Upload parent images
-      const parentUploads = { ...formData.parents };
+      const finalParents = { ...formData.parents };
       for (let parent of ["father", "mother"]) {
         if (newParentImages[parent]) {
-          const fileRef = ref(storage, `dogs/${finalDocId}/parents/${Date.now()}-${newParentImages[parent].name}`);
+          const fileRef = ref(
+            storage,
+            `${collectionName}/${finalDocId}/parents/${Date.now()}-${
+              newParentImages[parent].name
+            }`
+          );
           await uploadBytes(fileRef, newParentImages[parent]);
-          parentUploads[parent].image = await getDownloadURL(fileRef);
+          finalParents[parent].image = await getDownloadURL(fileRef);
         }
       }
 
-      await updateDoc(doc(db, "dogs", finalDocId), {
-        images: uploadedURLs,
-        parents: parentUploads,
+      // Update doc with final image URLs
+      await updateDoc(doc(db, collectionName, finalDocId), {
+        images: uploadedImages,
+        parents: finalParents,
       });
 
-      navigate("/chiens");
+      // Redirect
+      navigate(formData.category === "chiots" ? "/chiots" : "/chiens");
     } catch (error) {
-      console.error("Erreur ajout/édition chien:", error);
+      console.error("Erreur ajout/édition chien/chiot:", error);
     }
   };
 
   return (
     <main className="edit-dog-page">
-      <h1>{isEdit ? "Modifier le chien" : "Ajouter un nouveau chien"}</h1>
-      <form className="edit-dog-form" onSubmit={handleSubmit} autoComplete="off">
+      <h1>{isEdit ? "Modifier" : "Ajouter"} un {formData.category === "chiots" ? "chiot" : "chien"}</h1>
+
+      <form className="edit-dog-form" onSubmit={handleSubmit}>
         <h2>Informations générales</h2>
+
+        {/* CATEGORY SELECTOR */}
+        <label className="full">Catégorie</label>
+        <select
+          className="full"
+          name="category"
+          value={formData.category}
+          onChange={handleChange}
+        >
+          <option value="chiots">Chiot</option>
+          <option value="adultes">Chien adulte</option>
+        </select>
+
         <label className="full">Nom</label>
-        <input className="full" name="name" value={formData.name} onChange={handleChange} />
+        <input
+          className="full"
+          name="name"
+          value={formData.name}
+          onChange={handleChange}
+        />
 
         <label>Race</label>
         <select name="breed" value={formData.breed} onChange={handleChange}>
@@ -140,7 +196,7 @@ export default function DogForm({ dogId, isEdit = false }) {
 
         <label>Sexe</label>
         <select name="sex" value={formData.sex} onChange={handleChange}>
-          <option value="">Sélectionner le sexe</option>
+          <option value="">Sélectionner</option>
           <option value="Mâle">Mâle</option>
           <option value="Femelle">Femelle</option>
         </select>
@@ -149,13 +205,21 @@ export default function DogForm({ dogId, isEdit = false }) {
         <input name="birth" value={formData.birth} onChange={handleChange} />
 
         <label>Numéro de puce</label>
-        <input name="microchip" value={formData.microchip} onChange={handleChange} />
+        <input
+          name="microchip"
+          value={formData.microchip}
+          onChange={handleChange}
+        />
 
         <label>LOF</label>
         <input name="lof" value={formData.lof} onChange={handleChange} />
 
         <label>N° Origine</label>
-        <input name="originNumber" value={formData.originNumber} onChange={handleChange} />
+        <input
+          name="originNumber"
+          value={formData.originNumber}
+          onChange={handleChange}
+        />
 
         <label>DNA</label>
         <input name="dna" value={formData.dna} onChange={handleChange} />
@@ -163,79 +227,57 @@ export default function DogForm({ dogId, isEdit = false }) {
         <label>Évaluation</label>
         <input name="rating" value={formData.rating} onChange={handleChange} />
 
-        <label>
-          <input
-            type="checkbox"
-            name="retraite"
-            checked={formData.retraite}
-            onChange={(e) => setFormData({ ...formData, retraite: e.target.checked })}
-          />
-          Retraité
-        </label>
-
-        <label>
-          <input
-            type="checkbox"
-            name="memoire"
-            checked={formData.memoire}
-            onChange={(e) => setFormData({ ...formData, memoire: e.target.checked })}
-          />
-          En mémoire
-        </label>
-
         <h2>Santé</h2>
-        {["elbowDysplasia", "hipDysplasia", "md", "mdr1", "nah"].map((field) => (
-          <div key={field}>
-            <label>{field}</label>
-            <input name={field} value={formData.health[field]} onChange={(e) => handleNested(e, "health")} />
+        {["elbowDysplasia", "hipDysplasia", "md", "mdr1", "nah"].map((f) => (
+          <div key={f}>
+            <label>{f}</label>
+            <input
+              name={f}
+              value={formData.health[f]}
+              onChange={(e) => handleNested(e, "health")}
+            />
           </div>
         ))}
 
         <h2>Parents</h2>
         {["father", "mother"].map((parent) => (
-  <div key={parent} className="parent-block">
-    <label>{parent === "father" ? "Père" : "Mère"}</label>
+          <div key={parent} className="parent-block">
+            <label>{parent === "father" ? "Père" : "Mère"}</label>
 
-    <input
-      name="name"
-      value={formData.parents[parent].name}
-      onChange={(e) => handleParentChange(e, parent)}
-    />
+            <input
+              name="name"
+              value={formData.parents[parent].name}
+              onChange={(e) => handleParentChange(e, parent)}
+            />
 
-    <input
-      type="file"
-      accept="image/*"
-      onChange={(e) => handleParentImageUpload(e, parent)}
-    />
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => handleParentImageUpload(e, parent)}
+            />
 
-    <img
-      src={
-        newParentImages[parent]
-          ? URL.createObjectURL(newParentImages[parent])
-          : formData.parents[parent].image || placeholder
-      }
-      alt={formData.parents[parent].name || parent}
-      className="preview-img"
-    />
-  </div>
-))}
+            <img
+              src={
+                newParentImages[parent]
+                  ? URL.createObjectURL(newParentImages[parent])
+                  : formData.parents[parent].image || placeholder
+              }
+              alt={formData.parents[parent].name || parent}
+              className="preview-img"
+            />
+          </div>
+        ))}
 
         <h2>Photos</h2>
-        <input type="file" multiple accept="image/*" onChange={(e) => handleImageUpload(e)} className="full" />
+        <input type="file" multiple accept="image/*" onChange={handleImageUpload} />
 
         <div className="dog-images-preview">
-          {(formData.images.length > 0 || newImages.length > 0) ? (
-            <>
-              {formData.images.map((img, idx) => (
-                <img key={idx} src={img || placeholder} alt={`dog-${idx}`} style={{ width: "150px", height: "150px", objectFit: "cover" }} />
-              ))}
-              {newImages.map((file, idx) => (
-                <img key={`new-${idx}`} src={URL.createObjectURL(file)} alt={`new-dog-${idx}`} style={{ width: "150px", height: "150px", objectFit: "cover" }} />
-              ))}
-            </>
-          ) : (
-            <img src={placeholder} alt="placeholder" style={{ width: "150px", height: "150px", objectFit: "cover" }} />
-          )}
+          {formData.images.map((img, i) => (
+            <img key={i} src={img} alt="" className="preview-img" />
+          ))}
+          {newImages.map((file, i) => (
+            <img key={"new" + i} src={URL.createObjectURL(file)} className="preview-img" />
+          ))}
         </div>
 
         <button type="submit" className="save-btn">

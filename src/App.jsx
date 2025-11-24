@@ -17,6 +17,8 @@ import Links from "./pages/Liens";
 import News from "./pages/News";
 import EditDog from "./pages/EditDog";
 import AddDog from "./pages/AddDog";
+import AddPuppy from "./pages/AddPuppy";
+import EditPuppy from "./pages/EditPuppy";
 
 import AdminLogin from "./pages/AdminLogin";
 
@@ -38,6 +40,8 @@ function App() {
             <Route path="/chiens/add" element={<AddDog />} />
             <Route path="/chiots" element={<Puppies />} />
             <Route path="/chiots/:id" element={<PuppyDetail />} />
+            <Route path="/chiots/add" element={<AddPuppy />} />
+            <Route path="/chiots/edit/:id" element={<EditPuppy />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/actualites" element={<News />} />
             <Route path="/galeries" element={<Gallery />} />

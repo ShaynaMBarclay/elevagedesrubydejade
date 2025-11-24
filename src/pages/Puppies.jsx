@@ -1,16 +1,19 @@
 import { useState, useEffect } from "react";
-import { useLocation, useNavigate, Link } from "react-router-dom";
-import axios from "axios";
-import "../styles/Puppies.css";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAdmin } from "../contexts/AdminContext";
-import testPuppyImg from "../assets/tina.jpg";
+import { collection, getDocs } from "firebase/firestore";
+import { db, storage } from "../firebase";
+import { getDownloadURL, ref } from "firebase/storage";
+import placeholder from "../assets/placeholder.png";
+import "../styles/Puppies.css";
 
 export default function Puppies() {
+  const { isAdmin } = useAdmin();
   const location = useLocation();
   const navigate = useNavigate();
-  const { isAdmin } = useAdmin();
 
   const [puppies, setPuppies] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState("chiots");
   const [activeDogType, setActiveDogType] = useState("all");
 
@@ -22,60 +25,56 @@ export default function Puppies() {
     { id: "nes", label: "Chiots nés chez nous" },
   ];
 
-  // Dog types
+  // Dog types (same UI options as dogs)
   const dogTypes = [
     { id: "all", label: "Tous" },
     { id: "tcheque", label: "Chien-loup tchecoslovaque" },
     { id: "berger", label: "Berger Blanc Suisse" },
   ];
 
-  // Static local puppies
-  const localPuppies = [
-    {
-      id: "test-puppy",
-      name: "Chiot Test",
-      type: "berger",
-      category: "chiots",
-      image: testPuppyImg,
-    },
-    // Add more local puppies if needed
-  ];
-
-  // Fetch puppies from backend and merge with local ones
+  // Fetch puppies from Firestore
   useEffect(() => {
     async function fetchPuppies() {
       try {
-        const res = await axios.get("http://localhost:4000/api/chiots");
-        const backendPuppies = res.data.map((p) => ({
-          id: p.id,
-          name: p.name,
-          type: p.type,
-          category: p.category,
-          image: p.image?.url || testPuppyImg,
-        }));
-        // Merge local + backend without duplicates
-        const merged = [...localPuppies];
-        backendPuppies.forEach((bp) => {
-          if (!merged.find((p) => p.id === bp.id)) merged.push(bp);
-        });
-        setPuppies(merged);
+        const querySnapshot = await getDocs(collection(db, "puppies"));
+
+        const puppyData = await Promise.all(
+          querySnapshot.docs.map(async (doc) => {
+            const data = doc.data();
+
+            // Get first image or placeholder
+            let imageUrl = placeholder;
+            if (data.images && data.images.length > 0) {
+              try {
+                imageUrl = await getDownloadURL(ref(storage, data.images[0]));
+              } catch {}
+            }
+
+            return {
+              id: doc.id,
+              ...data,
+              image: imageUrl,
+            };
+          })
+        );
+
+        setPuppies(puppyData);
+        setLoading(false);
       } catch (err) {
-        console.error("Failed to fetch puppies:", err);
-        setPuppies(localPuppies); // fallback
+        console.error("Error fetching puppies:", err);
+        setLoading(false);
       }
     }
+
     fetchPuppies();
   }, []);
 
-  const filteredPuppies = puppies.filter(
-    (puppy) =>
-      (activeDogType === "all" || puppy.type === activeDogType) &&
-      (activeCategory === "chiots" || puppy.category === activeCategory)
-  );
-
+  // Set category based on URL hash
   useEffect(() => {
     const hash = location.hash.replace("#", "");
-    if (categories.find((cat) => cat.id === hash)) setActiveCategory(hash);
+    if (categories.find((cat) => cat.id === hash)) {
+      setActiveCategory(hash);
+    }
   }, [location.hash]);
 
   const handleCategoryClick = (id) => {
@@ -85,14 +84,33 @@ export default function Puppies() {
 
   const handleDogTypeClick = (id) => setActiveDogType(id);
 
+  // Filtering logic (same style as Dogs.jsx)
+  const filteredPuppies = puppies.filter((puppy) => {
+    const categoryMatch =
+      activeCategory === "chiots"
+        ? true
+        : puppy.category === activeCategory;
+
+    const typeMatch =
+      activeDogType === "all"
+        ? true
+        : activeDogType === "tcheque"
+        ? puppy.breed === "Chien-loup tchecoslovaque"
+        : activeDogType === "berger"
+        ? puppy.breed === "Berger Blanc Suisse"
+        : false;
+
+    return categoryMatch && typeMatch;
+  });
+
   return (
     <main className="puppies-page">
       <h1 className="puppies-title">Nos Chiots</h1>
       <p className="intro">
-        Découvrez nos chiots disponibles, les futures portées, et ceux nés chez nous. Chaque chiot est élevé avec soin et amour.
+        Découvrez nos chiots disponibles, les futures portées, et ceux nés chez nous.
       </p>
 
-      {/* Dog type filters */}
+      {/* ---- Dog Type Filters ---- */}
       <div className="dog-type-filters">
         {dogTypes.map((type) => (
           <button
@@ -105,7 +123,7 @@ export default function Puppies() {
         ))}
       </div>
 
-      {/* Category tabs */}
+      {/* ---- Category Tabs ---- */}
       <div className="puppies-categories">
         {categories.map((cat) => (
           <button
@@ -118,41 +136,39 @@ export default function Puppies() {
         ))}
       </div>
 
-      {/* Add puppy button for admin */}
+      {/* ---- Admin: Add Puppy ---- */}
       {isAdmin && (
         <div className="admin-actions">
-          <button onClick={() => navigate("/admin/add-puppy")}>Ajouter un chiot</button>
+          <Link to="/chiots/add" className="add-puppy-btn">
+            Ajouter un chiot
+          </Link>
         </div>
       )}
 
-      {/* Category content */}
+      {/* ---- Puppy Grid ---- */}
       <div className="puppies-content">
-        {filteredPuppies.length === 0 ? (
+        {loading ? (
+          <p>Chargement des chiots...</p>
+        ) : filteredPuppies.length === 0 ? (
           <p>Aucun chiot disponible pour cette sélection.</p>
         ) : (
           <div className="dog-grid">
             {filteredPuppies.map((puppy) => (
               <div key={puppy.id} className="dog-card">
-                <Link to={`/Chiots/${puppy.id}`}>
-                  <img src={puppy.image} alt={puppy.name} />
+                <Link to={`/chiots/${puppy.id}`}>
+                  <img src={puppy.image || placeholder} alt={puppy.name} />
                   <p className="dog-name">{puppy.name}</p>
                 </Link>
 
-                {/* Admin edit/delete */}
+                {/* ---- Admin: Edit/Delete ---- */}
                 {isAdmin && (
                   <div className="admin-actions">
-                    <button onClick={() => navigate(`/admin/edit-puppy/${puppy.id}`)}>Modifier</button>
+                    <button onClick={() => navigate(`/chiots/edit/${puppy.id}`)}>
+                      Modifier
+                    </button>
+
                     <button
-                      onClick={async () => {
-                        if (window.confirm("Supprimer ce chiot ?")) {
-                          try {
-                            await axios.delete(`http://localhost:4000/api/chiots/${puppy.id}`);
-                            setPuppies((prev) => prev.filter((p) => p.id !== puppy.id));
-                          } catch (err) {
-                            console.error("Failed to delete puppy:", err);
-                          }
-                        }
-                      }}
+                      onClick={() => navigate(`/chiots/delete/${puppy.id}`)}
                     >
                       Supprimer
                     </button>
