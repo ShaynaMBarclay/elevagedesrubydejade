@@ -37,7 +37,7 @@ export default function Home() {
             <p>Sophie KNOPF</p>
           </div>
           <div className="about-image">
-            <img src={homeImg} alt="Élevage des Ruby de Jade" />
+            <img src={homeImg} alt="Élevage des Ruby de Jade"  loading="lazy"/>
           </div>
         </div>
       </section>
@@ -74,7 +74,7 @@ export default function Home() {
          </div>
           </div>
           <div className="update-image">
-            <img src={updateImg} alt="Portée 2025 Ruby & Roberto" />
+            <img src={updateImg} alt="Portée 2025 Ruby & Roberto"  loading="lazy" />
           </div>
         </div>
       </section>

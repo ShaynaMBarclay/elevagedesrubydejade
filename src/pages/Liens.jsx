@@ -18,7 +18,7 @@ export default function Links() {
           target="_blank"
           className="purina-link"
         >
-          <img src={purinaLogo} alt="Purina" />
+          <img src={purinaLogo} alt="Purina"  loading="lazy" />
         </a>
 
         {/* Facebook Button */}

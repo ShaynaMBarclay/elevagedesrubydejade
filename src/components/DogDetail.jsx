@@ -127,7 +127,7 @@ export default function DogDetail() {
             <img key={idx} src={img || placeholder} alt={`${dog.name} ${idx + 1}`} />
           ))
         ) : (
-          <img src={placeholder} alt={dog.name} />
+          <img src={placeholder} alt={dog.name} loading="lazy" />
         )}
       </div>
 
@@ -167,11 +167,11 @@ export default function DogDetail() {
         <h2>Les parents</h2>
         <div>
           <p>Père: {dog.parents.father.name}</p>
-          <img src={dog.parents.father.image || placeholder} alt={dog.parents.father.name} />
+          <img src={dog.parents.father.image || placeholder} alt={dog.parents.father.name}  loading="lazy" />
         </div>
         <div>
           <p>Mère: {dog.parents.mother.name}</p>
-          <img src={dog.parents.mother.image || placeholder} alt={dog.parents.mother.name} />
+          <img src={dog.parents.mother.image || placeholder} alt={dog.parents.mother.name}  loading="lazy" />
         </div>
       </div>
 

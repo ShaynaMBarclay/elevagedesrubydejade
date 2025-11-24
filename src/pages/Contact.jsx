@@ -78,7 +78,7 @@ export default function Contact() {
 
       <div className="contact-content">
         <div className="contact-image">
-          <img src={contactImg} alt="Contact Ruby de Jade" />
+          <img src={contactImg} alt="Contact Ruby de Jade"  loading="lazy" />
         </div>
 
         <div className="contact-info">

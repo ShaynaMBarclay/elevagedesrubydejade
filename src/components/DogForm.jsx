@@ -299,7 +299,7 @@ export default function DogForm({ dogId, isEdit = false }) {
                   ? URL.createObjectURL(newParentImages[parent])
                   : formData.parents[parent].image || placeholder
               }
-              alt={formData.parents[parent].name || parent}
+              alt={formData.parents[parent].name || parent}  loading="lazy"
               className="preview-img"
             />
           </div>
@@ -310,10 +310,10 @@ export default function DogForm({ dogId, isEdit = false }) {
 
         <div className="dog-images-preview">
           {formData.images.map((img, i) => (
-            <img key={i} src={img} alt="" className="preview-img" />
+            <img key={i} src={img} alt="" className="preview-img"  loading="lazy" />
           ))}
           {newImages.map((file, i) => (
-            <img key={"new" + i} src={URL.createObjectURL(file)} className="preview-img" />
+            <img key={"new" + i} src={URL.createObjectURL(file)} className="preview-img"  loading="lazy" />
           ))}
         </div>
 

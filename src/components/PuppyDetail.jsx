@@ -103,7 +103,7 @@ export default function PuppyDetail() {
         {puppy.allImages.length > 0 ? (
           puppy.allImages.map((img, idx) => <img key={idx} src={img} alt={`${puppy.name} ${idx + 1}`} />)
         ) : (
-          <img src={placeholder} alt={puppy.name} />
+          <img src={placeholder} alt={puppy.name}  loading="lazy" />
         )}
       </div>
 
@@ -138,11 +138,11 @@ export default function PuppyDetail() {
         <h2>Les parents</h2>
         <div>
           <p>Père: {puppy.parents.father.name}</p>
-          <img src={puppy.parents.father.image} alt={puppy.parents.father.name} />
+          <img src={puppy.parents.father.image} alt={puppy.parents.father.name}  loading="lazy" />
         </div>
         <div>
           <p>Mère: {puppy.parents.mother.name}</p>
-          <img src={puppy.parents.mother.image} alt={puppy.parents.mother.name} />
+          <img src={puppy.parents.mother.image} alt={puppy.parents.mother.name}   loading="lazy"/>
         </div>
       </div>
 

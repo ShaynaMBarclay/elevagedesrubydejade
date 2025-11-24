@@ -37,7 +37,7 @@ export default function News() {
             <h2>Portée 2025</h2>
             <div className="update-content update-vertical">
             <div className="update-image">
-                <img src={updateImg} alt="Portée 2025 Ruby & Roberto" />
+                <img src={updateImg} alt="Portée 2025 Ruby & Roberto"  loading="lazy" />
               </div>
               <div className="update-text">
                 <p>🐾 Les chiots de Ruby & Roberto arrivent cet automne ! 🐾</p>

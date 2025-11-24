@@ -60,7 +60,7 @@ export default function Gallery() {
             {(photoSection === "expo" ? enExpo : enFamille).map((img) => (
               <div key={img.id} className="gallery-item">
                 {img.src ? (
-                  <img src={img.src} alt={img.alt} />
+                  <img src={img.src} alt={img.alt}  loading="lazy" />
                 ) : (
                   <div className="placeholder">Image à venir</div>
                 )}

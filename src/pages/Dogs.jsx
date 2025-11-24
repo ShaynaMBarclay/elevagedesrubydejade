@@ -163,7 +163,7 @@ export default function Dogs() {
             {filteredDogs.map((dog) => (
               <div key={dog.id} className="dog-card">
                 <Link to={`/chiens/${dog.id}`}>
-                  <img src={dog.image || placeholder} alt={dog.name} />
+                  <img src={dog.image || placeholder} alt={dog.name}   loading="lazy"/>
                   <p className="dog-name">{dog.name}</p>
                 </Link>
               </div>
