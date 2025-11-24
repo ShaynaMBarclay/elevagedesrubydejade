@@ -174,42 +174,6 @@
   background: #999;
 }
 
-/* Admin controls container */
-.admin-controls {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin: 1.5rem 0;
-  flex-wrap: wrap;
-}
-
-/* Unified button style */
-.admin-controls a,
-.admin-controls button {
-  display: inline-block;
-  padding: 0.6rem 1.5rem;
-  font-weight: 600;
-  font-size: 1rem;
-  border-radius: 30px; /* pill shape */
-  border: 2px solid var(--primary);
-  cursor: pointer;
-  text-decoration: none;
-  text-align: center;
-  min-width: 120px; /* ensures equal width */
-  transition: all 0.3s ease;
-}
-
-/* Edit button */
-.edit-btn {
-  background-color: var(--primary);
-  color: white;
-}
-
-.edit-btn:hover {
-  background-color: white;
-  color: var(--primary);
-}
-
 /* Delete button */
 .delete-btn {
   background-color: transparent;

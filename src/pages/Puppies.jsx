@@ -17,7 +17,6 @@ export default function Puppies() {
   const [activeCategory, setActiveCategory] = useState("chiots");
   const [activeDogType, setActiveDogType] = useState("all");
 
-  // Puppy categories
   const categories = [
     { id: "chiots", label: "Chiots" },
     { id: "disponibles", label: "Chiots disponibles" },
@@ -25,24 +24,21 @@ export default function Puppies() {
     { id: "nes", label: "Chiots nés chez nous" },
   ];
 
-  // Dog types (same UI options as dogs)
   const dogTypes = [
     { id: "all", label: "Tous" },
     { id: "tcheque", label: "Chien-loup tchecoslovaque" },
     { id: "berger", label: "Berger Blanc Suisse" },
   ];
 
-  // Fetch puppies from Firestore
   useEffect(() => {
     async function fetchPuppies() {
       try {
         const querySnapshot = await getDocs(collection(db, "puppies"));
-
         const puppyData = await Promise.all(
           querySnapshot.docs.map(async (doc) => {
             const data = doc.data();
 
-            // Get first image or placeholder
+            // Get first image for card
             let imageUrl = placeholder;
             if (data.images && data.images.length > 0) {
               try {
@@ -50,11 +46,7 @@ export default function Puppies() {
               } catch {}
             }
 
-            return {
-              id: doc.id,
-              ...data,
-              image: imageUrl,
-            };
+            return { id: doc.id, ...data, image: imageUrl };
           })
         );
 
@@ -69,7 +61,6 @@ export default function Puppies() {
     fetchPuppies();
   }, []);
 
-  // Set category based on URL hash
   useEffect(() => {
     const hash = location.hash.replace("#", "");
     if (categories.find((cat) => cat.id === hash)) {
@@ -84,7 +75,6 @@ export default function Puppies() {
 
   const handleDogTypeClick = (id) => setActiveDogType(id);
 
-  // Filtering logic (same style as Dogs.jsx)
   const filteredPuppies = puppies.filter((puppy) => {
     const categoryMatch =
       activeCategory === "chiots"
@@ -110,7 +100,6 @@ export default function Puppies() {
         Découvrez nos chiots disponibles, les futures portées, et ceux nés chez nous.
       </p>
 
-      {/* ---- Dog Type Filters ---- */}
       <div className="dog-type-filters">
         {dogTypes.map((type) => (
           <button
@@ -123,7 +112,6 @@ export default function Puppies() {
         ))}
       </div>
 
-      {/* ---- Category Tabs ---- */}
       <div className="puppies-categories">
         {categories.map((cat) => (
           <button
@@ -136,7 +124,6 @@ export default function Puppies() {
         ))}
       </div>
 
-      {/* ---- Admin: Add Puppy ---- */}
       {isAdmin && (
         <div className="admin-actions">
           <Link to="/chiots/add" className="add-puppy-btn">
@@ -145,7 +132,6 @@ export default function Puppies() {
         </div>
       )}
 
-      {/* ---- Puppy Grid ---- */}
       <div className="puppies-content">
         {loading ? (
           <p>Chargement des chiots...</p>
@@ -159,21 +145,6 @@ export default function Puppies() {
                   <img src={puppy.image || placeholder} alt={puppy.name} />
                   <p className="dog-name">{puppy.name}</p>
                 </Link>
-
-                {/* ---- Admin: Edit/Delete ---- */}
-                {isAdmin && (
-                  <div className="admin-actions">
-                    <button onClick={() => navigate(`/chiots/edit/${puppy.id}`)}>
-                      Modifier
-                    </button>
-
-                    <button
-                      onClick={() => navigate(`/chiots/delete/${puppy.id}`)}
-                    >
-                      Supprimer
-                    </button>
-                  </div>
-                )}
               </div>
             ))}
           </div>
