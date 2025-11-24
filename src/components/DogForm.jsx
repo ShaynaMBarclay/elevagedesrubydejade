@@ -10,6 +10,12 @@ export default function DogForm({ dogId, isEdit = false }) {
   const navigate = useNavigate();
 
   const dogBreeds = ["Chien-loup tchecoslovaque", "Berger Blanc Suisse"];
+  const puppyFilters = [
+    "Chiots",
+    "Chiots disponibles",
+    "Futures Portées",
+    "Chiots nés chez nous",
+  ];
 
   const [formData, setFormData] = useState({
     name: "",
@@ -34,11 +40,12 @@ export default function DogForm({ dogId, isEdit = false }) {
       mother: { name: "", image: "" },
     },
     images: [],
-    category: "chiots", // <-- THIS CHOOSES DOGS OR PUPPIES COLLECTION
+    category: "chiots", // chooses dogs or puppies collection
     retraite: false,
     memoire: false,
   });
 
+  const [selectedFilters, setSelectedFilters] = useState([]); // start empty
   const [newImages, setNewImages] = useState([]);
   const [newParentImages, setNewParentImages] = useState({
     father: null,
@@ -52,7 +59,10 @@ export default function DogForm({ dogId, isEdit = false }) {
         const col = formData.category === "chiots" ? "puppies" : "dogs";
         const docRef = doc(db, col, dogId);
         const snapshot = await getDoc(docRef);
-        if (snapshot.exists()) setFormData(snapshot.data());
+        if (snapshot.exists()) {
+          setFormData(snapshot.data());
+          if (snapshot.data().filters) setSelectedFilters(snapshot.data().filters);
+        }
       };
       fetchDog();
     }
@@ -93,26 +103,32 @@ export default function DogForm({ dogId, isEdit = false }) {
       [parent]: e.target.files[0],
     });
 
+  const handleFilterToggle = (filter) => {
+    setSelectedFilters((prev) =>
+      prev.includes(filter)
+        ? prev.filter((f) => f !== filter)
+        : [...prev, filter]
+    );
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const collectionName =
-        formData.category === "chiots" ? "puppies" : "dogs";
+      const collectionName = formData.category === "chiots" ? "puppies" : "dogs";
+
+      const dataToSave = {
+        ...formData,
+        filters: selectedFilters,
+        images: formData.images,
+        parents: formData.parents,
+      };
 
       let docRef;
-
       if (isEdit && dogId) {
         docRef = doc(db, collectionName, dogId);
-        await updateDoc(docRef, {
-          ...formData,
-          images: formData.images,
-          parents: formData.parents,
-        });
+        await updateDoc(docRef, dataToSave);
       } else {
-        docRef = await addDoc(collection(db, collectionName), {
-          ...formData,
-          images: [],
-        });
+        docRef = await addDoc(collection(db, collectionName), dataToSave);
       }
 
       const finalDocId = docRef.id || dogId;
@@ -150,7 +166,6 @@ export default function DogForm({ dogId, isEdit = false }) {
         parents: finalParents,
       });
 
-      // Redirect
       navigate(formData.category === "chiots" ? "/chiots" : "/chiens");
     } catch (error) {
       console.error("Erreur ajout/édition chien/chiot:", error);
@@ -159,7 +174,10 @@ export default function DogForm({ dogId, isEdit = false }) {
 
   return (
     <main className="edit-dog-page">
-      <h1>{isEdit ? "Modifier" : "Ajouter"} un {formData.category === "chiots" ? "chiot" : "chien"}</h1>
+      <h1>
+        {isEdit ? "Modifier" : "Ajouter"} un{" "}
+        {formData.category === "chiots" ? "chiot" : "chien"}
+      </h1>
 
       <form className="edit-dog-form" onSubmit={handleSubmit}>
         <h2>Informations générales</h2>
@@ -226,6 +244,25 @@ export default function DogForm({ dogId, isEdit = false }) {
 
         <label>Évaluation</label>
         <input name="rating" value={formData.rating} onChange={handleChange} />
+
+        {/* Puppy Filters */}
+        {formData.category === "chiots" && (
+          <>
+            <h2>Filtres</h2>
+            <div className="puppy-filters">
+              {puppyFilters.map((filter) => (
+                <label key={filter} className="filter-checkbox">
+                  <input
+                    type="checkbox"
+                    checked={selectedFilters.includes(filter)}
+                    onChange={() => handleFilterToggle(filter)}
+                  />
+                  {filter}
+                </label>
+              ))}
+            </div>
+          </>
+        )}
 
         <h2>Santé</h2>
         {["elbowDysplasia", "hipDysplasia", "md", "mdr1", "nah"].map((f) => (

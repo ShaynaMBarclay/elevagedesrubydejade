@@ -30,6 +30,7 @@ export default function Puppies() {
     { id: "berger", label: "Berger Blanc Suisse" },
   ];
 
+  // Fetch puppies from Firebase
   useEffect(() => {
     async function fetchPuppies() {
       try {
@@ -61,6 +62,7 @@ export default function Puppies() {
     fetchPuppies();
   }, []);
 
+  // Handle hash changes for categories
   useEffect(() => {
     const hash = location.hash.replace("#", "");
     if (categories.find((cat) => cat.id === hash)) {
@@ -75,11 +77,12 @@ export default function Puppies() {
 
   const handleDogTypeClick = (id) => setActiveDogType(id);
 
+  // Filter puppies based on category and breed
   const filteredPuppies = puppies.filter((puppy) => {
-    const categoryMatch =
-      activeCategory === "chiots"
-        ? true
-        : puppy.category === activeCategory;
+    const categoryLabel = categories.find((cat) => cat.id === activeCategory)?.label;
+
+    // Only show puppy if its filters include the active category
+    const categoryMatch = puppy.filters && puppy.filters.includes(categoryLabel);
 
     const typeMatch =
       activeDogType === "all"
@@ -99,6 +102,14 @@ export default function Puppies() {
       <p className="intro">
         Découvrez nos chiots disponibles, les futures portées, et ceux nés chez nous.
       </p>
+
+      {isAdmin && (
+        <div className="admin-actions">
+          <Link to="/chiots/add" className="add-dog-btn">
+            Ajouter un chiot
+          </Link>
+        </div>
+      )}
 
       <div className="dog-type-filters">
         {dogTypes.map((type) => (
@@ -123,14 +134,6 @@ export default function Puppies() {
           </button>
         ))}
       </div>
-
-      {isAdmin && (
-        <div className="admin-actions">
-          <Link to="/chiots/add" className="add-puppy-btn">
-            Ajouter un chiot
-          </Link>
-        </div>
-      )}
 
       <div className="puppies-content">
         {loading ? (

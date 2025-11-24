@@ -155,6 +155,27 @@
   background-color: var(--dark);
 }
 
+.puppy-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.filter-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.filter-checkbox input[type="checkbox"] {
+  transform: scale(1.2);
+  cursor: pointer;
+}
+
+
 /* Responsive tweaks */
 @media (max-width: 1024px) {
   .edit-dog-form {

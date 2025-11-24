@@ -127,6 +127,7 @@
   background: var(--primary);
   color: white;
   padding: 0.7rem 2rem;
+  margin-bottom: 0.3rem;
   border-radius: 30px;
   font-family: var(--font-body);
   font-weight: 600;
