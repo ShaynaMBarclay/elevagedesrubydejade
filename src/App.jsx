@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./styles/App.css";
+import ScrollToTop from "./components/ScrollToTop";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import SecondaryNav from "./components/SecondaryNav";
@@ -27,6 +28,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 function App() {
   return (
     <Router>
+       <ScrollToTop />
       <div className="app-layout">    
         <Navbar />
         <SecondaryNav />
