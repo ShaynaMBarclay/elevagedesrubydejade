@@ -132,18 +132,26 @@ export default function AlbumDetail() {
     <main className="gallery-page">
       <h1>{album.name}</h1>
       {isAdmin && (
-        <div className="admin-controls">
-          <input
-            type="file"
-            multiple
-            onChange={handleFileChange}
-            accept="image/*,video/*"
-          />
-          <button onClick={handleUpload} className="upload-btn">
-            Ajouter médias
-          </button>
-        </div>
-      )}
+  <div className="admin-controls">
+    {/* File input */}
+    <input
+      type="file"
+      multiple
+      onChange={handleFileChange}
+      accept="image/*,video/*"
+      className="file-input"
+    />
+    
+    <button
+      onClick={handleUpload}
+      className="upload-btn"
+      style={{ marginTop: "0.5rem" }}
+    >
+      Ajouter médias
+    </button>
+  </div>
+)}
+      
 
       <div className="gallery-grid">
         {album.media.length === 0 && <p>Aucun média pour cet album.</p>}

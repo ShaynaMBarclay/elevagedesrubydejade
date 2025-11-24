@@ -56,7 +56,7 @@ function App() {
             <Route path="/liens" element={<Links />} />
 
             {/* Admin Pages */}
-            <Route path="/admin/login" element={<AdminLogin />} />
+            <Route path="/login" element={<AdminLogin />} />
 
             <Route
               path="/admin"

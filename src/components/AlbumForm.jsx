@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { db, storage } from "../firebase";
 import { collection, addDoc, doc, updateDoc, getDoc } from "firebase/firestore";
-import { ref, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useNavigate } from "react-router-dom";
 import "../styles/AlbumForm.css";
 
@@ -49,17 +49,13 @@ export default function AlbumForm({ albumId, isEdit = false }) {
 
       for (let file of newFiles) {
         const fileType = file.type.startsWith("image") ? "image" : "video";
-        const fileRef = ref(
-          storage,
-          `galleries/${finalId}/${Date.now()}-${file.name}`
-        );
+        const fileRef = ref(storage, `galleries/${finalId}/${Date.now()}-${file.name}`);
         await uploadBytes(fileRef, file);
         const url = await getDownloadURL(fileRef);
         uploadedMedia.push({ type: fileType, url, name: file.name });
       }
 
       await updateDoc(doc(db, "galleries", finalId), { media: uploadedMedia });
-
       navigate("/galeries");
     } catch (err) {
       console.error("Erreur création/édition album:", err);
@@ -71,14 +67,22 @@ export default function AlbumForm({ albumId, isEdit = false }) {
       <h1>{isEdit ? "Éditer" : "Créer"} un album</h1>
       <form className="album-form" onSubmit={handleSubmit}>
         <label>Nom de l'album</label>
-        <input
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-        />
+        <input name="name" value={formData.name} onChange={handleChange} />
 
-        <label>Ajouter des fichiers</label>
-        <input type="file" multiple accept="image/*,video/*" onChange={handleFileUpload} />
+        <div className="media-upload-wrapper">
+          <label>Ajouter des fichiers</label>
+          <input type="file" multiple accept="image/*,video/*" onChange={handleFileUpload} />
+          
+          {isEdit && (
+            <button
+              type="button"
+              className="add-media-btn"
+              onClick={() => console.log("Ajouter Media clicked")}
+            >
+              Ajouter Média
+            </button>
+          )}
+        </div>
 
         <div className="preview-grid">
           {formData.media.map((m, i) => (

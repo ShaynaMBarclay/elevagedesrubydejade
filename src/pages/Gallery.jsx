@@ -62,7 +62,6 @@ export default function Gallery() {
           >
             Créer un nouvel album
           </button>
-          <div className="admin-banner">Mode Admin Activé</div>
         </div>
       )}
 
