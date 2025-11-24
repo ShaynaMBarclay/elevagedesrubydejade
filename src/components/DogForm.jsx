@@ -6,7 +6,7 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import "../styles/EditDog.css";
 import placeholder from "../assets/placeholder.png";
 
-export default function DogForm({ dogId, isEdit = false }) {
+export default function DogForm({ dogId, isEdit = false, defaultCategory }) {
   const navigate = useNavigate();
 
   const dogBreeds = ["Chien-loup tchecoslovaque", "Berger Blanc Suisse"];
@@ -40,7 +40,7 @@ export default function DogForm({ dogId, isEdit = false }) {
       mother: { name: "", image: "" },
     },
     images: [],
-    category: "chiots", // chooses dogs or puppies collection
+    category: defaultCategory || "chiots",
     retraite: false,
     memoire: false,
   });
