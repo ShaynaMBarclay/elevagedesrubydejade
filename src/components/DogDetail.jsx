@@ -14,6 +14,7 @@ export default function DogDetail() {
   const [dog, setDog] = useState(null);
   const [loading, setLoading] = useState(true);
   const [activeYear, setActiveYear] = useState("2025");
+  const [lightboxImage, setLightboxImage] = useState(null); // lightbox state
 
   useEffect(() => {
     async function fetchDog() {
@@ -38,9 +39,6 @@ export default function DogDetail() {
             );
           }
 
-          // First image as main
-          const mainImage = allImages[0] || placeholder;
-
           // Parent images
           const fatherImg = data.parents?.father?.image
             ? await getDownloadURL(ref(storage, data.parents.father.image))
@@ -52,7 +50,6 @@ export default function DogDetail() {
           setDog({
             id: docSnap.id,
             ...data,
-            image: mainImage,
             allImages, // store all images for detail page
             parents: {
               father: {
@@ -124,26 +121,57 @@ export default function DogDetail() {
       <div className="dog-images">
         {dog.allImages && dog.allImages.length > 0 ? (
           dog.allImages.map((img, idx) => (
-            <img key={idx} src={img || placeholder} alt={`${dog.name} ${idx + 1}`} />
+            <img
+              key={idx}
+              src={img || placeholder}
+              alt={`${dog.name} ${idx + 1}`}
+              onClick={() => setLightboxImage(img)}
+              style={{ cursor: "pointer" }}
+            />
           ))
         ) : (
           <img src={placeholder} alt={dog.name} loading="lazy" />
         )}
       </div>
 
+      {/* Parent images with lightbox */}
+      <div className="dog-category parents">
+        <h2>Les parents</h2>
+        <div>
+          <p>Père: {dog.parents.father.name}</p>
+          <img
+            src={dog.parents.father.image || placeholder}
+            alt={dog.parents.father.name}
+            loading="lazy"
+            onClick={() => setLightboxImage(dog.parents.father.image)}
+            style={{ cursor: "pointer" }}
+          />
+        </div>
+        <div>
+          <p>Mère: {dog.parents.mother.name}</p>
+          <img
+            src={dog.parents.mother.image || placeholder}
+            alt={dog.parents.mother.name}
+            loading="lazy"
+            onClick={() => setLightboxImage(dog.parents.mother.image)}
+            style={{ cursor: "pointer" }}
+          />
+        </div>
+      </div>
+
       {isAdmin && (
-  <div className="admin-controls">
-    <button
-      className="edit-btn"
-      onClick={() => navigate(`/chiens/edit/${dog.id}`)}
-    >
-      Modifier
-    </button>
-    <button onClick={handleDeleteDog} className="delete-btn">
-      Supprimer
-    </button>
-  </div>
-)}
+        <div className="admin-controls">
+          <button
+            className="edit-btn"
+            onClick={() => navigate(`/chiens/edit/${dog.id}`)}
+          >
+            Modifier
+          </button>
+          <button onClick={handleDeleteDog} className="delete-btn">
+            Supprimer
+          </button>
+        </div>
+      )}
 
       <div className="dog-category informations">
         <h2>Informations</h2>
@@ -161,18 +189,6 @@ export default function DogDetail() {
           <li>Mutation MDR1: {dog.health?.mdr1 || "N/A"}</li>
           <li>Nanisme hypophysaire (NAH): {dog.health?.nah || "N/A"}</li>
         </ul>
-      </div>
-
-      <div className="dog-category parents">
-        <h2>Les parents</h2>
-        <div>
-          <p>Père: {dog.parents.father.name}</p>
-          <img src={dog.parents.father.image || placeholder} alt={dog.parents.father.name}  loading="lazy" />
-        </div>
-        <div>
-          <p>Mère: {dog.parents.mother.name}</p>
-          <img src={dog.parents.mother.image || placeholder} alt={dog.parents.mother.name}  loading="lazy" />
-        </div>
       </div>
 
       <button className="pedigree-btn">Voir le pédigree complet</button>
@@ -201,6 +217,14 @@ export default function DogDetail() {
           <p>Les résultats de {activeYear} apparaîtront ici.</p>
         </div>
       </div>
+
+      {/* Lightbox overlay */}
+      {lightboxImage && (
+        <div className="lightbox-overlay" onClick={() => setLightboxImage(null)}>
+          <button className="lightbox-close" onClick={() => setLightboxImage(null)}>×</button>
+          <img src={lightboxImage} alt="Full View" className="lightbox-img" />
+        </div>
+      )}
     </main>
   );
 }
