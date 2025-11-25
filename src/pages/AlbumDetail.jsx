@@ -22,6 +22,7 @@ export default function AlbumDetail() {
   const [loading, setLoading] = useState(true);
   const [newFiles, setNewFiles] = useState([]);
   const [filter, setFilter] = useState("all"); 
+  const [lightboxImage, setLightboxImage] = useState(null); // lightbox state
 
   // Fetch album
   useEffect(() => {
@@ -120,7 +121,6 @@ export default function AlbumDetail() {
   if (loading) return <p>Chargement de l'album...</p>;
   if (!album) return <p>Album non trouvé.</p>;
 
-  // Filter media based on filter state
   const filteredMedia = album.media.filter((m) => {
     if (filter === "all") return true;
     if (filter === "images") return m.type === "image";
@@ -174,7 +174,13 @@ export default function AlbumDetail() {
         {filteredMedia.map((m, i) => (
           <div key={i} className="gallery-item">
             {m.type === "image" ? (
-              <img src={m.url || placeholder} alt={m.name} loading="lazy" />
+              <img
+                src={m.url || placeholder}
+                alt={m.name}
+                loading="lazy"
+                onClick={() => setLightboxImage(m.url)}
+                style={{ cursor: "pointer" }}
+              />
             ) : (
               <video src={m.url} controls preload="metadata" />
             )}
@@ -187,10 +193,16 @@ export default function AlbumDetail() {
               </button>
             )}
           </div>
-          
         ))}
-        
       </div>
+
+      {/* Lightbox overlay */}
+      {lightboxImage && (
+        <div className="lightbox-overlay" onClick={() => setLightboxImage(null)}>
+          <button className="lightbox-close" onClick={() => setLightboxImage(null)}>×</button>
+          <img src={lightboxImage} alt="Full View" className="lightbox-img" />
+        </div>
+      )}
     </main>
   );
 }

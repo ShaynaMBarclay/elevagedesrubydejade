@@ -17,7 +17,7 @@
   padding: 1.2rem 2rem;
   display: flex;
   justify-content: center;
-  background-color: rgba(9, 84, 96, 0.867) !important;
+  background-color: rgb(9, 84, 96) !important;
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
   z-index: 1000;
   background: transparent;

@@ -45,7 +45,7 @@ export default function DogForm({ dogId, isEdit = false, defaultCategory }) {
     memoire: false,
   });
 
-  const [selectedFilters, setSelectedFilters] = useState([]); // start empty
+  const [selectedFilters, setSelectedFilters] = useState([]); 
   const [newImages, setNewImages] = useState([]);
   const [newParentImages, setNewParentImages] = useState({
     father: null,
@@ -308,14 +308,42 @@ export default function DogForm({ dogId, isEdit = false, defaultCategory }) {
         <h2>Photos</h2>
         <input type="file" multiple accept="image/*" onChange={handleImageUpload} />
 
-        <div className="dog-images-preview">
-          {formData.images.map((img, i) => (
-            <img key={i} src={img} alt="" className="preview-img"  loading="lazy" />
-          ))}
-          {newImages.map((file, i) => (
-            <img key={"new" + i} src={URL.createObjectURL(file)} className="preview-img"  loading="lazy" />
-          ))}
-        </div>
+       <div className="dog-images-preview">
+  {/* Existing images */}
+  {formData.images.map((img, i) => (
+    <div key={i} className="preview-item">
+      <img src={img} alt="" loading="lazy" />
+      <button
+        type="button"
+        className="remove-preview-btn"
+        onClick={() => {
+          setFormData((prev) => ({
+            ...prev,
+            images: prev.images.filter((_, index) => index !== i),
+          }));
+        }}
+      >
+        ×
+      </button>
+    </div>
+  ))}
+
+  {/* New images being added */}
+  {newImages.map((file, i) => (
+    <div key={"new" + i} className="preview-item">
+      <img src={URL.createObjectURL(file)} alt="" loading="lazy" />
+      <button
+        type="button"
+        className="remove-preview-btn"
+        onClick={() => {
+          setNewImages((prev) => prev.filter((_, index) => index !== i));
+        }}
+      >
+        ×
+      </button>
+    </div>
+  ))}
+</div>
 
         <button type="submit" className="save-btn">
           {isEdit ? "Mettre à jour" : "Enregistrer"}

@@ -34,7 +34,7 @@ export default function Navbar() {
       <div className="nav-container">
         <div className="nav-logo-group">
           <Link to="/" className="nav-logo">Élevage des Ruby de Jade</Link>
-          <span className="nav-subtitle">Chien-loup tchecoslovaque</span>
+          <span className="nav-subtitle">Chien-loup tchecoslovaque & <br/>Berger Blanc Suisse</span>
         </div>
 
         {/* Links */}

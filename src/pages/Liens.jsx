@@ -32,11 +32,16 @@ export default function Links() {
       </div>
 
       <section className="links-section">
-        <h2>Associations</h2>
+        <h2>Associations & Partenaire</h2>
         <ul>
           <li>
             <a href="https://barf-asso.fr/" target="_blank">
-              Association Barf-Asso
+              Barf-Asso
+            </a>
+            </li>
+            <li>
+             <a href="https://www.facebook.com/profile.php?id=100092117111315" target="_blank">
+              Inspirat'Yon 
             </a>
           </li>
         </ul>
