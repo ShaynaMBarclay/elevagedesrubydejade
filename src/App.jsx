@@ -23,6 +23,10 @@ import AddDog from "./pages/AddDog";
 import AddPuppy from "./pages/AddPuppy";
 import EditPuppy from "./pages/EditPuppy";
 
+import PedigreePage from "./pages/PedigreePage";
+import Pedigree from "./components/Pedigree";
+import EditPedigree from "./components/EditPedigree";
+
 import AdminLogin from "./pages/AdminLogin";
 
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -54,6 +58,11 @@ function App() {
             <Route path="/gallery/:albumId" element={<AlbumDetail />} />
 
             <Route path="/liens" element={<Links />} />
+
+            <Route path="/chiens/:id/pedigree" element={<PedigreePage />} />
+            <Route path="/chiens/:id/pedigree" element={<Pedigree />} />
+            <Route path="/chiens/:id/pedigree/edit" element={<EditPedigree />} />
+
 
             {/* Admin Pages */}
             <Route path="/login" element={<AdminLogin />} />

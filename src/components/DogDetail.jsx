@@ -190,8 +190,9 @@ export default function DogDetail() {
           <li>Nanisme hypophysaire (NAH): {dog.health?.nah || "N/A"}</li>
         </ul>
       </div>
-
-      <button className="pedigree-btn">Voir le pédigree complet</button>
+<Link to={`/chiens/${dog.id}/pedigree`} className="pedigree-btn">
+  Voir le pédigree complet
+</Link>
 
       <div className="dog-category palmares">
         <h2>Palmarès</h2>

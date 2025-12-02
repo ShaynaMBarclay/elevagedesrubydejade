@@ -1,0 +1,32 @@
+.edit-pedigree-page {
+  width: 90%;
+  max-width: 700px;
+  margin: 40px auto;
+}
+
+.form-section {
+  margin-bottom: 30px;
+}
+
+input {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-bottom: 12px;
+}
+
+.save-btn {
+  padding: 12px 20px;
+  background: #c2a46d;
+  border: none;
+  color: white;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.save-btn:hover {
+  background: #a68855;
+}

@@ -17,15 +17,14 @@
   padding: 1.2rem 2rem;
   display: flex;
   justify-content: center;
-  background-color: rgb(9, 84, 96) !important;
+  background-color: rgb(9, 84, 96);
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
   z-index: 1000;
-  background: transparent;
 }
 
 .navbar.scrolled {
-  background-color: rgba(5, 77, 88, 0.852) !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.637);
+  background-color: rgba(5, 77, 88, 0.95);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
 }
 
 .nav-container {
@@ -53,7 +52,7 @@
 
 .nav-subtitle {
   font-family: var(--font-body);
-  font-size: 0.98rem;
+  font-size: 0.95rem;
   font-style: italic;
   color: rgb(147, 230, 14);
   margin-left: 2px;
@@ -63,6 +62,7 @@
 .nav-links {
   display: flex;
   gap: 2rem;
+  align-items: center;
 }
 
 .nav-links a {
@@ -86,24 +86,24 @@
   display: flex;
   align-items: center;
   gap: 0.3rem;
-  color: white;
-  text-decoration: none;
 }
 
-/* Hamburger */
+/* === Hamburger === */
 .hamburger {
   display: none;
   flex-direction: column;
-  cursor: pointer;
   gap: 5px;
+  cursor: pointer;
+  z-index: 1100;
 }
 
 .hamburger span {
   width: 25px;
   height: 3px;
   background: white;
-  transition: 0.3s;
+  transition: all 0.3s ease;
 }
+
 
 .hamburger.active span:nth-child(1) {
   transform: rotate(45deg) translate(5px, 5px);
@@ -115,19 +115,18 @@
   transform: rotate(-45deg) translate(5px, -5px);
 }
 
-/* === Inline Logout Button === */
+/* === Logout Button === */
 .logout-button {
   font-family: var(--font-body);
   font-weight: 500;
   color: white;
   background: transparent;
   border: 1px solid rgba(255, 255, 255, 0.7);
-  padding: 0.3rem;
+  padding: 0.3rem 0.5rem;
   border-radius: 6px;
   cursor: pointer;
   font-size: 0.9rem;
   transition: all 0.3s ease;
-  align-self: center;
 }
 
 .logout-button:hover {
@@ -136,34 +135,38 @@
   transform: translateY(-1px);
 }
 
-
-
+/* Mobile */
 @media (max-width: 768px) {
+  .hamburger {
+    display: flex;
+  }
+
   .nav-links {
-    display: none !important; 
-    position: fixed !important;
-    top: 0 !important;
+    position: fixed;
+    top: 0;
     right: 0;
     height: 100vh;
     width: 220px;
     flex-direction: column;
     background-color: rgba(5,77,88,0.95);
-    padding: 3rem 1.5rem;
+    padding: 4rem 1.5rem;
     gap: 1.5rem;
-    z-index: 999;
-    transition: transform 0.3s ease;
     transform: translateX(100%);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    display: flex;
+    pointer-events: none;
+    z-index: 1000;
   }
 
   .nav-links.open {
-    display: flex !important; 
     transform: translateX(0);
+    opacity: 1;
+    pointer-events: auto;
   }
 
-  .hamburger {
-    display: flex !important;
-    flex-direction: column;
-    gap: 5px;
-    cursor: pointer;
+  .nav-links a {
+    font-size: 1.2rem;
+    padding: 0.5rem 0;
   }
 }

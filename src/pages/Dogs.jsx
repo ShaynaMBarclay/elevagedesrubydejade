@@ -77,38 +77,54 @@ export default function Dogs() {
   const handleDogTypeClick = (id) => setActiveDogType(id);
 
   const filteredDogs = dogs.filter((dog) => {
-  // Exclude dogs that are retired or in memory from normal categories
-  const isSpecial = dog.retraite || dog.memoire;
+    const filters = dog.filters || [];
 
-  // Status categories
-  if (activeCategory === "retraites") return dog.retraite;
-  if (activeCategory === "memoire") return dog.memoire;
+    // Special categories (exclusive)
+    if (activeCategory === "retraites") return filters.includes("Retraités");
+    if (activeCategory === "memoire") return filters.includes("En mémoire");
 
-  // Regular categories (exclude retired/memoire)
-  if (isSpecial) return false;
+    // Regular categories exclude special dogs
+    const isSpecial = filters.includes("Retraités") || filters.includes("En mémoire");
 
-  const categoryMatch =
-    activeCategory === "chiens"
-      ? true
-      : activeCategory === "males"
-      ? dog.sex === "Mâle"
-      : activeCategory === "femelles"
-      ? dog.sex === "Femelle"
-      : activeCategory === "resultats"
-      ? dog.category === "resultats"
-      : false;
+    if (isSpecial) return false;
 
-  const typeMatch =
-    activeDogType === "all"
-      ? true
-      : activeDogType === "tcheque"
-      ? dog.breed === "Chien-loup tchecoslovaque"
-      : activeDogType === "berger"
-      ? dog.breed === "Berger Blanc Suisse"
-      : false;
+    // Match categories
+    let categoryMatch = false;
+    switch (activeCategory) {
+      case "chiens":
+        categoryMatch = true;
+        break;
+      case "males":
+        categoryMatch = dog.sex === "Mâle";
+        break;
+      case "femelles":
+        categoryMatch = dog.sex === "Femelle";
+        break;
+      case "resultats":
+        categoryMatch = filters.includes("Résultats");
+        break;
+      default:
+        categoryMatch = false;
+    }
 
-  return categoryMatch && typeMatch;
-});
+    // Match type
+    let typeMatch = false;
+    switch (activeDogType) {
+      case "all":
+        typeMatch = true;
+        break;
+      case "tcheque":
+        typeMatch = dog.breed === "Chien-loup tchecoslovaque";
+        break;
+      case "berger":
+        typeMatch = dog.breed === "Berger Blanc Suisse";
+        break;
+      default:
+        typeMatch = true;
+    }
+
+    return categoryMatch && typeMatch;
+  });
 
   return (
     <main className="dogs-page">
@@ -126,7 +142,7 @@ export default function Dogs() {
         </div>
       )}
 
-      {/* ---- Dog Type Filters ---- */}
+      {/* Dog Type Filters */}
       <div className="dog-type-filters">
         {dogTypes.map((type) => (
           <button
@@ -139,7 +155,7 @@ export default function Dogs() {
         ))}
       </div>
 
-      {/* ---- Categories Tabs ---- */}
+      {/* Categories Tabs */}
       <div className="dog-categories">
         {categories.map((cat) => (
           <button
@@ -152,7 +168,7 @@ export default function Dogs() {
         ))}
       </div>
 
-      {/* ---- Dog Grid ---- */}
+      {/* Dog Grid */}
       <div className="dog-content">
         {loading ? (
           <p>Loading dogs...</p>
@@ -163,7 +179,7 @@ export default function Dogs() {
             {filteredDogs.map((dog) => (
               <div key={dog.id} className="dog-card">
                 <Link to={`/chiens/${dog.id}`}>
-                  <img src={dog.image || placeholder} alt={dog.name}   loading="lazy"/>
+                  <img src={dog.image || placeholder} alt={dog.name} loading="lazy" />
                   <p className="dog-name">{dog.name}</p>
                 </Link>
               </div>
