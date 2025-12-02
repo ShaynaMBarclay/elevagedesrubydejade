@@ -6,6 +6,7 @@ import { db, storage } from "../firebase";
 import { getDownloadURL, ref, deleteObject } from "firebase/storage";
 import placeholder from "../assets/placeholder.png";
 import "../styles/PuppyDetail.css";
+import Pedigree from "../components/Pedigree";
 
 export default function PuppyDetail() {
   const { id } = useParams();
@@ -13,6 +14,7 @@ export default function PuppyDetail() {
   const navigate = useNavigate();
   const [puppy, setPuppy] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [showPedigree, setShowPedigree] = useState(false);
 
   useEffect(() => {
     async function fetchPuppy() {
@@ -26,19 +28,18 @@ export default function PuppyDetail() {
         }
         const data = docSnap.data();
 
-        // Fetch all images
-        let allImages = [];
-        if (data.images && data.images.length > 0) {
-          allImages = await Promise.all(
-            data.images.map(async (imgPath) => {
-              try {
-                return await getDownloadURL(ref(storage, imgPath));
-              } catch {
-                return placeholder;
-              }
-            })
-          );
-        }
+        // Fetch all puppy images
+        const allImages = data.images && data.images.length > 0
+          ? await Promise.all(
+              data.images.map(async (imgPath) => {
+                try {
+                  return await getDownloadURL(ref(storage, imgPath));
+                } catch {
+                  return placeholder;
+                }
+              })
+            )
+          : [];
 
         // Parent images
         const fatherImg = data.parents?.father?.image
@@ -53,8 +54,8 @@ export default function PuppyDetail() {
           ...data,
           allImages,
           parents: {
-            father: { name: data.parents?.father?.name || "Inconnu", image: fatherImg },
-            mother: { name: data.parents?.mother?.name || "Inconnu", image: motherImg },
+            father: { name: data.parents?.father?.name || "Inconnu", image: fatherImg, ...data.parents?.father },
+            mother: { name: data.parents?.mother?.name || "Inconnu", image: motherImg, ...data.parents?.mother },
           },
         });
         setLoading(false);
@@ -93,6 +94,23 @@ export default function PuppyDetail() {
   if (loading) return <p>Chargement...</p>;
   if (!puppy) return <p>Chiot non trouvé</p>;
 
+  // Build the pedigree object for the tree
+  const pedigree = {
+    subject: { name: puppy.name, image: puppy.allImages?.[0] || placeholder },
+    father: {
+      name: puppy.parents.father?.name || "Inconnu",
+      image: puppy.parents.father?.image || placeholder,
+    },
+    mother: {
+      name: puppy.parents.mother?.name || "Inconnu",
+      image: puppy.parents.mother?.image || placeholder,
+    },
+    paternalGF: { name: puppy.parents.father?.grandfather?.name || "Inconnu", image: placeholder },
+    paternalGM: { name: puppy.parents.father?.grandmother?.name || "Inconnu", image: placeholder },
+    maternalGF: { name: puppy.parents.mother?.grandfather?.name || "Inconnu", image: placeholder },
+    maternalGM: { name: puppy.parents.mother?.grandmother?.name || "Inconnu", image: placeholder },
+  };
+
   return (
     <main className="puppy-detail-page">
       <Link to="/chiots">← Retour à nos chiots</Link>
@@ -114,7 +132,7 @@ export default function PuppyDetail() {
         </div>
       )}
 
-      {/* Informations */}
+      {/* Information */}
       <div className="puppy-category informations">
         <h2>Informations</h2>
         <p><strong>Sexe:</strong> {puppy.sex}</p>
@@ -146,8 +164,13 @@ export default function PuppyDetail() {
         </div>
       </div>
 
-      <button className="pedigree-btn">Voir le pédigree complet</button>
+      <button className="pedigree-btn" onClick={() => setShowPedigree(!showPedigree)}>
+        {showPedigree ? "Cacher le pédigree" : "Voir le pédigree complet"}
+      </button>
 
+      {showPedigree && <Pedigree dog={{ pedigree }} />}
+
+      {/* Palmarès */}
       <div className="puppy-category palmares">
         <h2>Palmarès</h2>
         {puppy.palmares?.length > 0 ? (
@@ -157,6 +180,7 @@ export default function PuppyDetail() {
         )}
       </div>
 
+      {/* Results */}
       <div className="puppy-category results">
         <h2>Résultats</h2>
         <div className="years-filter">
