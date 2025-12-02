@@ -1,9 +1,28 @@
+.pedigree-page {
+  padding-top: 80px; 
+  max-width: 1200px; 
+  margin: 0 auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.pedigree-page a {
+  display: inline-block;
+  margin-bottom: 20px;
+  text-decoration: none;
+  color: #333;
+}
+.pedigree-page h1 {
+  margin-bottom: 40px;
+  font-size: 2rem;
+  text-align: center;
+}
+
+
 .pedigree-tree {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 4rem;
-  margin-top: 8rem;
   margin-bottom: 4rem;
 }
 

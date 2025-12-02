@@ -6,7 +6,6 @@ import { db, storage } from "../firebase";
 import { getDownloadURL, ref, deleteObject } from "firebase/storage";
 import placeholder from "../assets/placeholder.png";
 import "../styles/PuppyDetail.css";
-import Pedigree from "../components/Pedigree";
 
 export default function PuppyDetail() {
   const { id } = useParams();
@@ -14,7 +13,6 @@ export default function PuppyDetail() {
   const navigate = useNavigate();
   const [puppy, setPuppy] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [showPedigree, setShowPedigree] = useState(false);
 
   useEffect(() => {
     async function fetchPuppy() {
@@ -94,23 +92,6 @@ export default function PuppyDetail() {
   if (loading) return <p>Chargement...</p>;
   if (!puppy) return <p>Chiot non trouvé</p>;
 
-  // Build the pedigree object for the tree
-  const pedigree = {
-    subject: { name: puppy.name, image: puppy.allImages?.[0] || placeholder },
-    father: {
-      name: puppy.parents.father?.name || "Inconnu",
-      image: puppy.parents.father?.image || placeholder,
-    },
-    mother: {
-      name: puppy.parents.mother?.name || "Inconnu",
-      image: puppy.parents.mother?.image || placeholder,
-    },
-    paternalGF: { name: puppy.parents.father?.grandfather?.name || "Inconnu", image: placeholder },
-    paternalGM: { name: puppy.parents.father?.grandmother?.name || "Inconnu", image: placeholder },
-    maternalGF: { name: puppy.parents.mother?.grandfather?.name || "Inconnu", image: placeholder },
-    maternalGM: { name: puppy.parents.mother?.grandmother?.name || "Inconnu", image: placeholder },
-  };
-
   return (
     <main className="puppy-detail-page">
       <Link to="/chiots">← Retour à nos chiots</Link>
@@ -164,11 +145,10 @@ export default function PuppyDetail() {
         </div>
       </div>
 
-      <button className="pedigree-btn" onClick={() => setShowPedigree(!showPedigree)}>
-        {showPedigree ? "Cacher le pédigree" : "Voir le pédigree complet"}
-      </button>
-
-      {showPedigree && <Pedigree dog={{ pedigree }} />}
+      {/* Link to dedicated pedigree page */}
+      <Link to={`/puppy/${puppy.id}/pedigree`} className="pedigree-btn">
+        Voir le pédigree complet
+      </Link>
 
       {/* Palmarès */}
       <div className="puppy-category palmares">

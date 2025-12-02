@@ -1,14 +1,14 @@
 import { useParams, Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { db, storage } from "../firebase";
 import { getDownloadURL, ref } from "firebase/storage";
 import placeholder from "../assets/placeholder.png";
 import Pedigree from "../components/Pedigree";
 
-export default function PedigreePage() {
+export default function PuppyPedigreePage() {
   const { id } = useParams();
-  const [dog, setDog] = useState(null);
+  const [puppy, setPuppy] = useState(null);
   const [loading, setLoading] = useState(true);
 
   async function fetchImage(path) {
@@ -21,11 +21,11 @@ export default function PedigreePage() {
   }
 
   useEffect(() => {
-    async function fetchDog() {
+    async function fetchPuppy() {
       try {
-        const snap = await getDoc(doc(db, "dogs", id));
+        const snap = await getDoc(doc(db, "puppies", id));
         if (!snap.exists()) {
-          setDog(null);
+          setPuppy(null);
           setLoading(false);
           return;
         }
@@ -48,7 +48,7 @@ export default function PedigreePage() {
         const maternalGM = mother.grandmother || {};
         const maternalGMImage = await fetchImage(maternalGM.image);
 
-        setDog({
+        setPuppy({
           pedigree: {
             subject: { name: data.name, image: subjectImage },
             father: { name: father.name || "Inconnu", image: fatherImage },
@@ -62,22 +62,22 @@ export default function PedigreePage() {
 
         setLoading(false);
       } catch (err) {
-        console.error("Error loading pedigree:", err);
+        console.error("Erreur lors du chargement du pédigree :", err);
         setLoading(false);
       }
     }
 
-    fetchDog();
+    fetchPuppy();
   }, [id]);
 
   if (loading) return <p>Chargement du pédigree...</p>;
-  if (!dog) return <p>Chien introuvable.</p>;
+  if (!puppy) return <p>Chiot introuvable.</p>;
 
   return (
     <div className="pedigree-page">
-      <Link to={`/dog/${id}`}>← Retour au chien</Link>
-      <h1>Pédigree de {dog.pedigree.subject.name}</h1>
-      <Pedigree dog={dog} />
+      <Link to={`/puppy/${id}`}>← Retour au chiot</Link>
+      <h1>Pédigree de {puppy.pedigree.subject.name}</h1>
+      <Pedigree dog={puppy} />
     </div>
   );
 }
