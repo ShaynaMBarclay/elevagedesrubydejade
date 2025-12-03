@@ -146,8 +146,8 @@ export default function PuppyDetail() {
       </div>
 
       {/* Link to dedicated pedigree page */}
-      <Link to={`/puppy/${puppy.id}/pedigree`} className="pedigree-btn">
-        Voir le pédigree complet
+      <Link to={`/chiots/${puppy.id}/pedigree`} className="pedigree-btn">
+       Voir le pédigree complet
       </Link>
 
       {/* Palmarès */}

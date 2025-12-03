@@ -26,6 +26,7 @@ import EditPuppy from "./pages/EditPuppy";
 import PedigreePage from "./pages/PedigreePage";
 import PuppyPedigreePage from "./pages/PuppyPedigreePage";
 import EditPedigree from "./components/EditPedigree";
+import EditPuppyPedigree from "./components/EditPuppyPedigree";
 
 import AdminLogin from "./pages/AdminLogin";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -64,7 +65,8 @@ function App() {
             <Route path="/chiots/edit/:id" element={<EditPuppy />} />
             <Route path="/chiots/:id" element={<PuppyDetail />} />
             <Route path="/chiots/:id/pedigree" element={<PuppyPedigreePage />} />
-            <Route path="/chiots/:id/pedigree/edit" element={<EditPedigree />} />
+           <Route path="/chiots/:id/pedigree/edit" element={<EditPuppyPedigree />} />
+
 
             {/* Admin Pages */}
             <Route path="/login" element={<AdminLogin />} />
