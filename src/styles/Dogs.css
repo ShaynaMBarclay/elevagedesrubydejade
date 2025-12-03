@@ -145,85 +145,70 @@
   box-shadow: 0 6px 20px rgba(0,0,0,0.25);
 }
 
-
 /* === Dogs Page Responsive === */
 @media (max-width: 1024px) {
-  .dogs-page {
-    padding: 10rem 1.5rem;
+  .dog-grid {
+    flex-direction: column;
+    gap: 4rem;
+    align-items: center;
   }
 
-  .dogs-page h1 {
-    font-size: 3.4rem;
+  .dog-card {
+    width: 90%;       
+    max-width: none;  
+    padding: 1rem;     
   }
 
-  .dogs-page .intro {
-    font-size: 1.7rem;
-  }
+ .dog-card img {
+  width: 100%;
+  height: 65rem;   
+  object-fit: contain;  
+  display: block;
+}
 
-  .dog-categories {
-    gap: 0.8rem;
-  }
-
-  .dog-tab {
-    font-size: 1.7rem;
-    border-radius: 45px;
-  }
-
-  .dog-content {
-    padding: 1.8rem;
-    font-size: 2rem;
+  .dog-name {
+    font-size: 1.3rem;
   }
 }
 
 @media (max-width: 768px) {
-  .dogs-page {
-    padding: 4rem 1rem;
-  }
-
-  .dogs-page h1 {
-    font-size: 1.9rem;
-  }
-
-  .dogs-page .intro {
-    font-size: 0.95rem;
-  }
-
-  .dog-categories {
+  .dog-grid {
     flex-direction: column;
-    gap: 0.6rem;
+    gap: 4rem;
+    align-items: center;
   }
 
-  .dog-tab {
-    width: 100%;
-    padding: 0.5rem 1rem;
+  .dog-card {
+    width: 95%;        /* almost full width on tablet */
+    padding: 1.2rem;   
   }
 
-  .dog-content {
-    padding: 1.5rem;
-    font-size: 0.9rem;
+  .dog-card img {
+    height: 450px;     /* taller images for tablet */
+  }
+
+  .dog-name {
+    font-size: 1.4rem;
   }
 }
 
 @media (max-width: 480px) {
-  .dogs-page {
-    padding: 3rem 0.5rem;
+  .dog-grid {
+    flex-direction: column;
+    gap: 3rem;
+    align-items: center;
   }
 
-  .dogs-page h1 {
-    font-size: 1.6rem;
+  .dog-card {
+    width: 95%;        /* nearly full width on mobile */
+    padding: 1.5rem;
   }
 
-  .dogs-page .intro {
-    font-size: 0.9rem;
+  .dog-card img {
+    height: 500px;     /* very tall images for mobile visibility */
   }
 
-  .dog-tab {
-    font-size: 0.85rem;
-    padding: 0.45rem 0.8rem;
-  }
-
-  .dog-content {
-    padding: 1.2rem;
-    font-size: 0.85rem;
+  .dog-name {
+    font-size: 1.5rem;
   }
 }

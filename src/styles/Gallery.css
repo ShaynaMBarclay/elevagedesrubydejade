@@ -273,33 +273,37 @@
 /* Tablets / Medium Screens */
 @media (max-width: 1024px) {
   .gallery-page {
-    padding: 2.5rem 1.5rem;
+    padding: 3rem 2rem;
   }
 
   .gallery-page h1 {
-    font-size: 4rem;
-    margin-top: 6rem;
+    font-size: 3.5rem;
+    margin-top: 4rem;
   }
 
   .gallery-page .intro {
-    font-size: 2rem;
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
   }
 
   .gallery-grid {
     display: grid;
-    gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
   }
 
   .gallery-item {
     width: 100%;
-    max-width: 700px; 
+    max-width: none; /* allow larger images */
     margin: 0 auto;
   }
 
-  .gallery-item img {
+  .gallery-item img,
+  .gallery-item video {
     width: 100%;
-    height: auto; 
-    display: block;
+    height: auto;
+    max-height: 500px; /* larger for tablets */
+    object-fit: contain;
   }
 }
 
@@ -310,13 +314,47 @@
   }
 
   .gallery-page h1 {
-    font-size: 3rem;
-    margin-top: 4rem;
+    font-size: 2.8rem;
+    margin-top: 3rem;
   }
 
   .gallery-page .intro {
-    font-size: 1.3rem;
-    margin-bottom: 2rem;
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .gallery-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .gallery-item {
+    width: 100%;
+  }
+
+  .gallery-item img,
+  .gallery-item video {
+    width: 100%;
+    height: auto;
+    max-height: 500px;
+    object-fit: contain;
+  }
+}
+
+/* Extra Small Mobile / Narrow Screens */
+@media (max-width: 480px) {
+  .gallery-page {
+    padding: 1.5rem 0.5rem;
+  }
+
+  .gallery-page h1 {
+    font-size: 2rem;
+    margin-top: 2.5rem;
+  }
+
+  .gallery-page .intro {
+    font-size: 1rem;
+    margin-bottom: 1rem;
   }
 
   .gallery-grid {
@@ -328,39 +366,11 @@
     width: 100%;
   }
 
-  .gallery-item img {
+  .gallery-item img,
+  .gallery-item video {
     width: 100%;
     height: auto;
-  }
-}
-
-/* Extra Small Mobile / Narrow Screens */
-@media (max-width: 480px) {
-  .gallery-page {
-    padding: 1.5rem 0.5rem;
-  }
-
-  .gallery-page h1 {
-    font-size: 2.2rem;
-    margin-top: 3rem;
-  }
-
-  .gallery-page .intro {
-    font-size: 1rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .gallery-grid {
-    grid-template-columns: 1fr;
-    gap: 0.8rem;
-  }
-
-  .gallery-item {
-    width: 100%;
-  }
-
-  .gallery-item img {
-    width: 100%;
-    height: auto;
+    max-height: 400px; /* slightly smaller for tiny screens */
+    object-fit: contain;
   }
 }
