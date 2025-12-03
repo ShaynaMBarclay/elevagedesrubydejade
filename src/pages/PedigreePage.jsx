@@ -1,13 +1,17 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, onSnapshot } from "firebase/firestore";
 import { db, storage } from "../firebase";
 import { getDownloadURL, ref } from "firebase/storage";
 import placeholder from "../assets/placeholder.png";
 import Pedigree from "../components/Pedigree";
+import { useAdmin } from "../contexts/AdminContext";
 
-export default function PedigreePage() {
+export default function PedigreePage({ collection = "dogs" }) {
   const { id } = useParams();
+  const { isAdmin } = useAdmin();
+  const navigate = useNavigate();
+
   const [dog, setDog] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -21,62 +25,78 @@ export default function PedigreePage() {
   }
 
   useEffect(() => {
-    async function fetchDog() {
-      try {
-        const snap = await getDoc(doc(db, "dogs", id));
-        if (!snap.exists()) {
-          setDog(null);
-          setLoading(false);
-          return;
-        }
+    const docRef = doc(db, collection, id);
 
-        const data = snap.data();
-
-        const subjectImage = data.images?.[0] ? await fetchImage(data.images[0]) : placeholder;
-        const father = data.parents?.father || {};
-        const fatherImage = await fetchImage(father.image);
-        const mother = data.parents?.mother || {};
-        const motherImage = await fetchImage(mother.image);
-
-        const paternalGF = father.grandfather || {};
-        const paternalGFImage = await fetchImage(paternalGF.image);
-        const paternalGM = father.grandmother || {};
-        const paternalGMImage = await fetchImage(paternalGM.image);
-
-        const maternalGF = mother.grandfather || {};
-        const maternalGFImage = await fetchImage(maternalGF.image);
-        const maternalGM = mother.grandmother || {};
-        const maternalGMImage = await fetchImage(maternalGM.image);
-
-        setDog({
-          pedigree: {
-            subject: { name: data.name, image: subjectImage },
-            father: { name: father.name || "Inconnu", image: fatherImage },
-            mother: { name: mother.name || "Inconnue", image: motherImage },
-            paternalGF: { name: paternalGF.name || "Inconnu", image: paternalGFImage },
-            paternalGM: { name: paternalGM.name || "Inconnue", image: paternalGMImage },
-            maternalGF: { name: maternalGF.name || "Inconnu", image: maternalGFImage },
-            maternalGM: { name: maternalGM.name || "Inconnue", image: maternalGMImage },
-          },
-        });
-
+    const unsubscribe = onSnapshot(docRef, async (snap) => {
+      if (!snap.exists()) {
+        setDog(null);
         setLoading(false);
-      } catch (err) {
-        console.error("Error loading pedigree:", err);
-        setLoading(false);
+        return;
       }
-    }
 
-    fetchDog();
-  }, [id]);
+      const data = snap.data();
+
+      // Fallbacks if pedigree is empty
+      const p = data.pedigree || {};
+      const subjectImage = p.subject?.image || data.images?.[0] || placeholder;
+      const subjectName = p.subject?.name || data.name || "Inconnu";
+
+      const fatherName = p.father?.name || data.parents?.father?.name || "Inconnu";
+      const fatherImage = p.father?.image || data.parents?.father?.image || placeholder;
+      const motherName = p.mother?.name || data.parents?.mother?.name || "Inconnue";
+      const motherImage = p.mother?.image || data.parents?.mother?.image || placeholder;
+
+      const paternalGFName = p.father?.father?.name || data.parents?.father?.grandfather?.name || "Inconnu";
+      const paternalGFImage = p.father?.father?.image || data.parents?.father?.grandfather?.image || placeholder;
+      const paternalGMName = p.father?.mother?.name || data.parents?.father?.grandmother?.name || "Inconnu";
+      const paternalGMImage = p.father?.mother?.image || data.parents?.father?.grandmother?.image || placeholder;
+
+      const maternalGFName = p.mother?.father?.name || data.parents?.mother?.grandfather?.name || "Inconnu";
+      const maternalGFImage = p.mother?.father?.image || data.parents?.mother?.grandfather?.image || placeholder;
+      const maternalGMName = p.mother?.mother?.name || data.parents?.mother?.grandmother?.name || "Inconnu";
+      const maternalGMImage = p.mother?.mother?.image || data.parents?.mother?.grandmother?.image || placeholder;
+
+      setDog({
+        pedigree: {
+          subject: { name: subjectName, image: subjectImage },
+          father: { name: fatherName, image: fatherImage },
+          mother: { name: motherName, image: motherImage },
+          paternalGF: { name: paternalGFName, image: paternalGFImage },
+          paternalGM: { name: paternalGMName, image: paternalGMImage },
+          maternalGF: { name: maternalGFName, image: maternalGFImage },
+          maternalGM: { name: maternalGMName, image: maternalGMImage },
+        },
+      });
+
+      setLoading(false);
+    });
+
+    return () => unsubscribe();
+  }, [id, collection]);
 
   if (loading) return <p>Chargement du pédigree...</p>;
   if (!dog) return <p>Chien introuvable.</p>;
 
   return (
     <div className="pedigree-page">
-      <Link to={`/dog/${id}`}>← Retour au chien</Link>
+      <Link to={`/${collection === "dogs" ? "chiens" : "chiots"}/${id}`}>
+        ← Retour au {collection === "dogs" ? "chien" : "chiot"}
+      </Link>
       <h1>Pédigree de {dog.pedigree.subject.name}</h1>
+
+      {isAdmin && (
+        <button
+          className="edit-pedigree-btn"
+          onClick={() =>
+            navigate(
+              `/${collection === "dogs" ? "chiens" : "chiots"}/${id}/pedigree/edit`
+            )
+          }
+        >
+          Modifier le pédigree
+        </button>
+      )}
+
       <Pedigree dog={dog} />
     </div>
   );
