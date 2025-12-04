@@ -274,6 +274,7 @@
 @media (max-width: 1024px) {
   .gallery-page {
     padding: 3rem 2rem;
+    margin-top: 5rem;
   }
 
   .gallery-page h1 {
@@ -305,6 +306,44 @@
     max-height: 500px; /* larger for tablets */
     object-fit: contain;
   }
+
+  .add-album-btn {
+    font-size: 1.6rem;
+  }
+
+   .album-card {
+    width: 45vw;    
+    max-width: 500px;    
+    border-radius: 18px;
+  }
+
+ 
+  .album-preview {
+    height: 300px;         
+    object-fit: cover;
+  }
+
+  .album-name {
+    font-size: 1.15rem;
+    padding: 0.7rem 0.8rem;
+  }
+
+  .delete-album-btn {
+    font-size: 1.6rem;
+  }
+
+  input.file-input {
+    font-size: 2rem;
+  }
+
+  .upload-btn {
+    font-size: 1.6rem;
+  }
+
+  button.sub-pill {
+    font-size: 2rem;
+  }
+
 }
 
 /* Mobile / Small Screens */
@@ -370,7 +409,7 @@
   .gallery-item video {
     width: 100%;
     height: auto;
-    max-height: 400px; /* slightly smaller for tiny screens */
+    max-height: 400px; 
     object-fit: contain;
   }
 }

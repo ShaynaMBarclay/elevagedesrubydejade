@@ -190,6 +190,7 @@ background-color: var(--primary);
 @media (max-width: 1024px) {
   .contact-page {
     padding: 3rem 2rem;
+    margin-top: 3rem;
   }
 
   .contact-page h1 {
@@ -200,6 +201,18 @@ background-color: var(--primary);
   .contact-page .intro {
     font-size: 2rem;
     margin-bottom: 2.5rem;
+  }
+
+  .contact-page p {
+    font-size: 1.6rem;
+  }
+
+  .contact-page button {
+    font-size: 2rem !important;
+  }
+  
+  .contact-info p {
+    font-size: 2.2rem;
   }
 
   /* Stack main contact content vertically and center */

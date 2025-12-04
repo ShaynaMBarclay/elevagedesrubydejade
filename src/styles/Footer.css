@@ -37,7 +37,19 @@
   }
 
   .footer-copy {
-    font-size: 0.8rem;
+    font-size: 1.5rem !important;
+  }
+
+  .footer-name {
+    font-size: 1.7rem !important;
+  }
+
+  .footer a {
+    font-size: 1.6rem !important;
+  }
+
+  .footer-content p {
+    font-size: 1.7rem;
   }
 }
 

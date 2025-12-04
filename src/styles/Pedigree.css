@@ -97,3 +97,46 @@
   margin-bottom: 6px;
   border: 2px solid #ccc;
 }
+
+@media (max-width: 1024px) {
+  .pedigree-page {
+    padding-top: 60px;
+  }
+
+  .pedigree-tree {
+    gap: 3rem;
+  }
+
+  .tree-level {
+    gap: 3rem;
+  }
+
+  .tree-level.four {
+    gap: 4rem;
+  }
+
+  .tree-box {
+    width: 160px;
+    padding: 12px;
+  }
+
+  .tree-box.small {
+    width: 130px;
+  }
+
+  .tree-box img {
+    width: 100px;
+    height: 100px;
+  }
+
+  .node-img {
+    width: 70px;
+    height: 70px;
+  }
+
+  /* shorten connector lines */
+  .tree-level.subject::after,
+  .tree-level.two .tree-box::after {
+    height: 35px;
+  }
+}

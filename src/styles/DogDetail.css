@@ -226,25 +226,44 @@
 }
 
 
-/* Responsive adjustments */
-@media (max-width: 480px) {
-  .admin-controls {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .admin-controls a,
-  .admin-controls button {
-    width: 100%;
-  }
-}
-
 
 
 /* Responsive adjustments */
 @media (max-width: 1024px) {
   .dog-images img {
-    height: 250px;
+    height: 100% !important;
+    width: 100% !important;
+  }
+  .dog-detail-page a {
+    font-size: 2rem;
+    margin-top: 1rem;
+  }
+  .dog-detail-page p {
+    font-size: 4.2rem;
+  }
+  .dog-detail-page h1 {
+    font-size: 2rem;
+  }
+  .dog-detail-page h2 {
+    font-size: 3rem;
+  }
+
+  .dog-detail-page img {
+    width: 30rem !important;
+    height: 20rem !important;
+  }
+  .edit-btn,
+  .delete-btn {
+    font-size: 2rem !important;
+  }
+  strong {
+    font-size: 2.5rem;
+  }
+  li {
+    font-size: 2rem !important;
+  }
+  .year-btn {
+    font-size: 2.4rem !important;
   }
 }
 
