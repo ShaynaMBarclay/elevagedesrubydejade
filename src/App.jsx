@@ -29,6 +29,7 @@ import EditPedigree from "./components/EditPedigree";
 import EditPuppyPedigree from "./components/EditPuppyPedigree";
 
 import AdminLogin from "./pages/AdminLogin";
+import AdminMessages from "./pages/AdminMessages";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
@@ -69,6 +70,8 @@ function App() {
 
 
             {/* Admin Pages */}
+          
+            <Route path="/admin/messages" element={<AdminMessages />} />
             <Route path="/login" element={<AdminLogin />} />
             <Route
               path="/admin"
