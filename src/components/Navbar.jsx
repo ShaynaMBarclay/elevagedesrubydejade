@@ -1,40 +1,26 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaHome } from "react-icons/fa";
 import "../styles/Navbar.css";
 import { useAdmin } from "../contexts/AdminContext";
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const { isAdmin, logout } = useAdmin();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth > 768 && isOpen) setIsOpen(false);
-    };
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, [isOpen]);
+  const toggleMenu = () => setMenuOpen(!menuOpen);
 
   const handleLogout = () => {
     logout();
     navigate("/");
-    setIsOpen(false);
+    setMenuOpen(false);
   };
 
-  const toggleMenu = () => setIsOpen(!isOpen);
-
   return (
-    <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
+    <nav className="navbar">
       <div className="nav-container">
+        {/* Logo */}
         <div className="nav-logo-group">
           <Link to="/" className="nav-logo">Élevage des Ruby de Jade</Link>
           <span className="nav-subtitle">
@@ -42,22 +28,29 @@ export default function Navbar() {
           </span>
         </div>
 
+        {/* Home icon */}
+        <Link to="/" className="nav-home">
+          <FaHome />
+        </Link>
+
         {/* Hamburger */}
-        <div className={`hamburger ${isOpen ? "active" : ""}`} onClick={toggleMenu}>
+        <div
+          className={`hamburger ${menuOpen ? "active" : ""}`}
+          onClick={toggleMenu}
+        >
           <span></span>
           <span></span>
           <span></span>
         </div>
 
-        {/* Links */}
-        <div className={`nav-links ${isOpen ? "open" : ""}`}>
-          <Link to="/" className="nav-home" onClick={() => setIsOpen(false)}><FaHome /></Link>
-          <Link to="/chiens" onClick={() => setIsOpen(false)}>CHIENS</Link>
-          <Link to="/chiots" onClick={() => setIsOpen(false)}>CHIOTS</Link>
-          <Link to="/actualites" onClick={() => setIsOpen(false)}>ACTUALITÉS</Link>
-          <Link to="/galeries" onClick={() => setIsOpen(false)}>GALERIES</Link>
-          <Link to="/liens" onClick={() => setIsOpen(false)}>LIENS</Link>
-          <Link to="/contact" onClick={() => setIsOpen(false)}>CONTACT</Link>
+        {/* Dropdown Menu */}
+        <div className={`nav-dropdown ${menuOpen ? "open" : ""}`}>
+          <Link to="/chiens" onClick={() => setMenuOpen(false)}>CHIENS</Link>
+          <Link to="/chiots" onClick={() => setMenuOpen(false)}>CHIOTS</Link>
+          <Link to="/actualites" onClick={() => setMenuOpen(false)}>ACTUALITÉS</Link>
+          <Link to="/galeries" onClick={() => setMenuOpen(false)}>GALERIES</Link>
+          <Link to="/liens" onClick={() => setMenuOpen(false)}>LIENS</Link>
+          <Link to="/contact" onClick={() => setMenuOpen(false)}>CONTACT</Link>
 
           {isAdmin && (
             <button className="logout-button" onClick={handleLogout}>
