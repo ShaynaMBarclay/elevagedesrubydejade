@@ -63,7 +63,6 @@ export default function Dogs() {
     fetchDogs();
   }, []);
 
-  // Handle category from URL hash
   useEffect(() => {
     const hash = location.hash.replace("#", "");
     if (categories.find((cat) => cat.id === hash)) setActiveCategory(hash);

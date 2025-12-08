@@ -14,7 +14,7 @@ export default function DogDetail() {
   const [dog, setDog] = useState(null);
   const [loading, setLoading] = useState(true);
   const [activeYear, setActiveYear] = useState("2025");
-  const [lightboxImage, setLightboxImage] = useState(null); // lightbox state
+  const [lightboxImage, setLightboxImage] = useState(null); 
 
   useEffect(() => {
     async function fetchDog() {
@@ -25,7 +25,6 @@ export default function DogDetail() {
         if (docSnap.exists()) {
           const data = docSnap.data();
 
-          // Fetch all uploaded dog images
           let allImages = [];
           if (data.images && data.images.length > 0) {
             allImages = await Promise.all(
@@ -50,7 +49,7 @@ export default function DogDetail() {
           setDog({
             id: docSnap.id,
             ...data,
-            allImages, // store all images for detail page
+            allImages, 
             parents: {
               father: {
                 name: data.parents?.father?.name || "Inconnu",
@@ -190,9 +189,9 @@ export default function DogDetail() {
           <li>Nanisme hypophysaire (NAH): {dog.health?.nah || "N/A"}</li>
         </ul>
       </div>
-<Link to={`/chiens/${dog.id}/pedigree`} className="pedigree-btn">
-  Voir le pédigree complet
-</Link>
+      <Link to={`/chiens/${dog.id}/pedigree`} className="pedigree-btn">
+        Voir le pédigree complet
+      </Link>
 
       <div className="dog-category palmares">
         <h2>Palmarès</h2>

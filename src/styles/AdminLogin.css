@@ -79,7 +79,6 @@
   margin-top: 0.5rem;
 }
 
-/* Responsive tweaks */
 @media (max-width: 768px) {
   .admin-login form {
     padding: 1.5rem;

@@ -10,10 +10,10 @@ export default function AlbumForm({ albumId, isEdit = false }) {
 
   const [formData, setFormData] = useState({
     name: "",
-    media: [], // Existing uploaded media
+    media: [], 
   });
 
-  const [newFiles, setNewFiles] = useState([]); // Files added in this session
+  const [newFiles, setNewFiles] = useState([]); 
 
   useEffect(() => {
     if (isEdit && albumId) {
@@ -32,7 +32,6 @@ export default function AlbumForm({ albumId, isEdit = false }) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const handleFileUpload = (e) => {
-    // Append new files without overwriting previous selections
     setNewFiles((prev) => [...prev, ...Array.from(e.target.files)]);
   };
 
@@ -98,7 +97,6 @@ export default function AlbumForm({ albumId, isEdit = false }) {
 
         {/* Preview Grid */}
         <div className="preview-grid">
-          {/* Existing uploaded media */}
           {formData.media.map((m, i) => (
             <div key={i} className="preview-item">
               {m.type === "image" ? (

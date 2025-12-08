@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function PedigreeNode({ label, nodePath, nodeData, update, handleImageUpload }) {
   return (
     <div className="pedigree-node">

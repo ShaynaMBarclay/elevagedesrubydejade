@@ -85,7 +85,6 @@
   color: var(--primary);
 }
 
-/* === Puppies Page Responsive === */
 @media (max-width: 1024px) {
   .puppies-page {
     padding: 10rem 1.5rem;

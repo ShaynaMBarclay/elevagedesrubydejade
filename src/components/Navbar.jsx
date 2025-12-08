@@ -4,6 +4,9 @@ import { FaHome } from "react-icons/fa";
 import "../styles/Navbar.css";
 import { useAdmin } from "../contexts/AdminContext";
 
+import purinaLogo from "../assets/purinalogo.avif";
+import facebookLogo from "../assets/smallfblogo.png";
+
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const { isAdmin, logout } = useAdmin();
@@ -20,7 +23,12 @@ export default function Navbar() {
   return (
     <nav className="navbar">
       <div className="nav-container">
-        {/* Logo */}
+        {/* Home Icon on Left */}
+        <Link to="/" className="nav-home">
+          <FaHome />
+        </Link>
+
+        {/* Logo/Name Centered */}
         <div className="nav-logo-group">
           <Link to="/" className="nav-logo">Élevage des Ruby de Jade</Link>
           <span className="nav-subtitle">
@@ -28,12 +36,7 @@ export default function Navbar() {
           </span>
         </div>
 
-        {/* Home icon */}
-        <Link to="/" className="nav-home">
-          <FaHome />
-        </Link>
-
-        {/* Hamburger */}
+        {/* Hamburger on Right */}
         <div
           className={`hamburger ${menuOpen ? "active" : ""}`}
           onClick={toggleMenu}
@@ -51,6 +54,19 @@ export default function Navbar() {
           <Link to="/galeries" onClick={() => setMenuOpen(false)}>GALERIES</Link>
           <Link to="/liens" onClick={() => setMenuOpen(false)}>LIENS</Link>
           <Link to="/contact" onClick={() => setMenuOpen(false)}>CONTACT</Link>
+
+          {/* Secondary icons/links */}
+          <div className="dropdown-icons">
+            <a href="https://www.purina.fr" target="_blank" rel="noopener noreferrer">
+              <img className="purina-logo" src={purinaLogo} alt="Purina" />
+            </a>
+            <a href="https://www.facebook.com/DesRubyDeJade/" target="_blank" rel="noopener noreferrer">
+              <img className="facebook-logo" src={facebookLogo} alt="Facebook" />
+            </a>
+            <a className="cdf-link" href="https://www.chiens-de-france.com/" target="_blank" rel="noopener noreferrer">
+              Chiens-de-France
+            </a>
+          </div>
 
           {isAdmin && (
             <button className="logout-button" onClick={handleLogout}>

@@ -202,8 +202,6 @@ background-color: var(--primary);
   background: #5f2d22;
 }
 
-/* === Responsive === */
-
 /* Tablets / Medium Screens */
 @media (max-width: 1024px) {
   .contact-page {
@@ -233,7 +231,6 @@ background-color: var(--primary);
     font-size: 2.2rem;
   }
 
-  /* Stack main contact content vertically and center */
   .contact-content,
   .contact-sections {
     flex-direction: column;
@@ -241,7 +238,6 @@ background-color: var(--primary);
     align-items: center;
   }
 
-  /* Full-width boxes */
   .contact-image img,
   .contact-info,
   .contact-form-section,
@@ -262,14 +258,12 @@ background-color: var(--primary);
     justify-content: center;
   }
 
-  /* Inputs */
 .contact-form input,
 .guestbook-form input {
   font-size: 1.4rem;   
   padding: 1rem;
 }
 
-/* Textareas (message part) */
 .contact-form textarea,
 .guestbook-form textarea {
   font-size: 1.7rem;    

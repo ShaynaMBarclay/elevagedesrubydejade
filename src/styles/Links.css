@@ -102,8 +102,6 @@
   text-decoration: underline;
 }
 
-/* === Links Page Responsive === */
-
 /* Tablets / Medium Screens */
 @media (max-width: 1024px) {
   .links-page {

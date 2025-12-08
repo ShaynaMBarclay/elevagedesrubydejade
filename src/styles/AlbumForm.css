@@ -61,7 +61,7 @@
 .album-form button:hover,
 .add-media-btn:hover,
 .save-btn:hover {
-  background-color: #e18c2d; /* slightly darker primary */
+  background-color: #e18c2d; 
 }
 
 /* Media upload wrapper */
@@ -116,8 +116,6 @@
   padding: 0;
 }
 
-
-/* Responsive tweaks */
 @media (max-width: 768px) {
   .preview-item img,
   .preview-item video {

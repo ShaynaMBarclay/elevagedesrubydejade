@@ -130,7 +130,6 @@
   text-align: left;
 }
 
-/* Container for the dog's images */
 .dog-images {
   display: flex;
   justify-content: center; 
@@ -141,7 +140,6 @@
   margin: 2rem 0;
 }
 
-/* Each image */
 .dog-images img {
   height: 300px; 
   width: auto;
@@ -152,7 +150,6 @@
   cursor: pointer;
 }
 
-/* Hover effect for images */
 .dog-images img:hover {
   transform: scale(1.05);
 }
@@ -175,7 +172,6 @@
   background: #999;
 }
 
-/* Delete button */
 .delete-btn {
   background-color: transparent;
   color: var(--primary);
@@ -224,8 +220,6 @@
   align-items: center;
   justify-content: center;
 }
-
-
 
 
 /* Responsive adjustments */

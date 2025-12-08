@@ -22,9 +22,8 @@ export default function AlbumDetail() {
   const [loading, setLoading] = useState(true);
   const [newFiles, setNewFiles] = useState([]);
   const [filter, setFilter] = useState("all"); 
-  const [lightboxImage, setLightboxImage] = useState(null); // lightbox state
+  const [lightboxImage, setLightboxImage] = useState(null); 
 
-  // Fetch album
   useEffect(() => {
     async function fetchAlbum() {
       try {
@@ -80,7 +79,6 @@ export default function AlbumDetail() {
       }
 
       setNewFiles([]);
-      // Refresh album
       const docSnap = await getDoc(docRef);
       const data = docSnap.data();
       const mediaWithUrls = await Promise.all(

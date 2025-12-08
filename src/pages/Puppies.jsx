@@ -30,7 +30,6 @@ export default function Puppies() {
     { id: "berger", label: "Berger Blanc Suisse" },
   ];
 
-  // Fetch puppies from Firebase
   useEffect(() => {
     async function fetchPuppies() {
       try {
@@ -39,7 +38,6 @@ export default function Puppies() {
           querySnapshot.docs.map(async (doc) => {
             const data = doc.data();
 
-            // Get first image for card
             let imageUrl = placeholder;
             if (data.images && data.images.length > 0) {
               try {
@@ -62,7 +60,6 @@ export default function Puppies() {
     fetchPuppies();
   }, []);
 
-  // Handle hash changes for categories
   useEffect(() => {
     const hash = location.hash.replace("#", "");
     if (categories.find((cat) => cat.id === hash)) {

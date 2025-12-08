@@ -33,11 +33,11 @@ input {
 
 /* Edit Pedigree Button */
 .edit-pedigree-btn {
-  display: block;           /* Makes the button a block element for centering */
-  margin: 20px auto;        /* Centers horizontally and adds spacing above/below */
-  padding: 10px 25px;       /* Nice padding */
-  background-color: #7c3e2f; /* Primary color */
-  color: #fff;              /* White text */
+  display: block; 
+  margin: 20px auto; 
+  padding: 10px 25px; 
+  background-color: #7c3e2f;
+  color: #fff;  
   font-size: 1rem;
   font-weight: 600;
   border: none;
@@ -48,7 +48,7 @@ input {
 }
 
 .edit-pedigree-btn:hover {
-  background-color: #9c5744; /* Slightly lighter on hover */
+  background-color: #9c5744; 
   transform: translateY(-2px);
   box-shadow: 0 6px 12px rgba(0,0,0,0.25);
 }

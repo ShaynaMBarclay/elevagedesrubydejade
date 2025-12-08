@@ -10,9 +10,7 @@ export default function Links() {
         les associations, les clubs et nos partenaires.
       </p>
 
-      {/* Top Featured Links */}
       <div className="featured-links">
-        {/* Purina Logo Link */}
         <a
           href="https://www.purina.fr/"
           target="_blank"
@@ -20,8 +18,6 @@ export default function Links() {
         >
           <img src={purinaLogo} alt="Purina"  loading="lazy" />
         </a>
-
-        {/* Facebook Button */}
         <a
           href="https://www.facebook.com/DesRubyDeJade/"
           target="_blank"

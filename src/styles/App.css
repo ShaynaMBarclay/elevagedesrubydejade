@@ -71,7 +71,6 @@ main {
   scrollbar-color: var(--primary) rgba(248, 248, 240, 0.3);
 }
 
-/* === Media Queries for Responsive Layout === */
 
 /* Tablets: 768px - 1024px */
 @media (max-width: 1024px) {

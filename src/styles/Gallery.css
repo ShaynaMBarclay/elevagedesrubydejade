@@ -295,7 +295,7 @@
 
   .gallery-item {
     width: 100%;
-    max-width: none; /* allow larger images */
+    max-width: none; 
     margin: 0 auto;
   }
 
@@ -303,7 +303,7 @@
   .gallery-item video {
     width: 100%;
     height: auto;
-    max-height: 500px; /* larger for tablets */
+    max-height: 500px; 
     object-fit: contain;
   }
 

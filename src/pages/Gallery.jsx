@@ -66,7 +66,6 @@ export default function Gallery() {
       // Delete the Firestore document
       await deleteDoc(doc(db, "galleries", album.id));
 
-      // Update state
       setGalleries((prev) => prev.filter((g) => g.id !== album.id));
     } catch (err) {
       console.error("Error deleting album:", err);

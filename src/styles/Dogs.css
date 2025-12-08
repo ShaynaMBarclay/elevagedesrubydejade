@@ -52,7 +52,6 @@
 }
 
 
-/* Dog Type Filter Bar */
 .dog-type-filters {
   display: flex;
   justify-content: center;
@@ -200,12 +199,12 @@
   }
 
   .dog-card {
-    width: 95%;        /* almost full width on tablet */
+    width: 95%;        
     padding: 1.2rem;   
   }
 
   .dog-card img {
-    height: 450px;     /* taller images for tablet */
+    height: 450px;    
   }
 
   .dog-name {
@@ -221,12 +220,12 @@
   }
 
   .dog-card {
-    width: 95%;        /* nearly full width on mobile */
+    width: 95%;   
     padding: 1.5rem;
   }
 
   .dog-card img {
-    height: 500px;     /* very tall images for mobile visibility */
+    height: 500px; 
   }
 
   .dog-name {
