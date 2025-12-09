@@ -8,16 +8,18 @@
   --font-body: 'Poppins', sans-serif;
 }
 
+/* ================= NAVBAR BASE ================= */
 .navbar {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  padding: 0.8rem 1rem; 
-  display: flex;
-  justify-content: center;
+  height: 45px; /* thinner */
   background-color: rgb(9, 84, 96);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.35);
   z-index: 1000;
 }
 
@@ -27,159 +29,208 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  position: relative;
+  padding: 0 1rem;
+  overflow: hidden;   
+  flex-shrink: 1; 
 }
 
+/* ================= LOGO CENTER ================= */
 .nav-logo-group {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  white-space: nowrap;
+  text-align: center;
   line-height: 1.1;
+  transform: translateY(2px);
 }
 
 .nav-logo {
+  font-size: 1.2rem; 
   font-family: var(--font-heading);
-  font-size: 1rem; 
   color: white;
   text-decoration: none;
 }
 
 .nav-subtitle {
-  font-family: var(--font-body);
-  font-size: 0.75rem; 
+  font-size: 0.8rem;
+  white-space: nowrap;
   font-style: italic;
   color: rgb(147, 230, 14);
-  margin-top: 2px;
+  margin-left: 0.5rem;
 }
+
+/* ================= HOME ICON ================= */
 
 .nav-home {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 38px;        
+  height: 38px; 
+  
+  font-size: 1.6rem;  
   color: white;
-  font-size: 1.5rem;
-  text-decoration: none;
-  margin-left: 0;
-  margin-top: 0.5rem;
+
+  border-radius: 6px; 
+  transition: background 0.25s ease;
 }
 
+.nav-home:hover {
+  background: rgba(255,255,255,0.18);
+}
+
+
+/* ================= HAMBURGER ================= */
 .hamburger {
   display: flex;
   flex-direction: column;
-  gap: 4px; 
+  gap: 4px;
   cursor: pointer;
-  margin-left: auto;
 }
 
 .hamburger span {
-  width: 22px; 
-  height: 2.5px;
+  width: 22px;
+  height: 3px;
   background: white;
-  transition: all 0.3s ease;
+  transition: 0.3s ease;
 }
 
-/* === Dropdown Menu === */
+.hamburger.active span {
+  transform: none;
+  opacity: 1;
+}
+
+
+/* ================= SLIDE MENU ================= */
 .nav-dropdown {
   position: fixed;
   top: 0;
-  right: 0;
+  right: -260px; 
   height: 100vh;
   width: 260px; 
-  background-color: rgba(5,77,88,0.95);
-  padding: 3.5rem 1rem; 
+  background-color: rgba(5,77,88,0.97);
+  padding: 0.4rem 1.2rem;
   display: flex;
   flex-direction: column;
-  gap: 1rem; 
-  transform: translateX(100%);
-  opacity: 0;
-  pointer-events: none;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-  z-index: 1000;
+  gap: 1.2rem;
+  transition: right 0.3s ease;
+  z-index: 1200;
 }
 
 .nav-dropdown.open {
-  transform: translateX(0);
-  opacity: 1;
-  pointer-events: auto;
+  right: 0;
 }
 
 .nav-dropdown a {
   font-family: var(--font-body);
   color: white;
   text-decoration: none;
-  font-weight: 500;
-  font-size: 1rem;
-  transition: all 0.2s ease;
+  font-size: 1.1rem;
+  padding: 0.5rem 0.4rem;
+  border-radius: 6px;
+  transition: 
+    background-color 0.25s ease,
+    padding-left 0.25s ease,
+    color 0.25s ease;
 }
 
 .nav-dropdown a:hover {
-  background-color: rgba(255,255,255,0.1);
-  transform: translateY(-1px);
-  padding-left: 0.2rem;
+  background-color: rgba(255,255,255,0.15);
+  padding-left: 0.8rem; 
+  color: rgb(255, 255, 255);
 }
 
+/* ================= EXTERNAL CLOSE ARROW ================= */
+.close-arrow {
+  position: absolute;       
+  top: 3rem;   
+  right: 10px;  
+  right: 260px; 
+  background: rgba(5,77,88,0.97);
+  color: white;
+  border: none;
+  padding: 0.5rem 0.6rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  z-index: 1400;
+  transition: 0.2s ease;
+}
+
+.close-arrow:hover {
+  background: rgba(5,77,88,1);
+}
+
+
+/* ================= ICONS IN MENU ================= */
 .dropdown-icons {
+  margin-top: 1rem;
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
-  margin-top: 0.8rem;
   align-items: center;
 }
 
 .purina-logo {
-  height: 35px; 
-  width: 6.5rem;
+  height: 40px;
 }
 
 .facebook-logo {
-  height: 35px;
-  width: 3rem;
+  height: 40px;
 }
 
 .cdf-link {
-  color: #fff;
-  text-decoration: none;
-  font-size: 0.9rem;
-  opacity: 0.85;
-}
-
-.cdf-link:hover {
-  opacity: 1;
-}
-
-/* === Logout Button === */
-.logout-button {
-  font-family: var(--font-body);
-  font-weight: 500;
   color: white;
+  text-decoration: none;
+  opacity: 0.9;
+}
+
+/* ================= ICONS IN MENU ================= */
+.dropdown-icons img {
+  height: 50px;
+  width: auto;
+}
+
+.purina-logo,
+.facebook-logo {
+  height: 50px; 
+  width: auto;
+}
+
+/* ================= LOGOUT BUTTON ================= */
+.logout-button {
+  margin-top: 1.2rem;
   background: transparent;
   border: 1px solid rgba(255,255,255,0.7);
-  padding: 0.25rem 0.4rem; 
+  padding: 0.3rem 0.6rem;
   border-radius: 6px;
+  color: white;
+  font-size: 0.9rem;
   cursor: pointer;
-  font-size: 0.85rem;
-  transition: all 0.3s ease;
 }
 
 .logout-button:hover {
-  background-color: rgba(255,255,255,0.2);
-  border-color: white;
-  transform: translateY(-1px);
+  background: rgba(255,255,255,0.2);
 }
 
-/* === Responsive === */
-@media (max-width: 768px) {
+/* For smaller desktops, move the arrow closer */
+@media (max-width: 900px) {
+  .close-arrow {
+    right: 230px;
+  }
+}
+
+/* For phones */
+@media (max-width: 600px) {
   .nav-dropdown {
     width: 100%;
-    padding: 4rem 0.8rem; 
+    right: -100%;
   }
 
-  .dropdown-icons {
-    flex-direction: row;
-    justify-content: space-around;
+  .nav-dropdown.open {
+    right: 0;
   }
 
-  .purina-logo, .facebook-logo {
-    height: 30px;
+  .close-arrow {
+    right: 85%;
   }
 }

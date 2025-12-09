@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { FaHome } from "react-icons/fa";
+import { FaHome, FaBars, FaArrowLeft } from "react-icons/fa";
 import "../styles/Navbar.css";
 import { useAdmin } from "../contexts/AdminContext";
 
@@ -32,7 +32,7 @@ export default function Navbar() {
         <div className="nav-logo-group">
           <Link to="/" className="nav-logo">Élevage des Ruby de Jade</Link>
           <span className="nav-subtitle">
-            Chien-loup tchecoslovaque & <br />Berger Blanc Suisse
+            Chien-loup tchecoslovaque & Berger Blanc Suisse
           </span>
         </div>
 
@@ -54,6 +54,12 @@ export default function Navbar() {
           <Link to="/galeries" onClick={() => setMenuOpen(false)}>GALERIES</Link>
           <Link to="/liens" onClick={() => setMenuOpen(false)}>LIENS</Link>
           <Link to="/contact" onClick={() => setMenuOpen(false)}>CONTACT</Link>
+
+          {menuOpen && (
+  <button className="close-arrow" onClick={() => setMenuOpen(false)}>
+    <FaArrowLeft />
+  </button>
+)}
 
           {/* Secondary icons/links */}
           <div className="dropdown-icons">
