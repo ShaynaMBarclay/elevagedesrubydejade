@@ -144,6 +144,41 @@
   box-shadow: 0 6px 20px rgba(0,0,0,0.25);
 }
 
+/* ===== Fade-in Animation ===== */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Apply fade-in to entire page content */
+.dogs-page > * {
+  opacity: 0; /* start hidden */
+  animation: fadeInUp 1s ease forwards;
+}
+
+/* Staggered fade-in for child elements  */
+.dogs-page h1 {
+  animation-delay: 0.1s;
+}
+
+.dogs-page .intro {
+  animation-delay: 0.3s;
+}
+
+.dog-categories,
+.dog-type-filters,
+.dog-grid,
+.admin-add-dog {
+  animation-delay: 0.5s;
+}
+
+
 /* === Dogs Page Responsive === */
 @media (max-width: 1024px) {
 

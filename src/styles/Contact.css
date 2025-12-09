@@ -202,6 +202,32 @@ background-color: var(--primary);
   background: #5f2d22;
 }
 
+/* ===== Fade-in Animation ===== */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Fade in all main content of the contact page */
+.contact-page > * {
+  opacity: 0;
+  animation: fadeInUp 1s ease forwards;
+}
+
+/* Optionally, fade in guestbook entries too (all together, no delay) */
+.guestbook-entry {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 1s ease forwards;
+}
+
+
 /* Tablets / Medium Screens */
 @media (max-width: 1024px) {
   .contact-page {

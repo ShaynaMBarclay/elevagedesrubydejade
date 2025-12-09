@@ -267,6 +267,32 @@
   justify-content: center;
 }
 
+/* ===== Fade-in Animation ===== */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Fade in entire gallery page content */
+.gallery-page > * {
+  opacity: 0;
+  animation: fadeInUp 1s ease forwards;
+}
+
+/* Apply fade-in to gallery items too (no delay) */
+.gallery-item {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 1s ease forwards;
+}
+
+
 
 /* === Gallery Page Responsive === */
 

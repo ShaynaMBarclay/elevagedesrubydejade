@@ -113,6 +113,33 @@
   box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
 
+/* ===== Fade-in Animation ===== */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Fade in all main content of the news page */
+.news-page > * {
+  opacity: 0;
+  animation: fadeInUp 1s ease forwards;
+}
+
+/* Fade in all update sections at the same time */
+.update-section,
+.news-2024 {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 1s ease forwards;
+}
+
+
 /* Tablets / Medium Screens */
 @media (max-width: 1024px) {
   .news-page {
