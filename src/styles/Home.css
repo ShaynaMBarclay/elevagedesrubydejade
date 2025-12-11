@@ -129,9 +129,18 @@ section {
   margin-bottom: 1rem;
 }
 
-.update-text ul {
+.update-list {
+  font-weight: 400 !important;     
+  font-size: 1rem;         
+  line-height: 1.5;
+  padding-left: 0.1rem;
   list-style-type: disc;
-  margin-left: 1.5rem;
+}
+
+.update-list li {
+  font-weight: 400 !important; 
+  margin-bottom: 0.4rem;
+  font-size: 1rem !important; 
 }
 
 .update-image {
@@ -239,14 +248,14 @@ section {
   text-decoration: underline;
 }
 
-/* === Responsive Queries === */
-
-/* Tablets (1024px and below) */
+/* ======================================================
+   Tablets (1024px and below)
+====================================================== */
 @media (max-width: 1024px) {
   .home-page {
     padding-top: 4rem;
     padding-bottom: 4rem;
-    background-attachment: scroll; 
+    background-attachment: scroll;
   }
 
   section {
@@ -255,22 +264,21 @@ section {
 
   .about-text {
     font-size: 1.5rem;
-    margin: 1.7rem;
+    margin: 1.5rem;
   }
 
-  .about-image  {
-    margin: 3rem;
+  .about-image {
+    margin: 2rem;
   }
-
 
   .update-preview {
     margin: 1.5rem;
   }
 
   .update-text {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
   }
-
+ 
   .about-content,
   .update-content {
     flex-direction: column;
@@ -278,17 +286,16 @@ section {
   }
 
   .news-button {
-    font-size: 2.3rem;
+    font-size: 1.8rem;
     border-radius: 45px;
-    
   }
 
   .dogs-preview,
   .puppies-preview,
   .contact-preview {
     padding: 2rem 1.5rem;
-    font-size: 1.7rem;
-    margin: 2rem;
+    font-size: 1rem;
+    margin: 1.5rem;
   }
 
   .dog-categories-home,
@@ -298,12 +305,14 @@ section {
 
   .dog-tab-home,
   .puppies-tab-home {
-    font-size: 2rem;
+    font-size: 1.5rem;
     border-radius: 45px;
   }
 }
 
-/* Mobile devices (768px and below) */
+/* ======================================================
+   Mobile devices (768px and below)
+====================================================== */
 @media (max-width: 768px) {
   .home-page {
     padding-top: 3rem;
@@ -311,31 +320,43 @@ section {
   }
 
   section {
-    padding: 2rem 1rem;
+    padding: 0.7rem  !important;
   }
 
   .about-text,
   .update-text {
-    font-size: 0.95rem;
+    font-size: 1rem;
+  }
+
+  .about-text h2 {
+    font-size: 1.2rem;
   }
 
   .update-text h2 {
-    font-size: 1.3rem;
+    font-size: 1.4rem !important;
+  }
+
+    .update-text ul {
+    font-size: 0.9rem;
+    font-weight: 400;  
+    margin-left: 1rem;
   }
 
   .news-button {
-    font-size: 0.95rem;
+    font-size: 1rem;
     padding: 0.35rem 1rem;
   }
 
   .dog-tab-home,
   .puppies-tab-home {
     padding: 0.35rem 0.9rem;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
   }
 }
 
-/* Small mobile (480px and below) */
+/* ======================================================
+   Small mobile (480px and below)
+====================================================== */
 @media (max-width: 480px) {
   .home-page {
     padding-top: 2rem;
@@ -349,7 +370,7 @@ section {
   .about-text,
   .update-text {
     font-size: 0.9rem;
-    padding: 1rem 1rem;
+    padding: 1rem;
   }
 
   .update-text h2 {
@@ -367,3 +388,46 @@ section {
     font-size: 0.85rem;
   }
 }
+
+/* ======================================================
+   Extra small mobile (360px and below)
+====================================================== */
+@media (max-width: 360px) {
+  .home-page {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+
+  section {
+    padding: 1rem 0.6rem;
+  }
+
+  .about-text,
+  .update-text {
+    font-size: 0.8rem;
+    padding: 0.8rem;
+  }
+
+  .update-text h2 {
+    font-size: 1rem;
+  }
+
+  .news-button {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.6rem;
+  }
+
+  .dog-tab-home,
+  .puppies-tab-home {
+    padding: 0.25rem 0.6rem;
+    font-size: 0.75rem;
+  }
+
+  .dogs-preview,
+  .puppies-preview,
+  .contact-preview {
+    padding: 1.5rem 1rem;
+    font-size: 0.8rem;
+  }
+}
+

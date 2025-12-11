@@ -55,7 +55,7 @@ export default function Home() {
               Une union exceptionnelle entre Ruby (Severka III Oduhoste) et Roberto (Robert Plant Sing Immigrant Song Athanor Lupus) — deux lignées soigneusement sélectionnées pour leur tempérament équilibré, leur santé irréprochable et leur beauté naturelle.
             </p>
             <p>🐾 Ce qu’il faut savoir :</p>
-            <ul>
+            <ul className="update-list">
               <li>0% de consanguinité sur 5 générations</li>
               <li>Tests complets : MD / MDR1 / pelage</li>
               <li>Hanches et coudes contrôlés</li>
