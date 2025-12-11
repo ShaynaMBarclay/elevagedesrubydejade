@@ -21,7 +21,6 @@
   z-index: 0;
 }
 
-/* When image is loaded */
 .home-page.loaded::before {
   opacity: 1;
 }
@@ -138,9 +137,9 @@ section {
 }
 
 .update-list li {
-  font-weight: 400 !important; 
+  font-weight: 400; 
   margin-bottom: 0.4rem;
-  font-size: 1rem !important; 
+  font-size: 1.2rem !important; 
 }
 
 .update-image {
@@ -308,6 +307,7 @@ section {
     font-size: 1.5rem;
     border-radius: 45px;
   }
+
 }
 
 /* ======================================================

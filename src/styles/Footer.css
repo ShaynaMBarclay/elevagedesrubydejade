@@ -1,12 +1,13 @@
+/* === Footer Base === */
 .footer {
-  flex-shrink: 0;             
+  flex-shrink: 0;
   background-color: rgba(30, 70, 78, 0.668);
   color: var(--light);
   padding: 2rem 1rem;
   text-align: center;
   font-family: var(--font-body);
-  margin: 0;  
-  width: 100%;               
+  margin: 0;
+  width: 100%;
 }
 
 .footer a {
@@ -31,35 +32,29 @@
 }
 
 /* === Responsive Queries === */
+
+/* Tablets (1024px and below) */
 @media (max-width: 1024px) {
   .footer {
-    padding: 1.5rem 0;
+    padding: 1.5rem 1rem;
   }
 
+  .footer-content p,
+  .footer a,
   .footer-copy {
-    font-size: 1.5rem !important;
-  }
-
-  .footer-name {
-    font-size: 1.7rem !important;
-  }
-
-  .footer a {
-    font-size: 1.6rem !important;
-  }
-
-  .footer-content p {
-    font-size: 1.7rem;
+    font-size: 0.9rem; /* smaller and consistent */
   }
 }
 
+/* Small Tablets / Large Phones (768px and below) */
 @media (max-width: 768px) {
   .footer {
-    padding: 1.2rem 0;
+    padding: 1.2rem 0.8rem;
   }
 
-  .footer-content p {
-    font-size: 0.9rem;
+  .footer-content p,
+  .footer a {
+    font-size: 0.85rem;
   }
 
   .footer-copy {
@@ -67,13 +62,15 @@
   }
 }
 
+/* Phones / Small Mobile (480px and below) */
 @media (max-width: 480px) {
   .footer {
-    padding: 1rem 0;
+    padding: 1rem 0.5rem;
   }
 
-  .footer-content p {
-    font-size: 0.85rem;
+  .footer-content p,
+  .footer a {
+    font-size: 0.8rem;
   }
 
   .footer-copy {
