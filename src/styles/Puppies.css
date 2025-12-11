@@ -1,3 +1,4 @@
+/* === Puppies Page Base === */
 .puppies-page {
   font-family: var(--font-body);
   text-align: center;
@@ -74,8 +75,8 @@
 
 .puppy-card img {
   width: 100%;
-  height: 300px;
-  object-fit: cover;
+  height: auto;
+  object-fit: contain;
   display: block;
 }
 
@@ -99,7 +100,7 @@
 
 /* Apply fade-in to entire puppies page content */
 .puppies-page > * {
-  opacity: 0; /* start hidden */
+  opacity: 0;
   animation: fadeInUp 1s ease forwards;
 }
 
@@ -117,84 +118,104 @@
   animation-delay: 0.5s;
 }
 
+/* === Responsive Queries === */
 
+/* Tablets (1024px and below) */
 @media (max-width: 1024px) {
-  .puppies-page {
-    padding: 10rem 1.5rem;
-  }
-
   .puppies-page h1 {
-    font-size: 3.4rem;
-  }
-
-  .puppies-page .intro {
-    font-size: 1.7rem;
-  }
-
-  .puppies-categories {
-    gap: 0.8rem;
-  }
-
-  .puppies-tab {
-    font-size: 1.7rem;
-    border-radius: 45px;
-  }
-
-  .puppies-content {
-    padding: 1.8rem;
     font-size: 2rem;
   }
-}
-
-@media (max-width: 768px) {
-  .puppies-page {
-    padding: 4rem 1rem;
-  }
-
-  .puppies-page h1 {
-    font-size: 1.9rem;
-  }
 
   .puppies-page .intro {
-    font-size: 0.95rem;
-  }
-
-  .puppies-categories {
-    flex-direction: column;
-    gap: 0.6rem;
+    font-size: 1rem !important;
   }
 
   .puppies-tab {
-    width: 100%;
+    font-size: 0.9rem;
     padding: 0.5rem 1rem;
   }
 
-  .puppies-content {
-    padding: 1.5rem;
-    font-size: 0.9rem;
+  .puppy-grid {
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+  }
+
+  .puppy-card {
+    width: 45%;
+    max-width: 300px;
+    padding: 0.5rem;
+  }
+
+  .puppy-name {
+    font-size: 1.1rem;
   }
 }
 
-@media (max-width: 480px) {
+/* Small Tablets / Large Phones (768px and below) */
+@media (max-width: 768px) {
   .puppies-page {
-    padding: 3rem 0.5rem;
+    padding-top: 2.5rem;
   }
 
   .puppies-page h1 {
-    font-size: 1.6rem;
+    font-size: 1.4rem !important;
   }
 
   .puppies-page .intro {
-    font-size: 0.9rem;
+    font-size: 0.8rem !important;
   }
 
   .puppies-tab {
     font-size: 0.85rem;
-    padding: 0.45rem 0.8rem;
+    padding: 0.25rem 0.8rem !important;
   }
 
-  .puppies-content {
-    padding: 1.2rem;
-    font-size: 0.85rem;
+  .puppy-grid {
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .puppy-card {
+    width: 90%;
+    padding: 0.5rem;
+  }
+
+  .puppy-name {
+    font-size: 1rem;
+  }
+}
+
+/* Phones / Small Mobile (480px and below) */
+@media (max-width: 480px) {
+  .puppies-page {
+    padding: 2rem 1rem;
+  }
+
+  .puppies-page h1 {
+    font-size: 1.5rem;
+  }
+
+  .puppies-page .intro {
+    font-size: 0.75rem;
+  }
+
+  .puppies-tab {
+    font-size: 0.8rem;
+    padding: 0.35rem 0.7rem;
+  }
+
+  .puppy-grid {
+    gap: 1.5rem;
+  }
+
+  .puppy-card {
+    width: 95%;
+    padding: 0.4rem;
+  }
+
+  .puppy-name {
+    font-size: 0.95rem;
   }
 }
