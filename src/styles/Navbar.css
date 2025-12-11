@@ -11,10 +11,11 @@
 /* ================= NAVBAR BASE ================= */
 .navbar {
   position: fixed;
+  flex-shrink: 0 !important;
   top: 0;
   left: 0;
   width: 100%;
-  height: 45px; /* thinner */
+  height: 40px; 
   background-color: rgb(9, 84, 96);
   display: flex;
   align-items: center;
@@ -31,7 +32,7 @@
   justify-content: space-between;
   padding: 0 1rem;
   overflow: hidden;   
-  flex-shrink: 1; 
+  flex-shrink: 0 !important;
 }
 
 /* ================= LOGO CENTER ================= */
@@ -40,6 +41,7 @@
   text-align: center;
   line-height: 1.1;
   transform: translateY(2px);
+  min-width: 0;
 }
 
 .nav-logo {
@@ -63,13 +65,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
   width: 38px;        
   height: 38px; 
-  
   font-size: 1.6rem;  
   color: white;
-
   border-radius: 6px; 
   transition: background 0.25s ease;
 }
@@ -94,16 +93,11 @@
   transition: 0.3s ease;
 }
 
-.hamburger.active span {
-  transform: none;
-  opacity: 1;
-}
-
-
 /* ================= SLIDE MENU ================= */
 .nav-dropdown {
   position: fixed;
   top: 0;
+  bottom: 0 !important;
   right: -260px; 
   height: 100vh;
   width: 260px; 
@@ -121,7 +115,7 @@
 }
 
 .nav-dropdown a {
-  font-family: var(--font-body);
+  font-family: var(--font-heading);
   color: white;
   text-decoration: none;
   font-size: 1.1rem;
@@ -142,8 +136,7 @@
 /* ================= EXTERNAL CLOSE ARROW ================= */
 .close-arrow {
   position: absolute;       
-  top: 3rem;   
-  right: 10px;  
+  top: 3rem;     
   right: 260px; 
   background: rgba(5,77,88,0.97);
   color: white;
@@ -160,7 +153,6 @@
   background: rgba(5,77,88,1);
 }
 
-
 /* ================= ICONS IN MENU ================= */
 .dropdown-icons {
   margin-top: 1rem;
@@ -170,29 +162,8 @@
   align-items: center;
 }
 
-.purina-logo {
-  height: 40px;
-}
-
-.facebook-logo {
-  height: 40px;
-}
-
-.cdf-link {
-  color: white;
-  text-decoration: none;
-  opacity: 0.9;
-}
-
-/* ================= ICONS IN MENU ================= */
 .dropdown-icons img {
   height: 50px;
-  width: auto;
-}
-
-.purina-logo,
-.facebook-logo {
-  height: 50px; 
   width: auto;
 }
 
@@ -212,25 +183,174 @@
   background: rgba(255,255,255,0.2);
 }
 
-/* For smaller desktops, move the arrow closer */
-@media (max-width: 900px) {
+
+/* ======================================================
+   TABLET 
+====================================================== */
+@media (max-width: 1200px) {
+
+  .navbar {
+    height: 50px;
+  }
+
+  .nav-logo {
+    font-size: 1.2rem;
+  }
+
+  .nav-subtitle {
+    font-size: 0.8rem;
+  }
+
+  .nav-home {
+    width: 30px;
+    height: 30px;
+    font-size: 2rem;
+  }
+
+  .hamburger span {
+    width: 28px;
+    height: 3.5px;
+  }
+
   .close-arrow {
-    right: 230px;
+    right: 260px;
+    font-size: 1.3rem;
+  }
+
+  .nav-dropdown a {
+    margin-top: 1rem;
   }
 }
 
-/* For phones */
+/* ======================================================
+   MOBILE (max 600px)
+====================================================== */
 @media (max-width: 600px) {
-  .nav-dropdown {
-    width: 100%;
-    right: -100%;
+
+  .navbar {
+    height: 40px;
   }
 
-  .nav-dropdown.open {
-    right: 0;
+  .nav-container {
+    padding: 0 0.3rem;
+  }
+
+  .nav-logo {
+    font-size: 0.8rem;
+  }
+
+  .nav-subtitle {
+   font-size: 0.4rem;
+  }
+ 
+  .nav-home {
+   font-size: 1.3rem;
+  }
+
+  .hamburger span {
+    margin-right: 0.2rem;
+    width: 20px;
+    height: 3px;
   }
 
   .close-arrow {
-    right: 85%;
+    right: 150px;
+    font-size: 1rem;
+  }
+
+  .nav-dropdown a {
+    font-size: 0.8rem;
+    padding: 0.2rem;
+  }
+
+  .dropdown-icons img {
+    height: 60px;
+  }
+
+  .nav-dropdown {
+  width: 150px; 
+  gap: 0.5rem;
+}
+
+.dropdown-icons {
+  margin-top: 0.4rem !important;
+  gap: 0.3rem;
+}
+
+.dropdown-icons img {
+  height: 50px;
+  width: auto;
+}
+
+.cdf-link {
+  font-size: 0.7rem !important;
+}
+}
+
+/* ======================================================
+   SMALL MOBILE (max 400px)
+====================================================== */
+@media (max-width: 400px) {
+
+  .navbar {
+    height: 35px;
+  }
+
+  .nav-container {
+    padding: 0 0.2rem;
+  }
+
+  .nav-logo {
+    font-size: 0.7rem;
+  }
+
+  .nav-subtitle {
+    font-size: 0.35rem;
+  }
+
+  .nav-home {
+    width: 28px;
+    height: 28px;
+    font-size: 1.2rem;
+  }
+
+  .hamburger span {
+    width: 18px;
+    height: 2.5px;
+  }
+
+  .close-arrow {
+    right: 128px;
+    font-size: 0.9rem;
+  }
+
+  .nav-dropdown {
+    width: 130px;
+    gap: 0.3rem;
+    padding: 0.2rem;
+  }
+
+  .nav-dropdown a {
+    font-size: 0.9rem;
+    padding: 0.15rem 0.5rem;
+  }
+
+  .dropdown-icons {
+    margin-top: 0.3rem !important;
+    gap: 0.2rem;
+  }
+
+  .dropdown-icons img {
+    height: 40px;
+  }
+
+  .cdf-link {
+    font-size: 0.7rem !important;
+  }
+
+  .logout-button {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.4rem;
   }
 }
+
