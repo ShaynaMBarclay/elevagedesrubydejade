@@ -90,7 +90,7 @@ export default function Gallery() {
       {loading ? (
         <p>Chargement des albums...</p>
       ) : galleries.length === 0 ? (
-        <p>Aucun album disponible.</p>
+         <p className="no-videos">Aucun album disponible.</p>
       ) : (
         <div className="album-grid">
           {galleries.map((album) => (

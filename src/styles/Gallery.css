@@ -11,7 +11,7 @@
   color: var(--primary);
   font-size: 3rem;
   margin-bottom: 1rem;
-  margin-top: 4rem;
+  margin-top: 1.5rem;
 }
 
 .gallery-page .intro {
@@ -76,20 +76,24 @@
 /* --- FILTER BAR --- */
 .filter-bar {
   display: flex;
-  gap: 1rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
   justify-content: center;
   margin: 2rem 0;
 }
 
 .filter-pill {
-  padding: 0.6rem 1.4rem;
-  border-radius: 30px;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px; 
   background: #f1f1f1;
   cursor: pointer;
   transition: 0.3s ease;
   font-weight: 600;
   color: #444;
   border: 1px solid #ddd;
+  text-align: center;
+  white-space: nowrap; 
+  min-width: 0; 
 }
 
 .filter-pill.active {
@@ -168,6 +172,12 @@
   padding: 0.5rem 0.8rem;
   font-size: 1rem;
   color: var(--dark);
+}
+
+.no-videos {
+  text-align: center !important;
+  font-size: 1.3rem;
+  margin-top: 2rem; 
 }
 
 /* --- Delete Album Button --- */
@@ -292,133 +302,139 @@
   animation: fadeInUp 1s ease forwards;
 }
 
+/* === Gallery Page Responsive Queries === */
 
-
-/* === Gallery Page Responsive === */
-
-/* Tablets / Medium Screens */
+/* Tablets / Medium Screens (1024px and below) */
 @media (max-width: 1024px) {
   .gallery-page {
-    padding: 3rem 2rem;
-    margin-top: 5rem;
+    padding: 1rem 2rem;
+    margin-top: 1rem;
   }
 
   .gallery-page h1 {
-    font-size: 3.5rem;
-    margin-top: 4rem;
+    font-size: 2.8rem;
+    margin-top: 1rem;
+    text-align: center;
   }
 
   .gallery-page .intro {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     margin-bottom: 2rem;
+    text-align: center;
   }
 
   .gallery-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
+    justify-items: center;
   }
+
 
   .gallery-item {
     width: 100%;
-    max-width: none; 
-    margin: 0 auto;
+    max-width: 400px;
   }
 
   .gallery-item img,
   .gallery-item video {
     width: 100%;
     height: auto;
-    max-height: 500px; 
-    object-fit: contain;
-  }
-
-  .add-album-btn {
-    font-size: 1.6rem;
-  }
-
-   .album-card {
-    width: 45vw;    
-    max-width: 500px;    
-    border-radius: 18px;
-  }
-
- 
-  .album-preview {
-    height: 300px;         
+    max-height: 400px;
     object-fit: cover;
+    border-radius: 8px;
+  }
+
+  .album-card {
+    width: 90%;
+    max-width: 450px;
+  }
+
+   .album-preview {
+    height: auto;  
   }
 
   .album-name {
-    font-size: 1.15rem;
-    padding: 0.7rem 0.8rem;
+    font-size: 1.5rem !important;
+    padding: 0.5rem 0.5rem;
   }
 
-  .delete-album-btn {
-    font-size: 1.6rem;
+  /* Fix pills */
+  .filter-bar,
+  .photo-subfilters {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
   }
 
-  input.file-input {
-    font-size: 2rem;
+  .filter-pill,
+  .sub-pill {
+    font-size: 1.5rem !important;
+    padding: 0.35rem 0.7rem;
+    min-width: auto;
   }
 
+  .delete-album-btn,
   .upload-btn {
-    font-size: 1.6rem;
+    font-size: 1rem;
   }
-
-  button.sub-pill {
-    font-size: 2rem;
-  }
-
 }
 
-/* Mobile / Small Screens */
+/* Mobile / Small Screens (768px and below) */
 @media (max-width: 768px) {
   .gallery-page {
     padding: 2rem 1rem;
   }
 
   .gallery-page h1 {
-    font-size: 2.8rem;
-    margin-top: 3rem;
+    font-size: 2.4rem;
+    margin-top: 1rem !important;
   }
 
-  .gallery-page .intro {
-    font-size: 1.2rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .gallery-grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-
-  .gallery-item {
-    width: 100%;
-  }
-
-  .gallery-item img,
-  .gallery-item video {
-    width: 100%;
+  .album-card {
+    width: 80%;
     height: auto;
-    max-height: 500px;
-    object-fit: contain;
+  }
+
+  .album-preview {
+    height: 220px;
+  }
+
+  .album-name {
+    font-size: 0.95rem;
+    padding: 0.4rem 0.5rem;
+  }
+
+  /* Pills fix for mobile */
+  .filter-bar,
+  .photo-subfilters {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.4rem;
+  }
+
+  .filter-pill,
+  .sub-pill {
+    font-size: 0.85rem;
+    padding: 0.3rem 0.6rem;
+    min-width: auto;
   }
 }
 
-/* Extra Small Mobile / Narrow Screens */
+/* Extra Small Mobile / Narrow Screens (480px and below) */
 @media (max-width: 480px) {
   .gallery-page {
     padding: 1.5rem 0.5rem;
   }
 
   .gallery-page h1 {
-    font-size: 2rem;
-    margin-top: 2.5rem;
+    font-size: 1.8rem;
+    margin-top: 2rem;
   }
 
   .gallery-page .intro {
-    font-size: 1rem;
+    font-size: 0.9rem;
     margin-bottom: 1rem;
   }
 
@@ -435,7 +451,36 @@
   .gallery-item video {
     width: 100%;
     height: auto;
-    max-height: 400px; 
+    max-height: 300px;
     object-fit: contain;
+  }
+
+  .album-card {
+    width: 100%;
+  }
+
+  .album-preview {
+    height: 180px;
+  }
+
+  .album-name {
+    font-size: 0.85rem;
+    padding: 0.3rem 0.4rem;
+  }
+
+  /* Pills fix for extra small screens */
+  .filter-bar,
+  .photo-subfilters {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.3rem;
+  }
+
+  .filter-pill,
+  .sub-pill {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    min-width: auto;
   }
 }
