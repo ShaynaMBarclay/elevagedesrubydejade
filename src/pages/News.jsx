@@ -39,7 +39,7 @@ export default function News() {
             <div className="update-image">
                 <img src={updateImg} alt="Portée 2025 Ruby & Roberto"  loading="lazy" />
               </div>
-              <div className="update-text">
+              <div className="update-list">
                 <p>🐾 Les chiots de Ruby & Roberto arrivent cet automne ! 🐾</p>
                 <p>
                   Nous sommes heureux d’annoncer la prochaine portée à l’Élevage des Ruby de Jade.
