@@ -1,4 +1,3 @@
-/* === Base Styles === */
 .dog-detail-page {
   font-family: var(--font-body);
   text-align: center;
@@ -34,7 +33,7 @@
 }
 
 .click-enlarge {
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: #555;
   margin-top: 0.5rem;
   text-align: center;
@@ -142,6 +141,14 @@
   .dog-category p,
   .dog-category li {
     font-size: 1.1rem !important;
+  }
+
+    .dog-images {
+    justify-items: center;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+   
   }
 
   .dog-images img {

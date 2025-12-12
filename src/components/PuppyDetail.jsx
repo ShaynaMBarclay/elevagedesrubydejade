@@ -13,6 +13,7 @@ export default function PuppyDetail() {
   const navigate = useNavigate();
   const [puppy, setPuppy] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [lightboxImage, setLightboxImage] = useState(null); // <-- added
 
   useEffect(() => {
     async function fetchPuppy() {
@@ -71,7 +72,6 @@ export default function PuppyDetail() {
 
     try {
       const storageRefs = [];
-
       if (puppy.images && puppy.images.length > 0) {
         puppy.images.forEach((imgPath) => storageRefs.push(ref(storage, imgPath)));
       }
@@ -98,15 +98,51 @@ export default function PuppyDetail() {
       <h1>{puppy.name}</h1>
       <p>{puppy.sex} {puppy.type} née le {puppy.birth}</p>
 
+      {/* Puppy images with lightbox */}
       <div className="dog-images">
         {puppy.allImages.length > 0 ? (
-          puppy.allImages.map((img, idx) => <img key={idx} src={img} alt={`${puppy.name} ${idx + 1}`} />)
+          puppy.allImages.map((img, idx) => (
+            <img
+              key={idx}
+              src={img}
+              alt={`${puppy.name} ${idx + 1}`}
+              loading="lazy"
+              onClick={() => setLightboxImage(img)}
+              style={{ cursor: "pointer" }}
+            />
+          ))
         ) : (
-          <img src={placeholder} alt={puppy.name}  loading="lazy" />
+          <img src={placeholder} alt={puppy.name} loading="lazy" />
         )}
       </div>
       <p className="click-enlarge">Cliquez pour agrandir</p>
 
+      {/* Parent images with lightbox */}
+      <div className="puppy-category parents">
+        <h2>Les parents</h2>
+        <div>
+          <p>Père: {puppy.parents.father.name}</p>
+          <img
+            src={puppy.parents.father.image}
+            alt={puppy.parents.father.name}
+            loading="lazy"
+            onClick={() => setLightboxImage(puppy.parents.father.image)}
+            style={{ cursor: "pointer" }}
+          />
+        </div>
+        <div>
+          <p>Mère: {puppy.parents.mother.name}</p>
+          <img
+            src={puppy.parents.mother.image}
+            alt={puppy.parents.mother.name}
+            loading="lazy"
+            onClick={() => setLightboxImage(puppy.parents.mother.image)}
+            style={{ cursor: "pointer" }}
+          />
+        </div>
+      </div>
+
+      {/* Admin Controls */}
       {isAdmin && (
         <div className="admin-controls">
           <button onClick={() => navigate(`/chiots/edit/${puppy.id}`)}>Modifier</button>
@@ -133,20 +169,7 @@ export default function PuppyDetail() {
         </ul>
       </div>
 
-      {/* Parents */}
-      <div className="puppy-category parents">
-        <h2>Les parents</h2>
-        <div>
-          <p>Père: {puppy.parents.father.name}</p>
-          <img src={puppy.parents.father.image} alt={puppy.parents.father.name}  loading="lazy" />
-        </div>
-        <div>
-          <p>Mère: {puppy.parents.mother.name}</p>
-          <img src={puppy.parents.mother.image} alt={puppy.parents.mother.name}   loading="lazy"/>
-        </div>
-      </div>
-
-      {/* Link to dedicated pedigree page */}
+      {/* Pedigree */}
       <Link to={`/chiots/${puppy.id}/pedigree`} className="pedigree-btn">
        Voir le pédigree complet
       </Link>
@@ -173,6 +196,14 @@ export default function PuppyDetail() {
           <p>Les résultats de l'année sélectionnée apparaîtront ici.</p>
         </div>
       </div>
+
+      {/* Lightbox Overlay */}
+      {lightboxImage && (
+        <div className="lightbox-overlay" onClick={() => setLightboxImage(null)}>
+          <button className="lightbox-close" onClick={() => setLightboxImage(null)}>×</button>
+          <img src={lightboxImage} alt="Full View" className="lightbox-img" />
+        </div>
+      )}
     </main>
   );
 }
