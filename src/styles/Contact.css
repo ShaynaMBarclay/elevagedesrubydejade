@@ -10,7 +10,7 @@
   font-family: var(--font-heading);
   color: var(--primary);
   font-size: 3.5rem;
-  margin-top: 4rem;
+  margin-top: 1rem;
   margin-bottom: 1rem;
 }
 
@@ -71,6 +71,7 @@
   max-width: 600px;
 }
 
+.guestbook-section,
 .contact-form input,
 .contact-form textarea {
   width: 100%;
@@ -78,7 +79,6 @@
   margin: 0.5rem 0;
   border: 1px solid #ccc;
   border-radius: 8px;
-  font-family: inherit;
 }
 
 .contact-form textarea {
@@ -214,126 +214,33 @@ background-color: var(--primary);
   }
 }
 
-/* Fade in all main content of the contact page */
 .contact-page > * {
   opacity: 0;
   animation: fadeInUp 1s ease forwards;
 }
 
-/* Optionally, fade in guestbook entries too (all together, no delay) */
 .guestbook-entry {
   opacity: 0;
   transform: translateY(20px);
   animation: fadeInUp 1s ease forwards;
 }
 
-
-/* Tablets / Medium Screens */
+/* ==========================
+   TABLET (1024px and below)
+   ========================== */
 @media (max-width: 1024px) {
-  .contact-page {
-    padding: 3rem 2rem;
-    margin-top: 3rem;
-  }
 
-  .contact-page h1 {
-    font-size: 4rem;
-    margin-top: 6rem;
-  }
-
-  .contact-page .intro {
-    font-size: 2rem;
-    margin-bottom: 2.5rem;
-  }
-
-  .contact-page p {
-    font-size: 1.6rem;
-  }
-
-  .contact-page button {
-    font-size: 2rem !important;
-  }
-  
-  .contact-info p {
-    font-size: 2.2rem;
-  }
-
-  .contact-content,
-  .contact-sections {
-    flex-direction: column;
-    gap: 2.5rem;
-    align-items: center;
-  }
-
-  .contact-image img,
-  .contact-info,
-  .contact-form-section,
-  .guestbook-section,
-  .guestbook-entry {
-    max-width: 100%;
-    width: 90%;
-    padding: 2rem;
-    margin: 0 auto;
-  }
-
-  .contact-info {
-    font-size: 2rem;
-  }
-
-  .contact-image {
-    display: flex;
-    justify-content: center;
-  }
-
-.contact-form input,
-.guestbook-form input {
-  font-size: 1.4rem;   
-  padding: 1rem;
-}
-
-.contact-form textarea,
-.guestbook-form textarea {
-  font-size: 1.7rem;    
-  padding: 2rem;
-  height: 300px;        
-  resize: vertical;     
-}
-
-
-  .contact-form button,
-  .guestbook-form button {
-    width: auto;  
-     padding: 0.8rem 2rem;
-    font-size: 1.6rem;
-    border-radius: 50px;      
-  }
-
-  .guestbook-entries {
-    gap: 2rem;
-  }
-
-  .guestbook-entries-section {
-    font-size: 2rem;
-  }
-
-  .guestbook-section h2,
-  .contact-form-section h2 {
-    font-size: 2.2rem;
-  }
-}
-
-/* Mobile / Small Screens */
-@media (max-width: 768px) {
   .contact-page {
     padding: 2.5rem 1.5rem;
   }
 
   .contact-page h1 {
-    font-size: 3rem;
-    margin-top: 1.5rem;
+    font-size: 2.6rem;
+    margin-top: 3rem;
   }
 
   .contact-page .intro {
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     margin-bottom: 2rem;
   }
 
@@ -349,52 +256,79 @@ background-color: var(--primary);
   .contact-form-section,
   .guestbook-section,
   .guestbook-entry {
-    max-width: 100%;
-    width: 95%;
+    max-width: 90%;
+    width: 90%;
     padding: 2rem;
-    margin: 0 auto;
   }
 
-  .contact-image {
-    display: flex;
-    justify-content: center;
+   .contact-form input,
+  .contact-form textarea {
+    margin: 1.2rem 0;
   }
 
   .contact-form input,
-  .contact-form textarea,
   .guestbook-form input,
+  .contact-form textarea,
   .guestbook-form textarea {
-    font-size: 1.3rem;
-    padding: 1.1rem;
+    font-size: 1rem;
+    padding: 0.8rem;
   }
+
+.guestbook-entry {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center; 
+  width: 90%; 
+}
 
   .contact-form button,
   .guestbook-form button {
-    font-size: 1.3rem;
-    padding: 1.1rem 2rem;
+    font-size: 1rem;
+    padding: 0.7rem 1.8rem;
+    border-radius: 40px;
   }
-}
 
-/* Extra Small / Narrow Mobile Screens */
-@media (max-width: 480px) {
+  .contact-info {
+    font-size: 1.5rem;
+  }
+
+  .guestbook-section h2,
+  .contact-form-section h2 {
+    font-size: 1.5rem;
+  }
+
+.contact-image {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.contact-form {
+  padding: 0.8rem;
+}
+}
+/* ==========================
+   MOBILE (768px and below)
+   ========================== */
+@media (max-width: 768px) {
+
   .contact-page {
-    padding: 2rem 1rem;
+    padding: 1.5rem 1rem;
   }
 
   .contact-page h1 {
-    font-size: 2.5rem;
-    margin-top: 1rem;
+    font-size: 2rem;
+    margin-top: 2rem;
   }
 
   .contact-page .intro {
-    font-size: 1.2rem;
+    font-size: 0.8rem !important;
     margin-bottom: 1.5rem;
   }
 
   .contact-content,
   .contact-sections {
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1.8rem;
     align-items: center;
   }
 
@@ -403,28 +337,91 @@ background-color: var(--primary);
   .contact-form-section,
   .guestbook-section,
   .guestbook-entry {
-    max-width: 100%;
-    width: 100%;
-    padding: 2rem;
-    margin: 0 auto;
+    width: 95%;
+    padding: 1.5rem;
   }
 
-  .contact-image {
-    display: flex;
-    justify-content: center;
+  .guestbook-section {
+    padding-bottom: 2.5rem !important;
   }
 
   .contact-form input,
   .contact-form textarea,
   .guestbook-form input,
   .guestbook-form textarea {
-    font-size: 1.2rem;
-    padding: 1rem;
+    font-size: 0.95rem;
+    padding: 0.8rem;
   }
 
   .contact-form button,
   .guestbook-form button {
-    font-size: 1.2rem;
-    padding: 1rem 2rem;
+    font-size: 1rem;
+    padding: 0.7rem 1.6rem;
+  }
+
+  .guestbook-section h2,
+  .contact-form-section h2 {
+    font-size: 1rem !important;
+  }
+
+  .contact-info {
+    font-size: 0.9rem !important;
+  }
+
+  .contact-form-section {
+    padding: 1rem !important;
+  }
+}
+/* ==========================
+   SMALL MOBILE (480px)
+   ========================== */
+@media (max-width: 480px) {
+
+  .contact-page {
+    padding: 1.5rem 0.8rem;
+  }
+
+  .contact-page h1 {
+    font-size: 1.9rem;
+    margin-top: 1.2rem;
+  }
+
+  .contact-page .intro {
+    font-size: 0.9rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .contact-content,
+  .contact-sections {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .contact-image img,
+  .contact-info,
+  .contact-form-section,
+  .guestbook-section,
+  .guestbook-entry {
+    width: 100%;
+    padding: 1.2rem;
+  }
+
+  .contact-form input,
+  .contact-form textarea,
+  .guestbook-form input,
+  .guestbook-form textarea {
+    font-size: 0.9rem;
+    padding: 0.7rem;
+  }
+
+  .contact-form button,
+  .guestbook-form button {
+    font-size: 0.9rem;
+    padding: 0.6rem 1.4rem;
+  }
+
+  .guestbook-section h2,
+  .contact-form-section h2 {
+    font-size: 1.1rem;
   }
 }
