@@ -1,3 +1,4 @@
+/* === Base Styles === */
 .puppy-detail-page {
   font-family: var(--font-body);
   text-align: center;
@@ -9,7 +10,7 @@
 
 .puppy-detail-page a {
   display: inline-block;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   color: var(--primary);
   text-decoration: none;
   font-weight: 500;
@@ -22,15 +23,25 @@
   margin-bottom: 1rem;
 }
 
-.puppy-detail-page img {
-  max-width: 300px;
+.puppy-detail-page img.main-puppy {
+  max-width: 400px;
   width: 100%;
+  height: auto;
   border-radius: 10px;
-  margin: 1rem 0;
+  margin: 1rem auto;
+  cursor: pointer;
 }
 
+.click-enlarge {
+  font-size: 0.9rem;
+  color: #555;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+/* Section Styling */
 .puppy-category {
-  max-width: 900px;
+  max-width: 800px;
   margin: 2rem auto;
   text-align: left;
   background: rgba(255,255,255,0.85);
@@ -45,10 +56,18 @@
   margin-bottom: 1rem;
 }
 
+.puppy-category p,
+.puppy-category li {
+  font-size: 1rem;
+  margin: 0.5rem 0;
+}
+
+/* Parent Images */
 .parents {
   display: flex;
   justify-content: center;
   gap: 2rem;
+  flex-wrap: wrap;
 }
 
 .parents div {
@@ -56,13 +75,39 @@
 }
 
 .parents img {
-  width: 150px;
-  height: 150px;
+  width: 120px;
+  height: 120px;
   object-fit: cover;
   border-radius: 50%;
-  margin-top: 0.5rem;
+  margin: 0.5rem 0;
 }
 
+/* Dog Gallery */
+.puppy-images {
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  gap: 15px; 
+  overflow-x: auto; 
+  padding: 15px 0;
+  margin: 2rem 0;
+}
+
+.puppy-images img {
+  width: 250px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 12px;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.puppy-images img:hover {
+  transform: scale(1.05);
+}
+
+/* Pedigree Button */
 .pedigree-btn {
   display: inline-block;
   padding: 0.5rem 1.5rem;
@@ -83,6 +128,7 @@
   color: white;
 }
 
+/* Year Filters */
 .years-filter {
   display: flex;
   justify-content: center;
@@ -110,6 +156,7 @@
   border-color: var(--primary);
 }
 
+/* Results List */
 .results-list {
   background: rgba(255,255,255,0.85);
   padding: 1.5rem;
@@ -117,7 +164,7 @@
   box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
 
-/* Admin Buttons for Puppies Page */
+/* Admin Buttons */
 .admin-actions,
 .admin-controls {
   display: flex;
@@ -147,9 +194,102 @@
   box-shadow: 0 6px 20px rgba(0,0,0,0.25);
 }
 
+/* === Responsive Queries === */
+
+/* Tablet (1024px) */
+@media (max-width: 1024px) {
+  .puppy-detail-page {
+    padding: 4rem 2rem !important;
+  }
+
+  .puppy-detail-page h1 {
+    font-size: 2rem;
+  }
+
+  .puppy-category p,
+  .puppy-category li {
+   font-size: 1.1rem !important;
+  }
+
+  .puppy-images img {
+   width: 80vw !important;
+    height: 60vh !important;
+  }
+
+  .parents img {
+   width: 200px !important;
+    height: 200px !important;
+  }
+
+  .pedigree-btn {
+    font-size: 1rem;
+    padding: 0.45rem 1rem;
+  }
+}
+
+/* Mobile (768px) */
 @media (max-width: 768px) {
+  .puppy-detail-page {
+    padding: 3rem 1.5rem;
+  }
+
+  .puppy-detail-page h1 {
+    font-size: 1.8rem;
+  }
+
+  .puppy-category p,
+  .puppy-category li {
+    font-size: 0.9rem;
+  }
+
+  .puppy-images img {
+    width: 180px;
+    height: 140px;
+  }
+
   .parents {
     flex-direction: column;
     align-items: center;
+  }
+
+  .parents img {
+    width: 90px;
+    height: 90px;
+  }
+
+  .pedigree-btn {
+    font-size: 0.95rem;
+    padding: 0.4rem 0.9rem;
+  }
+}
+
+/* Small Mobile (480px) */
+@media (max-width: 480px) {
+  .puppy-detail-page {
+    padding: 2rem 1rem;
+  }
+
+  .puppy-detail-page h1 {
+    font-size: 1.5rem;
+  }
+
+  .puppy-category p,
+  .puppy-category li {
+    font-size: 0.85rem;
+  }
+
+  .puppy-images img {
+    width: 150px;
+    height: 120px;
+  }
+
+  .parents img {
+    width: 80px;
+    height: 80px;
+  }
+
+  .pedigree-btn {
+    font-size: 0.9rem;
+    padding: 0.35rem 0.8rem;
   }
 }

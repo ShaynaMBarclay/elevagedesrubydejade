@@ -105,6 +105,7 @@ export default function PuppyDetail() {
           <img src={placeholder} alt={puppy.name}  loading="lazy" />
         )}
       </div>
+      <p className="click-enlarge">Cliquez pour agrandir</p>
 
       {isAdmin && (
         <div className="admin-controls">

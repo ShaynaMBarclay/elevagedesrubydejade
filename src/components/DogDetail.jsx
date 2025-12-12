@@ -132,6 +132,7 @@ export default function DogDetail() {
           <img src={placeholder} alt={dog.name} loading="lazy" />
         )}
       </div>
+      <p className="click-enlarge">Cliquez pour agrandir</p>
 
       {/* Parent images with lightbox */}
       <div className="dog-category parents">

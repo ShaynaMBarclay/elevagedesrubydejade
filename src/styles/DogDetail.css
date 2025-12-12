@@ -1,3 +1,4 @@
+/* === Base Styles === */
 .dog-detail-page {
   font-family: var(--font-body);
   text-align: center;
@@ -10,7 +11,7 @@
 
 .dog-detail-page a {
   display: inline-block;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   color: var(--primary);
   text-decoration: none;
   font-weight: 500;
@@ -23,14 +24,22 @@
   margin-bottom: 1rem;
 }
 
-.dog-detail-page img {
-  max-width: 300px;
+.dog-detail-page img.main-dog {
+  max-width: 400px;
   width: 100%;
+  height: auto;
   border-radius: 10px;
-  margin: 1rem 0;
+  margin: 1rem auto;
+  cursor: pointer;
 }
 
-/* ===== Section styling similar to PuppyDetail ===== */
+.click-enlarge {
+  font-size: 0.9rem;
+  color: #555;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
 .dog-category {
   max-width: 800px;
   margin: 2rem auto;
@@ -53,6 +62,7 @@
   margin: 0.5rem 0;
 }
 
+/* Parent Images */
 .parents {
   display: flex;
   justify-content: center;
@@ -65,15 +75,41 @@
 }
 
 .parents img {
-  width: 150px;
-  height: 150px;
+  width: 120px;
+  height: 120px;
   object-fit: cover;
   border-radius: 50%;
   margin: 0.5rem 0;
 }
 
+/* Dog Gallery */
+.dog-images {
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  gap: 15px; 
+  overflow-x: auto; 
+  padding: 15px 0;
+  margin: 2rem 0;
+}
+
+.dog-images img {
+  width: 250px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 12px;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.dog-images img:hover {
+  transform: scale(1.05);
+}
+
+/* Pedigree Button */
 .pedigree-btn {
-   display: inline-block;
+  display: inline-block;
   padding: 0.5rem 1.5rem;
   margin-top: 1rem;
   border: 2px solid var(--primary);
@@ -91,220 +127,106 @@
   color: white;
 }
 
-.palmares {
-  text-align: center;
-}
+/* === Responsive Queries === */
 
-.years-filter {
-  display: flex;
-  justify-content: center;
-  gap: 0.8rem;
-  margin-bottom: 1rem;
-  flex-wrap: wrap;
-}
-
-.year-btn {
-  padding: 0.5rem 1.2rem;
-  border-radius: 25px;
-  border: 1px solid #ccc;
-  background: #f4f4f4;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.year-btn:hover {
-  background: #eaeaea;
-}
-
-.year-btn.active {
-  background-color: var(--primary);
-  color: white;
-  border-color: var(--primary);
-}
-
-.results-list {
-  background: rgba(255, 255, 255, 0.85);
-  padding: 1.5rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-  text-align: left;
-}
-
-.dog-images {
-  display: flex;
-  justify-content: center; 
-  align-items: center;
-  gap: 15px; 
-  overflow-x: auto; 
-  padding: 15px 0;
-  margin: 2rem 0;
-}
-
-.dog-images img {
-  height: 300px; 
-  width: auto;
-  border-radius: 12px;
-  object-fit: cover;
-  flex-shrink: 0; 
-  transition: transform 0.2s ease;
-  cursor: pointer;
-}
-
-.dog-images img:hover {
-  transform: scale(1.05);
-}
-
-.dog-images::-webkit-scrollbar {
-  height: 10px;
-}
-
-.dog-images::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 5px;
-}
-
-.dog-images::-webkit-scrollbar-thumb {
-  background: #ccc;
-  border-radius: 5px;
-}
-
-.dog-images::-webkit-scrollbar-thumb:hover {
-  background: #999;
-}
-
-.delete-btn {
-  background-color: transparent;
-  color: var(--primary);
-}
-
-.delete-btn:hover {
-  background-color: var(--primary);
-  color: white;
-}
-
-.lightbox-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0,0,0,0.85);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-  cursor: zoom-out;
-}
-
-.lightbox-img {
-  max-width: 90%;
-  max-height: 90%;
-  object-fit: contain;
-  border-radius: 8px;
-}
-
-.lightbox-close {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background: rgba(255, 0, 0, 0.8);
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 32px;
-  height: 32px;
-  font-size: 24px;
-  cursor: pointer;
-  z-index: 1010;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-
-/* Responsive adjustments */
+/* Tablet (1024px) */
 @media (max-width: 1024px) {
-  .dog-images img {
-    height: 100% !important;
-    width: 100% !important;
+  .dog-detail-page {
+    padding: 4rem 2rem !important;
   }
-  .dog-detail-page a {
-    font-size: 2rem;
-    margin-top: 1rem;
-  }
-  .dog-detail-page p {
-    font-size: 4.2rem;
-  }
+
   .dog-detail-page h1 {
     font-size: 2rem;
   }
-  .dog-detail-page h2 {
-    font-size: 3rem;
+
+  .dog-category p,
+  .dog-category li {
+    font-size: 1.1rem !important;
   }
 
-  .dog-detail-page img {
-    width: 30rem !important;
-    height: 20rem !important;
-  }
-  .edit-btn,
-  .delete-btn {
-    font-size: 2rem !important;
-  }
-  strong {
-    font-size: 2.5rem;
-  }
-  li {
-    font-size: 2rem !important;
-  }
-  .year-btn {
-    font-size: 2.4rem !important;
-  }
-}
-
-@media (max-width: 768px) {
-  .dog-images {
-    gap: 10px;
-  }
   .dog-images img {
-    height: 200px;
+    width: 80vw !important;
+    height: 60vh !important;
+  }
+
+  .parents img {
+    width: 200px !important;
+    height: 200px !important;
+  }
+
+  .pedigree-btn {
+    font-size: 1rem;
+    padding: 0.45rem 1rem;
   }
 }
 
-@media (max-width: 480px) {
-  .dog-images img {
-    height: 150px;
-  }
-}
-
-
-/* === Responsive === */
-@media (max-width: 1024px) {
-  .dog-detail-page {
-    padding: 8rem 1.5rem;
-  }
-
-  .dog-detail-page h1 {
-    font-size: 3rem;
-  }
-}
-
+/* Mobile (768px) */
 @media (max-width: 768px) {
-  .parents {
-    flex-direction: column;
-    align-items: center;
-  }
-}
-
-@media (max-width: 480px) {
   .dog-detail-page {
-    padding: 4rem 1rem;
+    padding: 3rem 1.5rem;
   }
 
   .dog-detail-page h1 {
     font-size: 1.8rem;
   }
 
+  .dog-category p,
+  .dog-category li {
+    font-size: 0.9rem;
+  }
+
+  .dog-images {
+    gap: 10px;
+  }
+
+  .dog-images img {
+    width: 180px;
+    height: 140px;
+  }
+
+  .parents {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .parents img {
+    width: 90px;
+    height: 90px;
+  }
+
   .pedigree-btn {
-    padding: 0.45rem 1rem;
+    font-size: 0.95rem;
+    padding: 0.4rem 0.9rem;
+  }
+}
+
+/* Small Mobile (480px) */
+@media (max-width: 480px) {
+  .dog-detail-page {
+    padding: 2rem 1rem;
+  }
+
+  .dog-detail-page h1 {
+    font-size: 1.5rem;
+  }
+
+  .dog-category p,
+  .dog-category li {
+    font-size: 0.85rem;
+  }
+
+  .dog-images img {
+    width: 150px;
+    height: 120px;
+  }
+
+  .parents img {
+    width: 80px;
+    height: 80px;
+  }
+
+  .pedigree-btn {
+    font-size: 0.9rem;
+    padding: 0.35rem 0.8rem;
   }
 }
