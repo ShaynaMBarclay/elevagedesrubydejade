@@ -56,7 +56,9 @@
 }
 
 .admin-login button {
-  padding: 0.7rem 1rem;
+  width: fit-content;
+  align-self: center;
+  padding: 0.8rem 1rem;
   font-size: 1rem;
   border-radius: 30px;
   background-color: var(--primary);
@@ -79,30 +81,74 @@
   margin-top: 0.5rem;
 }
 
-@media (max-width: 768px) {
+/* ========== Tablets (1024px and below) ========== */
+@media (max-width: 1024px) {
+  .admin-login {
+    padding: 5rem 1.5rem;
+  }
+
   .admin-login form {
+    max-width: 420px;
+    padding: 2rem;
+  }
+
+  .admin-login h1 {
+    font-size: 1.8rem;
+  }
+
+  .admin-login input,
+  .admin-login button {
+    font-size: 1rem;
+    padding: 0.75rem 1rem;
+  }
+}
+
+
+/* ========== Phones (768px and below) ========== */
+@media (max-width: 768px) {
+  .admin-login {
+    padding: 4rem 1rem;
+  }
+
+  .admin-login form {
+    max-width: 90%;
     padding: 1.5rem;
+    border-radius: 12px;
   }
 
   .admin-login h1 {
     font-size: 1.6rem;
+    margin-bottom: 1.5rem;
   }
 
+  .admin-login input,
   .admin-login button {
     font-size: 0.95rem;
+    padding: 0.7rem;
   }
 }
 
+
+/* ========== Small Phones (480px and below) ========== */
 @media (max-width: 480px) {
+  .admin-login {
+    padding: 3rem 0.8rem;
+  }
+
   .admin-login form {
-    padding: 1rem;
+    max-width: 100%;
+    padding: 1.2rem;
+    gap: 1rem;
   }
 
   .admin-login h1 {
     font-size: 1.4rem;
+    margin-bottom: 1.2rem;
   }
 
+  .admin-login input,
   .admin-login button {
     font-size: 0.9rem;
+    padding: 0.6rem;
   }
 }
