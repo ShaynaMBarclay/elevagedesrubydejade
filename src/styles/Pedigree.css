@@ -4,6 +4,7 @@
   margin: 0 auto;
   padding-left: 20px;
   padding-right: 20px;
+  align-items: center !important; 
 }
 .pedigree-page a {
   display: inline-block;
@@ -16,7 +17,6 @@
   font-size: 2rem;
   text-align: center;
 }
-
 
 .pedigree-tree {
   display: flex;
@@ -98,44 +98,171 @@
   border: 2px solid #ccc;
 }
 
+.return-link {
+  display: block;           
+  text-align: center;      
+  margin: 20px auto;         
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.return-link:hover {
+  color: #5e3124; 
+}
+
+
+/* ================= TABLET: max-width 1024px ================= */
 @media (max-width: 1024px) {
   .pedigree-page {
     padding-top: 60px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .pedigree-page h1 {
+    font-size: 1.8rem;
+    margin-bottom: 30px;
   }
 
   .pedigree-tree {
-    gap: 3rem;
+    gap: 2rem;
   }
 
   .tree-level {
-    gap: 3rem;
+    gap: 1.5rem;
+    justify-content: center; 
   }
 
   .tree-level.four {
-    gap: 4rem;
+    gap: 2rem;
   }
 
   .tree-box {
-    width: 160px;
-    padding: 12px;
+    width: 140px;
+    padding: 10px;
   }
 
   .tree-box.small {
-    width: 130px;
+    width: 110px;
   }
 
   .tree-box img {
-    width: 100px;
-    height: 100px;
+    width: 90px;
+    height: 90px;
   }
 
   .node-img {
-    width: 70px;
-    height: 70px;
+    width: 60px;
+    height: 60px;
   }
 
   .tree-level.subject::after,
   .tree-level.two .tree-box::after {
     height: 35px;
+  }
+}
+
+/* ================= PHONE: max-width 768px ================= */
+@media (max-width: 768px) {
+  .pedigree-page {
+    padding-top: 50px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .pedigree-page h1 {
+    font-size: 1.6rem;
+    margin-bottom: 25px;
+  }
+
+  .pedigree-tree {
+    gap: 1.5rem;
+  }
+
+  .tree-level {
+    gap: 1rem;
+    justify-content: center;
+  }
+
+  .tree-level.four {
+    gap: 1.5rem;
+  }
+
+  .tree-box {
+    width: 120px;
+    padding: 8px;
+  }
+
+  .tree-box.small {
+    width: 100px;
+  }
+
+  .tree-box img {
+    width: 80px;
+    height: 80px;
+  }
+
+  .node-img {
+    width: 55px;
+    height: 55px;
+  }
+
+  .tree-level.subject::after,
+  .tree-level.two .tree-box::after {
+    height: 30px;
+  }
+}
+
+/* ================= SMALL PHONE: max-width 480px ================= */
+@media (max-width: 480px) {
+  .pedigree-page {
+    padding-top: 40px;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  .pedigree-page h1 {
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+  }
+
+  .pedigree-tree {
+    gap: 1rem;
+  }
+
+  .tree-level {
+    gap: 0.8rem;
+    justify-content: center;
+  }
+
+  .tree-level.four {
+    gap: 1rem;
+  }
+
+  .tree-box {
+    width: 100px;
+    padding: 6px;
+  }
+
+  .tree-box.small {
+    width: 80px;
+  }
+
+  .tree-box img {
+    width: 70px;
+    height: 70px;
+  }
+
+  .node-img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .tree-level.subject::after,
+  .tree-level.two .tree-box::after {
+    height: 25px;
   }
 }

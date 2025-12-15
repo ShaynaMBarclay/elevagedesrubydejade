@@ -79,9 +79,6 @@ export default function PedigreePage({ collection = "dogs" }) {
 
   return (
     <div className="pedigree-page">
-      <Link to={`/${collection === "dogs" ? "chiens" : "chiots"}/${id}`}>
-        ← Retour au {collection === "dogs" ? "chien" : "chiot"}
-      </Link>
       <h1>Pédigree de {dog.pedigree.subject.name}</h1>
 
       {isAdmin && (
@@ -98,6 +95,12 @@ export default function PedigreePage({ collection = "dogs" }) {
       )}
 
       <Pedigree dog={dog} />
+       <Link
+       to={`/${collection === "dogs" ? "chiens" : "chiots"}/${id}`}
+       className="return-link"
+       >
+       ← Retour au {collection === "dogs" ? "chien" : "chiot"}
+      </Link>
     </div>
   );
 }
