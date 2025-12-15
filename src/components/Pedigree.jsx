@@ -59,8 +59,6 @@ export default function Pedigree({ dog }) {
     <p>{p.maternalGM.name}</p>
   </div>
 </div>
-
-
     </div>
   );
 }

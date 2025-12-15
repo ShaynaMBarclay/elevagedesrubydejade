@@ -2,6 +2,9 @@
   padding: 2rem;
   max-width: 900px;
   margin: 0 auto;
+
+  min-height: calc(100vh - 80px); 
+  box-sizing: border-box;
 }
 
 .message-card {
@@ -10,6 +13,9 @@
   padding: 1.5rem;
   margin-bottom: 1.5rem;
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 .message-card h3 {
@@ -34,4 +40,45 @@
 
 .delete-btn:hover {
   background: #e74c3c;
+}
+
+.admin-messages h1 {
+  text-align: center;
+  margin-top: 2.5rem;
+}
+
+/* Tablet & below */
+@media (max-width: 768px) {
+  .admin-messages {
+    padding: 1.5rem;
+  }
+
+  .message-card {
+    padding: 1.2rem;
+  }
+
+  .delete-btn {
+    display: block;
+    margin: 1rem auto 0;
+  }
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+  .admin-messages {
+    padding: 1rem;
+  }
+
+  .message-card {
+    padding: 1rem;
+  }
+
+  .message-card h3 {
+    font-size: 1.1rem;
+    text-align: center;
+  }
+
+  .message-card small {
+    text-align: center;
+  }
 }

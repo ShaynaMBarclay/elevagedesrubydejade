@@ -177,7 +177,12 @@
   color: white;
   font-size: 0.9rem;
   cursor: pointer;
+
+  width: fit-content;
+  align-self: center;
+  white-space: nowrap;
 }
+
 
 .logout-button:hover {
   background: rgba(255,255,255,0.2);

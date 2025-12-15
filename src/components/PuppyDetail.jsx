@@ -13,7 +13,7 @@ export default function PuppyDetail() {
   const navigate = useNavigate();
   const [puppy, setPuppy] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [lightboxImage, setLightboxImage] = useState(null); // <-- added
+  const [lightboxImage, setLightboxImage] = useState(null);
 
   useEffect(() => {
     async function fetchPuppy() {

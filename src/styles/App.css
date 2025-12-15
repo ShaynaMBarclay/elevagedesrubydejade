@@ -8,6 +8,11 @@ html, body, #root {
   padding: 0;
 }
 
+html,
+body {
+  overscroll-behavior-y: none;
+}
+
 :root {
   --primary: #7c3e2f;
   --secondary: #e5d3b3;
@@ -22,6 +27,8 @@ body {
   font-family: var(--font-body);
   background-color: rgba(4, 73, 40, 0.525);
   color: var(--dark);
+   overflow-x: hidden;
+  overflow-y: auto;
 }
 
 #root {

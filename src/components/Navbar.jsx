@@ -23,20 +23,16 @@ export default function Navbar() {
   return (
     <nav className="navbar">
       <div className="nav-container">
-        {/* Home Icon on Left */}
         <Link to="/" className="nav-home">
           <FaHome />
         </Link>
 
-        {/* Logo/Name Centered */}
         <div className="nav-logo-group">
           <Link to="/" className="nav-logo">Élevage des Ruby de Jade</Link>
           <span className="nav-subtitle">
             Chien-loup tchecoslovaque & Berger Blanc Suisse
           </span>
         </div>
-
-        {/* Hamburger on Right */}
         <div
           className={`hamburger ${menuOpen ? "active" : ""}`}
           onClick={toggleMenu}
@@ -56,10 +52,10 @@ export default function Navbar() {
           <Link to="/contact" onClick={() => setMenuOpen(false)}>CONTACT</Link>
 
           {menuOpen && (
-  <button className="close-arrow" onClick={() => setMenuOpen(false)}>
-    <FaArrowLeft />
-  </button>
-)}
+          <button className="close-arrow" onClick={() => setMenuOpen(false)}>
+          <FaArrowLeft />
+          </button>
+          )}
 
           {/* Secondary icons/links */}
           <div className="dropdown-icons">
