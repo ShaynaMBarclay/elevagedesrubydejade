@@ -235,69 +235,72 @@ export default function DogDetail() {
       )}
 
       {/* ACHIEVEMENTS */}
-      <div className="dog-category achievements">
-        <h2>Palmarès & Résultats</h2>
+        <div className="dog-category achievements">
+  <h2>Palmarès & Résultats</h2>
 
-        {isAdmin && (
-          <div className="admin-achievements-btn">
-            <button className="edit-btn" onClick={() => navigate(`/chiens/${dog.id}/achievements`)}>
-              Ajouter Palmarès & Résultats
-            </button>
+  {isAdmin && (
+    <div className="admin-achievements-btn">
+      <button className="edit-btn" onClick={() => navigate(`/chiens/${dog.id}/achievements`)}>
+        Ajouter Palmarès & Résultats
+      </button>
+    </div>
+  )}
+
+  <div className="years-filter">
+    {years.map((year) => (
+      <button key={year} className={`year-btn ${activeYear === year ? "active" : ""}`} onClick={() => setActiveYear(year)}>
+        {year}
+      </button>
+    ))}
+  </div>
+
+  {currentYearAchievements.length === 0 ? (
+    <p>À venir</p>
+  ) : (
+    currentYearAchievements.map((achievement, idx) => (
+      <div key={achievement.id} className="achievement-entry" style={{ border: "1px solid #ccc", padding: "1rem", marginBottom: "1rem", borderRadius: "8px" }}>
+        <h4 style={{ fontWeight: "bold", marginBottom: "0.5rem" }}>Réalisation {idx + 1}</h4>
+
+        {achievement.imageURLs?.length > 0 && (
+          <div className="year-section image-box">
+            {achievement.imageURLs.map((img, i) => (
+              <img key={i} src={img} alt={`Achievement ${achievement.date}`} onClick={() => setLightboxImage(img)} />
+            ))}
           </div>
         )}
 
-        <div className="years-filter">
-          {years.map((year) => (
-            <button key={year} className={`year-btn ${activeYear === year ? "active" : ""}`} onClick={() => setActiveYear(year)}>
-              {year}
-            </button>
-          ))}
+        <div className="achievement-card">
+          <h3>Date & Événement</h3>
+          <p>{achievement.date || "N/A"} {achievement.event ? `- ${achievement.event}` : ""}</p>
         </div>
 
-        {currentYearAchievements.length === 0 ? (
-          <p>À venir</p>
-        ) : (
-          currentYearAchievements.map((achievement) => (
-            <div key={achievement.id} className="achievement-entry">
-              {achievement.imageURLs?.length > 0 && (
-                <div className="year-section image-box">
-                  {achievement.imageURLs.map((img, idx) => (
-                    <img key={idx} src={img} alt={`Achievement ${achievement.date}`} onClick={() => setLightboxImage(img)} />
-                  ))}
-                </div>
-              )}
+        {achievement.judge && (
+          <div className="achievement-card">
+            <h3>Juge</h3>
+            <p>{achievement.judge}</p>
+          </div>
+        )}
 
-              <div className="achievement-card">
-                <h3>📅 Date & Événement</h3>
-                <p>{achievement.date || "N/A"} {achievement.event ? `- ${achievement.event}` : ""}</p>
-              </div>
+        <div className="achievement-card">
+          <h3>Palmarès</h3>
+          {achievement.palmares?.length > 0 ? <ul>{achievement.palmares.map((p,i)=><li key={i}>{p}</li>)}</ul> : <p>À venir</p>}
+        </div>
 
-              {achievement.judge && (
-                <div className="achievement-card">
-                  <h3>👩‍⚖️ Juge</h3>
-                  <p>{achievement.judge}</p>
-                </div>
-              )}
+        <div className="achievement-card">
+          <h3>Résultats</h3>
+          {achievement.results?.length > 0 ? <ul>{achievement.results.map((r,i)=><li key={i}>{r}</li>)}</ul> : <p>À venir</p>}
+        </div>
 
-              <div className="achievement-card">
-                <h3>🏆 Palmarès</h3>
-                {achievement.palmares?.length > 0 ? <ul>{achievement.palmares.map((p,i)=><li key={i}>{p}</li>)}</ul> : <p>À venir</p>}
-              </div>
-
-              <div className="achievement-card">
-                <h3>📊 Résultats</h3>
-                {achievement.results?.length > 0 ? <ul>{achievement.results.map((r,i)=><li key={i}>{r}</li>)}</ul> : <p>À venir</p>}
-              </div>
-
-              {isAdmin && (
-                <div className="admin-achievements-controls">
-                  <button className="delete-btn" onClick={() => handleDeleteAchievement(activeYear, achievement.id)}>Supprimer cette réalisation</button>
-                </div>
-              )}
-            </div>
-          ))
+        {isAdmin && (
+          <div className="admin-achievements-controls">
+            <button className="delete-btn" onClick={() => handleDeleteAchievement(activeYear, achievement.id)}>Supprimer cette réalisation</button>
+          </div>
         )}
       </div>
+    ))
+  )}
+</div>
+
 
       {/* Lightbox */}
       {lightboxImage && (

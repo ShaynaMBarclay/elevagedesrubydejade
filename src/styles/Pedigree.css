@@ -214,6 +214,16 @@
   .tree-level.two .tree-box::after {
     height: 30px;
   }
+   .tree-level.four .tree-box {
+    font-size: 0.7rem;
+    width: 80px !important;      
+    padding: 2px !important;  
+  }
+
+  .tree-level.four .tree-box img {
+    width: 65px !important;     
+    height: 65px !important;
+  }
 }
 
 /* ================= SMALL PHONE: max-width 480px ================= */

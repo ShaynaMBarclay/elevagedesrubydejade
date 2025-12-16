@@ -193,6 +193,25 @@
   background-color: #c0392b;
 }
 
+.achievement-entry {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background-color: #fafafa;
+}
+
+.achievement-entry h4 {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #444;
+}
+
+.achievement-card {
+  margin-top: 0.5rem;
+}
+
+
 /* Lightbox for achievement images */
 .lightbox-overlay {
   position: fixed;
@@ -244,12 +263,11 @@
     font-size: 1.1rem !important;
   }
 
-    .dog-images {
+  .dog-images {
     justify-items: center;
     display: grid;
     grid-template-columns: 1fr;
     gap: 10px;
-   
   }
 
   .dog-images img {
@@ -265,6 +283,25 @@
   .pedigree-btn {
     font-size: 1rem;
     padding: 0.45rem 1rem;
+  }
+
+  /* Achievements adjustments */
+  .achievement-entry {
+    padding: 0.8rem;
+  }
+
+  .achievement-entry h4 {
+    font-size: 1.1rem;
+  }
+
+  .achievement-card {
+    font-size: 0.95rem;
+  }
+
+  .admin-achievements-btn .edit-btn,
+  .admin-achievements-controls .delete-btn {
+    font-size: 0.95rem;
+    padding: 0.5rem 1rem;
   }
 }
 
@@ -306,6 +343,29 @@
     font-size: 0.95rem;
     padding: 0.4rem 0.9rem;
   }
+
+  /* Achievements adjustments */
+  .achievement-entry {
+    padding: 0.6rem;
+  }
+
+  .achievement-entry h4 {
+    font-size: 1rem;
+  }
+
+  .achievement-card {
+    font-size: 0.85rem;
+  }
+
+  .admin-achievements-btn .edit-btn,
+  .admin-achievements-controls .delete-btn {
+    font-size: 0.85rem;
+    padding: 0.45rem 0.9rem;
+  }
+
+  .year-section.image-box img {
+    max-height: 250px;
+  }
 }
 
 /* Small Mobile (480px) */
@@ -337,4 +397,28 @@
     font-size: 0.9rem;
     padding: 0.35rem 0.8rem;
   }
+
+  /* Achievements adjustments */
+  .achievement-entry {
+    padding: 0.5rem;
+  }
+
+  .achievement-entry h4 {
+    font-size: 0.95rem;
+  }
+
+  .achievement-card {
+    font-size: 0.8rem;
+  }
+
+  .admin-achievements-btn .edit-btn,
+  .admin-achievements-controls .delete-btn {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  .year-section.image-box img {
+    max-height: 200px;
+  }
 }
+
