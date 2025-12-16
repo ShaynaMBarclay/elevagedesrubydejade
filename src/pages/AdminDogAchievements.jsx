@@ -15,11 +15,10 @@ export default function AdminDogAchievements() {
   const [judge, setJudge] = useState("");
   const [palmares, setPalmares] = useState("");
   const [results, setResults] = useState("");
-  const [existingImages, setExistingImages] = useState([]); 
   const [newImages, setNewImages] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Fetch existing achievement data for the selected year
+  // Fetch existing achievement data for the selected dog (but don't display in form)
   useEffect(() => {
     async function fetchAchievement() {
       try {
@@ -27,14 +26,7 @@ export default function AdminDogAchievements() {
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
           const data = docSnap.data();
-          const yearData = data.achievements?.[year] || [];
-          const latestAchievement = Array.isArray(yearData) ? yearData[yearData.length - 1] || {} : yearData;
-          setDate(latestAchievement.date || "");
-          setEvent(latestAchievement.event || "");
-          setJudge(latestAchievement.judge || "");
-          setPalmares((latestAchievement.palmares || []).join("\n"));
-          setResults((latestAchievement.results || []).join("\n"));
-          setExistingImages(latestAchievement.images || []);
+          // No need to set achievements to form - only read for validation
         }
       } catch (err) {
         console.error(err);
@@ -43,7 +35,7 @@ export default function AdminDogAchievements() {
       }
     }
     fetchAchievement();
-  }, [id, year]);
+  }, [id]);
 
   const handleNewImagesChange = (e) => {
     setNewImages([...newImages, ...Array.from(e.target.files)]);
@@ -51,10 +43,6 @@ export default function AdminDogAchievements() {
 
   const handleRemoveNewImage = (index) => {
     setNewImages(newImages.filter((_, i) => i !== index));
-  };
-
-  const handleRemoveExistingImage = (index) => {
-    setExistingImages(existingImages.filter((_, i) => i !== index));
   };
 
   const handleSubmit = async (e) => {
@@ -73,8 +61,6 @@ export default function AdminDogAchievements() {
         uploadedImagePaths.push(imgRef.fullPath);
       }
 
-      const finalImages = [...existingImages, ...uploadedImagePaths];
-
       // New achievement object
       const newAchievement = {
         id: crypto.randomUUID(),
@@ -83,10 +69,10 @@ export default function AdminDogAchievements() {
         judge,
         palmares: palmares.split("\n").filter(Boolean),
         results: results.split("\n").filter(Boolean),
-        images: finalImages,
+        images: uploadedImagePaths,
       };
 
-      // Merge with existing achievements array
+      // Get the existing achievements and add the new one as a separate entry
       const existingAchievements = data.achievements?.[year] || [];
       await updateDoc(docRef, {
         [`achievements.${year}`]: [...existingAchievements, newAchievement],
@@ -104,7 +90,7 @@ export default function AdminDogAchievements() {
 
   return (
     <main className="admin-achievements-page">
-      <h1>Ajouter / Modifier Palmarès & Résultats</h1>
+      <h1>Ajouter Palmarès & Résultats</h1>
 
       <form onSubmit={handleSubmit}>
         <label>Année</label>
@@ -152,20 +138,7 @@ export default function AdminDogAchievements() {
         <label>Images</label>
         <input type="file" multiple accept="image/*" onChange={handleNewImagesChange} />
 
-        {existingImages.length > 0 && (
-          <div className="image-thumbnails">
-            {existingImages.map((imgPath, index) => (
-              <div key={index} className="thumbnail">
-                <img
-                  src={`https://firebasestorage.googleapis.com/v0/b/${storage.app.options.projectId}.appspot.com/o/${encodeURIComponent(imgPath)}?alt=media`}
-                  alt={`Existing ${index}`}
-                />
-                <button type="button" onClick={() => handleRemoveExistingImage(index)}>×</button>
-              </div>
-            ))}
-          </div>
-        )}
-
+        {/* New Images Thumbnails */}
         {newImages.length > 0 && (
           <div className="image-thumbnails">
             {newImages.map((file, index) => (
