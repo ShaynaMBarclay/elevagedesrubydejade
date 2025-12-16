@@ -112,6 +112,7 @@
   padding: 0.5rem 0;
   font-weight: 600;
   color: var(--primary);
+  text-decoration: none !important;
 }
 
 /* Add Dog Button */
