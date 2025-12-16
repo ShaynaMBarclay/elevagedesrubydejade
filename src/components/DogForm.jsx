@@ -11,7 +11,7 @@ export default function DogForm({ dogId, isEdit = false, defaultCategory }) {
 
   const dogBreeds = ["Chien-loup tchecoslovaque", "Berger Blanc Suisse"];
   const puppyFilters = ["Chiots", "Chiots disponibles", "Futures Portées", "Chiots nés chez nous"];
-  const dogFilters = ["Chiens", "Mâles", "Femelles", "Résultats", "Retraités", "En mémoire"];
+  const dogFilters = ["Chiens", "Mâles", "Femelles", "Retraités", "En mémoire"];
 
   const [category, setCategory] = useState(defaultCategory || "chiots");
 

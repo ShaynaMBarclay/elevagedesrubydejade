@@ -21,7 +21,6 @@ export default function Dogs() {
     { id: "chiens", label: "Chiens" },
     { id: "males", label: "Mâles" },
     { id: "femelles", label: "Femelles" },
-    { id: "resultats", label: "Résultats" },
     { id: "retraites", label: "Retraités" },
     { id: "memoire", label: "En mémoire" },
   ];
@@ -98,9 +97,6 @@ export default function Dogs() {
         break;
       case "femelles":
         categoryMatch = dog.sex === "Femelle";
-        break;
-      case "resultats":
-        categoryMatch = filters.includes("Résultats");
         break;
       default:
         categoryMatch = false;

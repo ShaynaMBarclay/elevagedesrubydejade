@@ -161,18 +161,33 @@
   margin-bottom: 1.5rem;
 }
 
+.puppy-filters,
+.dog-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  text-align: center;
+}
+
 .filter-checkbox {
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-weight: 500;
+  flex-direction: column; 
+  align-items: center;    
+  gap: 0.3rem;
   cursor: pointer;
+  font-weight: 500;
+  overflow: visible !important;
+  padding-top: 0.3rem;
 }
 
 .filter-checkbox input[type="checkbox"] {
-  transform: scale(1.2);
+  transform: scale(1.3);
+  margin: 0;
+  margin-bottom: 0.3rem;
   cursor: pointer;
 }
+
 .edit-dog-form input[type="checkbox"]:focus {
   outline: none;
   box-shadow: none;
