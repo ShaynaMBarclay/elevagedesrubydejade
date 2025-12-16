@@ -27,13 +27,14 @@ export default function AdminDogAchievements() {
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
           const data = docSnap.data();
-          const yearData = data.achievements?.[year] || {};
-          setDate(yearData.date || "");
-          setEvent(yearData.event || "");
-          setJudge(yearData.judge || "");
-          setPalmares((yearData.palmares || []).join("\n"));
-          setResults((yearData.results || []).join("\n"));
-          setExistingImages(yearData.images || []);
+          const yearData = data.achievements?.[year] || [];
+          const latestAchievement = Array.isArray(yearData) ? yearData[yearData.length - 1] || {} : yearData;
+          setDate(latestAchievement.date || "");
+          setEvent(latestAchievement.event || "");
+          setJudge(latestAchievement.judge || "");
+          setPalmares((latestAchievement.palmares || []).join("\n"));
+          setResults((latestAchievement.results || []).join("\n"));
+          setExistingImages(latestAchievement.images || []);
         }
       } catch (err) {
         console.error(err);
@@ -61,8 +62,10 @@ export default function AdminDogAchievements() {
 
     try {
       const docRef = doc(db, "dogs", id);
+      const docSnap = await getDoc(docRef);
+      const data = docSnap.exists() ? docSnap.data() : {};
 
-      // Upload new images to Firebase Storage
+      // Upload new images
       const uploadedImagePaths = [];
       for (const img of newImages) {
         const imgRef = ref(storage, `dogs/${id}/achievements/${year}/${crypto.randomUUID()}`);
@@ -70,19 +73,23 @@ export default function AdminDogAchievements() {
         uploadedImagePaths.push(imgRef.fullPath);
       }
 
-      // Merge uploaded new images with remaining existing images
       const finalImages = [...existingImages, ...uploadedImagePaths];
 
-      // Update Firestore
+      // New achievement object
+      const newAchievement = {
+        id: crypto.randomUUID(),
+        date,
+        event,
+        judge,
+        palmares: palmares.split("\n").filter(Boolean),
+        results: results.split("\n").filter(Boolean),
+        images: finalImages,
+      };
+
+      // Merge with existing achievements array
+      const existingAchievements = data.achievements?.[year] || [];
       await updateDoc(docRef, {
-        [`achievements.${year}`]: {
-          date,
-          event,
-          judge,
-          palmares: palmares.split("\n").filter(Boolean),
-          results: results.split("\n").filter(Boolean),
-          images: finalImages,
-        },
+        [`achievements.${year}`]: [...existingAchievements, newAchievement],
       });
 
       alert("Palmarès & résultats enregistrés !");
@@ -145,7 +152,6 @@ export default function AdminDogAchievements() {
         <label>Images</label>
         <input type="file" multiple accept="image/*" onChange={handleNewImagesChange} />
 
-        {/* Existing Images Thumbnails */}
         {existingImages.length > 0 && (
           <div className="image-thumbnails">
             {existingImages.map((imgPath, index) => (
@@ -160,7 +166,6 @@ export default function AdminDogAchievements() {
           </div>
         )}
 
-        {/* New Images Thumbnails */}
         {newImages.length > 0 && (
           <div className="image-thumbnails">
             {newImages.map((file, index) => (
