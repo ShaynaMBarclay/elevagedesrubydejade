@@ -217,14 +217,25 @@ export default function DogDetail() {
         <p><strong>N° origine :</strong> {dog.originNumber || "/"}</p>
         <p><strong>Cotation :</strong> {dog.rating || "—"}</p>
         <p><strong>ADN :</strong> {dog.dna || "—"}</p>
-        <p><strong>Tares :</strong></p>
-        <ul>
-          <li>Dysplasie Coude (ED): {dog.health?.elbowDysplasia || "N/A"}</li>
-          <li>Dysplasie Hanche (HD): {dog.health?.hipDysplasia || "N/A"}</li>
-          <li>MD: {dog.health?.md || "N/A"}</li>
-          <li>Mutation MDR1: {dog.health?.mdr1 || "N/A"}</li>
-          <li>Nanisme hypophysaire (NAH): {dog.health?.nah || "N/A"}</li>
-        </ul>
+        {/* Tares */}
+{dog.health && Object.values(dog.health).some(v => v) && (
+  <div className="dog-category tares">
+    <h2>Tares</h2>
+    <ul>
+      {Object.entries(dog.health).map(([key, value]) => {
+        if (!value) return null; 
+        const labels = {
+          elbowDysplasia: "Dysplasie Coude (ED)",
+          hipDysplasia: "Dysplasie Hanche (HD)",
+          md: "MD",
+          mdr1: "Mutation MDR1",
+          nah: "Nanisme hypophysaire (NAH)"
+        };
+        return <li key={key}>{labels[key]}: {value}</li>;
+      })}
+    </ul>
+  </div>
+)}
       </div>
 
       {isAdmin && (
