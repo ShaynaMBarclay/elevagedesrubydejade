@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { doc, updateDoc } from "firebase/firestore";
+import { useState, useEffect } from "react";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db, storage } from "../firebase";
 import { ref, uploadBytes } from "firebase/storage";
 import "../styles/AdminDogAchievements.css";
@@ -15,22 +15,65 @@ export default function AdminDogAchievements() {
   const [judge, setJudge] = useState("");
   const [palmares, setPalmares] = useState("");
   const [results, setResults] = useState("");
-  const [images, setImages] = useState([]);
+  const [existingImages, setExistingImages] = useState([]); 
+  const [newImages, setNewImages] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch existing achievement data for the selected year
+  useEffect(() => {
+    async function fetchAchievement() {
+      try {
+        const docRef = doc(db, "dogs", id);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          const yearData = data.achievements?.[year] || {};
+          setDate(yearData.date || "");
+          setEvent(yearData.event || "");
+          setJudge(yearData.judge || "");
+          setPalmares((yearData.palmares || []).join("\n"));
+          setResults((yearData.results || []).join("\n"));
+          setExistingImages(yearData.images || []);
+        }
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchAchievement();
+  }, [id, year]);
+
+  const handleNewImagesChange = (e) => {
+    setNewImages([...newImages, ...Array.from(e.target.files)]);
+  };
+
+  const handleRemoveNewImage = (index) => {
+    setNewImages(newImages.filter((_, i) => i !== index));
+  };
+
+  const handleRemoveExistingImage = (index) => {
+    setExistingImages(existingImages.filter((_, i) => i !== index));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      // Upload images to Firebase Storage
-      const imagePaths = [];
-      for (const img of images) {
+      const docRef = doc(db, "dogs", id);
+
+      // Upload new images to Firebase Storage
+      const uploadedImagePaths = [];
+      for (const img of newImages) {
         const imgRef = ref(storage, `dogs/${id}/achievements/${year}/${crypto.randomUUID()}`);
         await uploadBytes(imgRef, img);
-        imagePaths.push(imgRef.fullPath);
+        uploadedImagePaths.push(imgRef.fullPath);
       }
 
-      // Merge with existing achievements
-      const docRef = doc(db, "dogs", id);
+      // Merge uploaded new images with remaining existing images
+      const finalImages = [...existingImages, ...uploadedImagePaths];
+
+      // Update Firestore
       await updateDoc(docRef, {
         [`achievements.${year}`]: {
           date,
@@ -38,7 +81,7 @@ export default function AdminDogAchievements() {
           judge,
           palmares: palmares.split("\n").filter(Boolean),
           results: results.split("\n").filter(Boolean),
-          images: imagePaths,
+          images: finalImages,
         },
       });
 
@@ -49,6 +92,8 @@ export default function AdminDogAchievements() {
       alert("Erreur lors de l’enregistrement");
     }
   };
+
+  if (loading) return <p>Loading...</p>;
 
   return (
     <main className="admin-achievements-page">
@@ -92,24 +137,40 @@ export default function AdminDogAchievements() {
         />
 
         <label>🏆 Palmarès (1 par ligne)</label>
-        <textarea
-          value={palmares}
-          onChange={(e) => setPalmares(e.target.value)}
-        />
+        <textarea value={palmares} onChange={(e) => setPalmares(e.target.value)} />
 
         <label>📊 Résultats (1 par ligne)</label>
-        <textarea
-          value={results}
-          onChange={(e) => setResults(e.target.value)}
-        />
+        <textarea value={results} onChange={(e) => setResults(e.target.value)} />
 
         <label>Images</label>
-        <input
-          type="file"
-          multiple
-          accept="image/*"
-          onChange={(e) => setImages([...e.target.files])}
-        />
+        <input type="file" multiple accept="image/*" onChange={handleNewImagesChange} />
+
+        {/* Existing Images Thumbnails */}
+        {existingImages.length > 0 && (
+          <div className="image-thumbnails">
+            {existingImages.map((imgPath, index) => (
+              <div key={index} className="thumbnail">
+                <img
+                  src={`https://firebasestorage.googleapis.com/v0/b/${storage.app.options.projectId}.appspot.com/o/${encodeURIComponent(imgPath)}?alt=media`}
+                  alt={`Existing ${index}`}
+                />
+                <button type="button" onClick={() => handleRemoveExistingImage(index)}>×</button>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* New Images Thumbnails */}
+        {newImages.length > 0 && (
+          <div className="image-thumbnails">
+            {newImages.map((file, index) => (
+              <div key={index} className="thumbnail">
+                <img src={URL.createObjectURL(file)} alt={`New ${index}`} />
+                <button type="button" onClick={() => handleRemoveNewImage(index)}>×</button>
+              </div>
+            ))}
+          </div>
+        )}
 
         <button type="submit">Enregistrer</button>
       </form>
