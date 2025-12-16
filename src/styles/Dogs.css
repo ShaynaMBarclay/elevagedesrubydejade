@@ -115,6 +115,15 @@
   text-decoration: none !important;
 }
 
+.dog-card a,
+.dog-card a:hover,
+.dog-card a:focus,
+.dog-card a:visited,
+.dog-card a:active {
+  text-decoration: none;
+  color: inherit;
+}
+
 /* Add Dog Button */
 .admin-add-dog {
   display: flex;
