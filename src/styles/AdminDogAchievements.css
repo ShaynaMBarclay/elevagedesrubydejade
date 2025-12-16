@@ -7,6 +7,7 @@
 
 .admin-achievements-page h1 {
   text-align: center;
+  margin-top: 3rem;
   margin-bottom: 2rem;
   color: var(--primary);
 }
@@ -60,7 +61,7 @@
 
 .thumbnail {
   position: relative;
-  width: 80px;    /* smaller size */
+  width: 80px;
   height: 80px;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -76,17 +77,76 @@
 
 .thumbnail button {
   position: absolute;
-  top: 2px;
-  right: 2px;
+  top: 4px; 
+  right: 4px;
   background-color: red;
   color: white;
   border: none;
   border-radius: 50%;
-  width: 20px;
-  height: 20px;
+  width: 22px;  
+  height: 22px;
   font-weight: bold;
   cursor: pointer;
-  line-height: 18px;
+  line-height: 22px; 
   text-align: center;
   padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ===== Responsive Media Queries ===== */
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .admin-achievements-page {
+    padding: 1.5rem;
+    max-width: 600px;
+  }
+
+  .thumbnail button {
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .admin-achievements-page {
+    padding: 1rem;
+    max-width: 90%;
+  }
+
+  .thumbnail {
+    width: 60px;
+    height: 60px;
+  }
+
+  .admin-achievements-page button {
+    padding: 0.6rem 1rem;
+  }
+}
+
+/* Smaller Mobile */
+@media (max-width: 480px) {
+  .admin-achievements-page {
+    padding: 0.8rem;
+  }
+
+  .thumbnail {
+    width: 50px;
+    height: 50px;
+  }
+
+  .admin-achievements-page input,
+  .admin-achievements-page select,
+  .admin-achievements-page textarea {
+    padding: 0.4rem;
+  }
+
+  .admin-achievements-page button {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.9rem;
+  }
 }

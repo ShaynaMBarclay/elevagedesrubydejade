@@ -20,25 +20,28 @@ export default function PuppyDetail() {
       try {
         const docRef = doc(db, "puppies", id);
         const docSnap = await getDoc(docRef);
+
         if (!docSnap.exists()) {
           setPuppy(null);
           setLoading(false);
           return;
         }
+
         const data = docSnap.data();
 
-        // Fetch all puppy images
-        const allImages = data.images && data.images.length > 0
-          ? await Promise.all(
-              data.images.map(async (imgPath) => {
-                try {
-                  return await getDownloadURL(ref(storage, imgPath));
-                } catch {
-                  return placeholder;
-                }
-              })
-            )
-          : [];
+        // Puppy main images
+        let allImages = [];
+        if (data.images && data.images.length > 0) {
+          allImages = await Promise.all(
+            data.images.map(async (imgPath) => {
+              try {
+                return await getDownloadURL(ref(storage, imgPath));
+              } catch {
+                return placeholder;
+              }
+            })
+          );
+        }
 
         // Parent images
         const fatherImg = data.parents?.father?.image
@@ -53,13 +56,13 @@ export default function PuppyDetail() {
           ...data,
           allImages,
           parents: {
-            father: { name: data.parents?.father?.name || "Inconnu", image: fatherImg, ...data.parents?.father },
-            mother: { name: data.parents?.mother?.name || "Inconnu", image: motherImg, ...data.parents?.mother },
+            father: { name: data.parents?.father?.name || "Inconnu", image: fatherImg },
+            mother: { name: data.parents?.mother?.name || "Inconnu", image: motherImg },
           },
         });
-        setLoading(false);
       } catch (err) {
         console.error("Error fetching puppy:", err);
+      } finally {
         setLoading(false);
       }
     }
@@ -72,19 +75,17 @@ export default function PuppyDetail() {
 
     try {
       const storageRefs = [];
-      if (puppy.images && puppy.images.length > 0) {
-        puppy.images.forEach((imgPath) => storageRefs.push(ref(storage, imgPath)));
-      }
+      if (puppy.images && puppy.images.length > 0) puppy.images.forEach(img => storageRefs.push(ref(storage, img)));
       if (puppy.parents?.father?.image) storageRefs.push(ref(storage, puppy.parents.father.image));
       if (puppy.parents?.mother?.image) storageRefs.push(ref(storage, puppy.parents.mother.image));
 
-      await Promise.all(storageRefs.map((imgRef) => deleteObject(imgRef).catch(() => {})));
+      await Promise.all(storageRefs.map(r => deleteObject(r).catch(() => {})));
       await deleteDoc(doc(db, "puppies", puppy.id));
 
       alert(`${puppy.name} a été supprimé avec succès.`);
       navigate("/chiots");
     } catch (err) {
-      console.error("Erreur lors de la suppression du chiot:", err);
+      console.error(err);
       alert("Impossible de supprimer le chiot. Voir la console pour plus de détails.");
     }
   };
@@ -98,26 +99,22 @@ export default function PuppyDetail() {
       <h1>{puppy.name}</h1>
       <p>{puppy.sex} {puppy.type} née le {puppy.birth}</p>
 
-      {/* Puppy images with lightbox */}
+      {/* Puppy images */}
       <div className="dog-images">
-        {puppy.allImages.length > 0 ? (
-          puppy.allImages.map((img, idx) => (
-            <img
-              key={idx}
-              src={img}
-              alt={`${puppy.name} ${idx + 1}`}
-              loading="lazy"
-              onClick={() => setLightboxImage(img)}
-              style={{ cursor: "pointer" }}
-            />
-          ))
-        ) : (
-          <img src={placeholder} alt={puppy.name} loading="lazy" />
-        )}
+        {puppy.allImages.length > 0
+          ? puppy.allImages.map((img, idx) => (
+              <img
+                key={idx}
+                src={img || placeholder}
+                alt={`${puppy.name} ${idx + 1}`}
+                onClick={() => setLightboxImage(img)}
+                style={{ cursor: "pointer" }}
+              />
+            ))
+          : <img src={placeholder} alt={puppy.name} onClick={() => setLightboxImage(placeholder)} />}
       </div>
-      <p className="click-enlarge">Cliquez pour agrandir</p>
 
-      {/* Parent images with lightbox */}
+      {/* Parents */}
       <div className="puppy-category parents">
         <h2>Les parents</h2>
         <div>
@@ -125,7 +122,6 @@ export default function PuppyDetail() {
           <img
             src={puppy.parents.father.image}
             alt={puppy.parents.father.name}
-            loading="lazy"
             onClick={() => setLightboxImage(puppy.parents.father.image)}
             style={{ cursor: "pointer" }}
           />
@@ -135,7 +131,6 @@ export default function PuppyDetail() {
           <img
             src={puppy.parents.mother.image}
             alt={puppy.parents.mother.name}
-            loading="lazy"
             onClick={() => setLightboxImage(puppy.parents.mother.image)}
             style={{ cursor: "pointer" }}
           />
@@ -174,30 +169,7 @@ export default function PuppyDetail() {
        Voir le pédigree complet
       </Link>
 
-      {/* Palmarès */}
-      <div className="puppy-category palmares">
-        <h2>Palmarès</h2>
-        {puppy.palmares?.length > 0 ? (
-          <ul>{puppy.palmares.map((item, idx) => <li key={idx}>{item}</li>)}</ul>
-        ) : (
-          <p>À venir</p>
-        )}
-      </div>
-
-      {/* Results */}
-      <div className="puppy-category results">
-        <h2>Résultats</h2>
-        <div className="years-filter">
-          {["2025", "2024", "2023", "2022"].map((year) => (
-            <button key={year} className="year-btn">{year}</button>
-          ))}
-        </div>
-        <div className="results-list">
-          <p>Les résultats de l'année sélectionnée apparaîtront ici.</p>
-        </div>
-      </div>
-
-      {/* Lightbox Overlay */}
+      {/* Lightbox */}
       {lightboxImage && (
         <div className="lightbox-overlay" onClick={() => setLightboxImage(null)}>
           <button className="lightbox-close" onClick={() => setLightboxImage(null)}>×</button>
