@@ -1,0 +1,52 @@
+.admin-achievements-page {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: var(--font-body);
+}
+
+.admin-achievements-page h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: var(--primary);
+}
+
+.admin-achievements-page form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.admin-achievements-page label {
+  font-weight: bold;
+  margin-bottom: 0.3rem;
+}
+
+.admin-achievements-page input,
+.admin-achievements-page select,
+.admin-achievements-page textarea {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-family: var(--font-body);
+}
+
+.admin-achievements-page textarea {
+  min-height: 80px;
+}
+
+.admin-achievements-page button {
+  margin-top: 1rem;
+  padding: 0.8rem 1.2rem;
+  background-color: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.admin-achievements-page button:hover {
+  background-color: #5a2d22;
+}

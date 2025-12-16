@@ -26,6 +26,7 @@ import PedigreePage from "./pages/PedigreePage";
 import PuppyPedigreePage from "./pages/PuppyPedigreePage";
 import EditPedigree from "./components/EditPedigree";
 import EditPuppyPedigree from "./components/EditPuppyPedigree";
+import AdminDogAchievements from "./pages/AdminDogAchievements";
 
 import AdminLogin from "./pages/AdminLogin";
 import AdminMessages from "./pages/AdminMessages";
@@ -67,7 +68,7 @@ function App() {
 
 
             {/* Admin Pages */}
-          
+            <Route path="/chiens/:id/achievements" element={<AdminDogAchievements />} />
             <Route path="/admin/messages" element={<AdminMessages />} />
             <Route path="/login" element={<AdminLogin />} />
             <Route

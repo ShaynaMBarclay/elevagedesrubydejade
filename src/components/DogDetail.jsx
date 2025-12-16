@@ -1,7 +1,7 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useAdmin } from "../contexts/AdminContext";
-import { doc, getDoc, deleteDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc, deleteDoc } from "firebase/firestore";
 import { db, storage } from "../firebase";
 import { getDownloadURL, ref, deleteObject } from "firebase/storage";
 import placeholder from "../assets/placeholder.png";
@@ -13,8 +13,8 @@ export default function DogDetail() {
   const navigate = useNavigate();
   const [dog, setDog] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [activeYear, setActiveYear] = useState("2025");
-  const [lightboxImage, setLightboxImage] = useState(null); 
+  const [activeYear, setActiveYear] = useState("2026");
+  const [lightboxImage, setLightboxImage] = useState(null);
 
   useEffect(() => {
     async function fetchDog() {
@@ -25,6 +25,7 @@ export default function DogDetail() {
         if (docSnap.exists()) {
           const data = docSnap.data();
 
+          // Dog main images
           let allImages = [];
           if (data.images && data.images.length > 0) {
             allImages = await Promise.all(
@@ -38,10 +39,30 @@ export default function DogDetail() {
             );
           }
 
-          // Parent images
+          // Achievement images
+          if (data.achievements) {
+            for (const year in data.achievements) {
+              const yearData = data.achievements[year];
+              if (yearData.images && yearData.images.length > 0) {
+                yearData.imageURLs = await Promise.all(
+                  yearData.images.map(async (imgPath) => {
+                    try {
+                      return await getDownloadURL(ref(storage, imgPath));
+                    } catch {
+                      return placeholder;
+                    }
+                  })
+                );
+              } else {
+                yearData.imageURLs = [];
+              }
+            }
+          }
+
           const fatherImg = data.parents?.father?.image
             ? await getDownloadURL(ref(storage, data.parents.father.image))
             : placeholder;
+
           const motherImg = data.parents?.mother?.image
             ? await getDownloadURL(ref(storage, data.parents.mother.image))
             : placeholder;
@@ -49,16 +70,10 @@ export default function DogDetail() {
           setDog({
             id: docSnap.id,
             ...data,
-            allImages, 
+            allImages,
             parents: {
-              father: {
-                name: data.parents?.father?.name || "Inconnu",
-                image: fatherImg,
-              },
-              mother: {
-                name: data.parents?.mother?.name || "Inconnu",
-                image: motherImg,
-              },
+              father: { name: data.parents?.father?.name || "Inconnu", image: fatherImg },
+              mother: { name: data.parents?.mother?.name || "Inconnu", image: motherImg },
             },
           });
         } else {
@@ -79,70 +94,82 @@ export default function DogDetail() {
 
     try {
       const storageRefs = [];
-
-      // Dog images
       if (dog.images && dog.images.length > 0) {
-        dog.images.forEach((imgUrl) => storageRefs.push(ref(storage, imgUrl)));
+        dog.images.forEach((img) => storageRefs.push(ref(storage, img)));
       }
-
-      // Parent images
       if (dog.parents?.father?.image) storageRefs.push(ref(storage, dog.parents.father.image));
       if (dog.parents?.mother?.image) storageRefs.push(ref(storage, dog.parents.mother.image));
 
-      // Delete all images
       await Promise.all(storageRefs.map((imgRef) => deleteObject(imgRef).catch(() => {})));
-
-      // Delete Firestore document
       await deleteDoc(doc(db, "dogs", dog.id));
 
       alert(`${dog.name} a été supprimé avec succès.`);
       navigate("/chiens");
     } catch (err) {
-      console.error("Erreur lors de la suppression du chien:", err);
-      alert("Impossible de supprimer le chien. Voir la console pour plus de détails.");
+      console.error(err);
+      alert("Impossible de supprimer le chien.");
+    }
+  };
+
+  const handleDeleteAchievement = async () => {
+    if (!window.confirm("Supprimer cette réalisation pour cette année ?")) return;
+
+    try {
+      const yearData = dog.achievements[activeYear];
+
+      if (yearData.images && yearData.images.length > 0) {
+        const refs = yearData.images.map((imgPath) => ref(storage, imgPath));
+        await Promise.all(refs.map((r) => deleteObject(r).catch(() => {})));
+      }
+
+      const docRef = doc(db, "dogs", dog.id);
+      await updateDoc(docRef, {
+        [`achievements.${activeYear}`]: {}
+      });
+
+      alert("Réalisation supprimée !");
+      navigate(0);
+    } catch (err) {
+      console.error(err);
+      alert("Erreur lors de la suppression de la réalisation");
     }
   };
 
   if (loading) return <p>Loading...</p>;
   if (!dog) return <p>Chien non trouvé</p>;
 
-  const years = ["2025", "2024", "2023", "2022"];
-  const handleYearClick = (year) => setActiveYear(year);
+  const years = ["2026", "2025", "2024", "2023", "2022"];
+  const currentYearData = dog.achievements?.[activeYear];
 
   return (
     <main className="dog-detail-page">
       <Link to="/chiens">← Retour à nos chiens</Link>
-
       <h1>{dog.name}</h1>
       <p>{dog.sex} {dog.type} née le {dog.birth}</p>
 
-      {/* Display all uploaded images */}
+      {/* Dog main images */}
       <div className="dog-images">
-        {dog.allImages && dog.allImages.length > 0 ? (
-          dog.allImages.map((img, idx) => (
-            <img
-              key={idx}
-              src={img || placeholder}
-              alt={`${dog.name} ${idx + 1}`}
-              onClick={() => setLightboxImage(img)}
-              style={{ cursor: "pointer" }}
-            />
-          ))
-        ) : (
-          <img src={placeholder} alt={dog.name} loading="lazy" />
-        )}
+        {dog.allImages.length > 0
+          ? dog.allImages.map((img, idx) => (
+              <img
+                key={idx}
+                src={img || placeholder}
+                alt={`${dog.name} ${idx + 1}`}
+                onClick={() => setLightboxImage(img)}
+                style={{ cursor: "pointer" }}
+              />
+            ))
+          : <img src={placeholder} alt={dog.name} onClick={() => setLightboxImage(placeholder)} />}
       </div>
-      <p className="click-enlarge">Cliquez pour agrandir</p>
 
-      {/* Parent images with lightbox */}
+      {/* Parents */}
       <div className="dog-category parents">
         <h2>Les parents</h2>
         <div>
           <p>Père: {dog.parents.father.name}</p>
           <img
-            src={dog.parents.father.image || placeholder}
+            src={dog.parents.father.image}
             alt={dog.parents.father.name}
-            loading="lazy"
             onClick={() => setLightboxImage(dog.parents.father.image)}
             style={{ cursor: "pointer" }}
           />
@@ -150,9 +177,8 @@ export default function DogDetail() {
         <div>
           <p>Mère: {dog.parents.mother.name}</p>
           <img
-            src={dog.parents.mother.image || placeholder}
+            src={dog.parents.mother.image}
             alt={dog.parents.mother.name}
-            loading="lazy"
             onClick={() => setLightboxImage(dog.parents.mother.image)}
             style={{ cursor: "pointer" }}
           />
@@ -161,65 +187,91 @@ export default function DogDetail() {
 
       {isAdmin && (
         <div className="admin-controls">
-          <button
-            className="edit-btn"
-            onClick={() => navigate(`/chiens/edit/${dog.id}`)}
-          >
-            Modifier
-          </button>
-          <button onClick={handleDeleteDog} className="delete-btn">
-            Supprimer
-          </button>
+          <button className="edit-btn" onClick={() => navigate(`/chiens/edit/${dog.id}`)}>Modifier</button>
+          <button onClick={handleDeleteDog} className="delete-btn">Supprimer</button>
         </div>
       )}
 
-      <div className="dog-category informations">
-        <h2>Informations</h2>
-        <p><strong>Sexe:</strong> {dog.sex}</p>
-        <p><strong>Puce:</strong> {dog.microchip}</p>
-        <p><strong>Inscrit au LOF ?</strong> {dog.lof}</p>
-        <p><strong>N° origine:</strong> {dog.originNumber}</p>
-        <p><strong>Cotation:</strong> {dog.rating}</p>
-        <p><strong>ADN:</strong> {dog.dna}</p>
-        <p><strong>Tares:</strong></p>
-        <ul>
-          <li>Dysplasie Coude (ED): {dog.health?.elbowDysplasia || "N/A"}</li>
-          <li>Dysplasie Hanche (HD): {dog.health?.hipDysplasia || "N/A"}</li>
-          <li>MD: {dog.health?.md || "N/A"}</li>
-          <li>Mutation MDR1: {dog.health?.mdr1 || "N/A"}</li>
-          <li>Nanisme hypophysaire (NAH): {dog.health?.nah || "N/A"}</li>
-        </ul>
-      </div>
-      <Link to={`/chiens/${dog.id}/pedigree`} className="pedigree-btn">
-        Voir le pédigree complet
-      </Link>
+      <div className="dog-category achievements">
+        <h2>Palmarès & Résultats</h2>
 
-      <div className="dog-category palmares">
-        <h2>Palmarès</h2>
-        {dog.palmares?.length > 0 ? (
-          <ul>{dog.palmares.map((item, idx) => <li key={idx}>{item}</li>)}</ul>
-        ) : <p>À venir</p>}
-      </div>
+        {isAdmin && (
+          <div className="admin-achievements-btn">
+            <button className="edit-btn" onClick={() => navigate(`/chiens/${dog.id}/achievements`)}>
+              Ajouter / Modifier Palmarès & Résultats
+            </button>
+          </div>
+        )}
 
-      <div className="dog-category results">
-        <h2>Résultats</h2>
         <div className="years-filter">
           {years.map((year) => (
             <button
               key={year}
               className={`year-btn ${activeYear === year ? "active" : ""}`}
-              onClick={() => handleYearClick(year)}
+              onClick={() => setActiveYear(year)}
             >
               {year}
             </button>
           ))}
         </div>
-        <div className="results-list">
-          <p>Les résultats de {activeYear} apparaîtront ici.</p>
-        </div>
+
+        {!currentYearData || Object.keys(currentYearData).length === 0 ? (
+          <p>À venir</p>
+        ) : (
+          <>
+            {/* Achievement images */}
+            {currentYearData.imageURLs?.length > 0 && (
+              <div className="year-section image-box">
+                {currentYearData.imageURLs.map((img, idx) => (
+                  <img
+                    key={idx}
+                    src={img}
+                    alt={`Achievement ${activeYear}`}
+                    onClick={() => setLightboxImage(img)}
+                    style={{ cursor: "pointer" }}
+                  />
+                ))}
+              </div>
+            )}
+
+            <div className="year-section">
+              <h3>📅 Date & Événement</h3>
+              <p>{currentYearData.date || "N/A"} {currentYearData.event ? `- ${currentYearData.event}` : ""}</p>
+            </div>
+
+            {currentYearData.judge && (
+              <div className="year-section">
+                <h3>👩‍⚖️ Juge</h3>
+                <p>{currentYearData.judge}</p>
+              </div>
+            )}
+
+            <div className="year-section">
+              <h3>🏆 Palmarès</h3>
+              {currentYearData.palmares?.length > 0 ? (
+                <ul>{currentYearData.palmares.map((p, i) => <li key={i}>{p}</li>)}</ul>
+              ) : <p>À venir</p>}
+            </div>
+
+            <div className="year-section">
+              <h3>📊 Résultats</h3>
+              {currentYearData.results?.length > 0 ? (
+                <ul>{currentYearData.results.map((r, i) => <li key={i}>{r}</li>)}</ul>
+              ) : <p>À venir</p>}
+            </div>
+
+            {isAdmin && (
+              <div className="admin-achievements-controls">
+                <button onClick={handleDeleteAchievement} className="delete-btn">
+                  Supprimer cette réalisation
+                </button>
+              </div>
+            )}
+          </>
+        )}
       </div>
 
-      {/* Lightbox overlay */}
+      {/* Lightbox */}
       {lightboxImage && (
         <div className="lightbox-overlay" onClick={() => setLightboxImage(null)}>
           <button className="lightbox-close" onClick={() => setLightboxImage(null)}>×</button>
