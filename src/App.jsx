@@ -14,6 +14,8 @@ import AlbumDetail from "./pages/AlbumDetail";
 import AlbumForm from "./components/AlbumForm";
 import Links from "./pages/Liens";
 import News from "./pages/News";
+import LegalNotice from "./pages/LegalNotice";
+
 
 import DogDetail from "./components/DogDetail";
 import PuppyDetail from "./components/PuppyDetail";
@@ -49,6 +51,9 @@ function App() {
             <Route path="/gallery/edit/:albumId" element={<AlbumForm isEdit={true} />} />
             <Route path="/gallery/:albumId" element={<AlbumDetail />} />
             <Route path="/liens" element={<Links />} />
+            <Route path="/mentions-legales" element={<LegalNotice />} />
+
+            
 
             {/* Dogs */}
             <Route path="/chiens" element={<Dogs />} />

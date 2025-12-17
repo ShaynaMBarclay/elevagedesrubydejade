@@ -1,0 +1,155 @@
+.legal-page {
+  min-height: 100vh;
+  font-family: var(--font-body);
+  color: var(--dark);
+  background: url('/images/forest.jpg') center/cover no-repeat fixed;
+  position: relative;
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+  z-index: 0;
+}
+
+/* Overlay */
+.legal-page::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: rgba(248, 248, 240, 0.35);
+  z-index: 0;
+}
+
+/* Fade-in animation */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.legal-page > * {
+  position: relative;
+  z-index: 1;
+  opacity: 0;
+  animation: fadeInUp 1s ease forwards;
+}
+
+/* Main content wrapper */
+.legal-page section,
+.legal-page h1 {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Title */
+.legal-page h1 {
+  font-family: var(--font-heading);
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+/* Content blocks */
+.legal-page section {
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  padding: 2.5rem 2rem;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+/* Section titles */
+.legal-page h2 {
+  font-family: var(--font-heading);
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+
+/* Text */
+.legal-page p {
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+/* Links */
+.legal-page a {
+  color: var(--primary);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.legal-page a:hover {
+  text-decoration: underline;
+}
+
+/* ======================================================
+   Tablets (1024px and below)
+====================================================== */
+@media (max-width: 1024px) {
+  .legal-page {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+    background-attachment: scroll;
+  }
+
+  .legal-page section {
+    margin: 1.5rem;
+    padding: 2rem 1.5rem;
+  }
+}
+
+/* ======================================================
+   Mobile devices (768px and below)
+====================================================== */
+@media (max-width: 768px) {
+  .legal-page {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+
+  .legal-page h1 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .legal-page section {
+    padding: 1.5rem 1.2rem;
+  }
+
+  .legal-page p {
+    font-size: 0.95rem;
+  }
+}
+
+/* ======================================================
+   Small mobile (480px and below)
+====================================================== */
+@media (max-width: 480px) {
+  .legal-page h1 {
+    font-size: 1.6rem;
+  }
+
+  .legal-page section {
+    padding: 1.2rem 1rem;
+  }
+
+  .legal-page p {
+    font-size: 0.9rem;
+  }
+}
+
+/* ======================================================
+   Extra small mobile (360px and below)
+====================================================== */
+@media (max-width: 360px) {
+  .legal-page h1 {
+    font-size: 1.4rem;
+  }
+
+  .legal-page p {
+    font-size: 0.85rem;
+  }
+}
