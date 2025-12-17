@@ -197,7 +197,9 @@ export default function DogDetail() {
           <p>Mère: {dog.parents.mother.name}</p>
           <img src={dog.parents.mother.image} alt={dog.parents.mother.name} onClick={() => setLightboxImage(dog.parents.mother.image)} />
         </div>
-        {/* Pedigree Tree Button */}
+      </div>
+
+       {/* Pedigree Tree Button */}
         <div className="pedigree-btn-container">
           <button
             className="pedigree-btn"
@@ -206,7 +208,6 @@ export default function DogDetail() {
             Voir l'arbre généalogique
           </button>
         </div>
-      </div>
 
       {/* Informations */}
       <div className="dog-category informations">
@@ -217,12 +218,13 @@ export default function DogDetail() {
         <p><strong>N° origine :</strong> {dog.originNumber || "/"}</p>
         <p><strong>Cotation :</strong> {dog.rating || "—"}</p>
         <p><strong>ADN :</strong> {dog.dna || "—"}</p>
+
         {/* Tares */}
-{dog.health && Object.values(dog.health).some(v => v) && (
-  <div className="dog-category tares">
-    <h2>Tares</h2>
-    <ul>
-      {Object.entries(dog.health).map(([key, value]) => {
+         {dog.health && Object.values(dog.health).some(v => v) && (
+          <div className="dog-category tares">
+          <h2>Tares</h2>
+         <ul>
+        {Object.entries(dog.health).map(([key, value]) => {
         if (!value) return null; 
         const labels = {
           elbowDysplasia: "Dysplasie Coude (ED)",
@@ -232,10 +234,10 @@ export default function DogDetail() {
           nah: "Nanisme hypophysaire (NAH)"
         };
         return <li key={key}>{labels[key]}: {value}</li>;
-      })}
-    </ul>
-  </div>
-)}
+         })}
+       </ul>
+      </div>
+       )}
       </div>
 
       {isAdmin && (
