@@ -241,11 +241,16 @@ export default function DogForm({ dogId, isEdit = false, defaultCategory }) {
 
 
         <h2>Parents</h2>
+        
         {["father", "mother"].map((parent) => (
           <div key={parent} className="parent-block">
             <label>{parent === "father" ? "Père" : "Mère"}</label>
             <input name="name" value={formData.parents[parent].name} onChange={(e) => handleParentChange(e, parent)} />
+             <span style={{ marginLeft: "0.5rem", fontStyle: "italic", color: "#555" }}>
+      (Choisir des fichiers)
+    </span>
             <input type="file" accept="image/*" onChange={(e) => handleParentImageUpload(e, parent)} />
+            
             <img
               src={newParentImages[parent] ? URL.createObjectURL(newParentImages[parent]) : formData.parents[parent].image || placeholder}
               alt={formData.parents[parent].name || parent}
@@ -256,6 +261,9 @@ export default function DogForm({ dogId, isEdit = false, defaultCategory }) {
         ))}
 
         <h2>Photos</h2>
+         <span style={{ marginLeft: "0.5rem", fontStyle: "italic", color: "#555" }}>
+      (Choisir des fichiers)
+    </span>
         <input type="file" multiple accept="image/*" onChange={handleImageUpload} />
 
         <div className="dog-images-preview">

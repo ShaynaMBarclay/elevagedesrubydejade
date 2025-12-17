@@ -132,6 +132,9 @@ export default function AlbumDetail() {
 
       {isAdmin && (
         <div className="admin-controls">
+           <span style={{ marginLeft: "0.5rem", fontStyle: "italic", color: "#555" }}>
+      (Choisir des fichiers)
+    </span>
           <input
             type="file"
             multiple
@@ -139,6 +142,7 @@ export default function AlbumDetail() {
             accept="image/*,video/*"
             className="file-input"
           />
+          
           <button onClick={handleUpload} className="upload-btn" style={{ marginTop: "0.5rem" }}>
             Ajouter médias
           </button>

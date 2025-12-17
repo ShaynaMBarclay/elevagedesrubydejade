@@ -77,6 +77,9 @@ export default function AlbumForm({ albumId, isEdit = false }) {
 
         <div className="media-upload-wrapper">
           <label>Ajouter des fichiers</label>
+           <span style={{ marginLeft: "0.5rem", fontStyle: "italic", color: "#555" }}>
+      (Choisir des fichiers)
+    </span>
           <input
             type="file"
             multiple
