@@ -92,7 +92,7 @@ export default function AlbumDetail() {
       );
       setAlbum({ id: docSnap.id, ...data, media: mediaWithUrls });
     } catch (err) {
-      console.error("Error uploading media:", err);
+      console.error("Erreur lors du téléchargement du média:", err);
     }
   };
 

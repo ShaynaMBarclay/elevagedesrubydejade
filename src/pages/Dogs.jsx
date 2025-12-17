@@ -166,7 +166,7 @@ export default function Dogs() {
       {/* Dog Grid */}
       <div className="dog-content">
         {loading ? (
-          <p>Loading dogs...</p>
+          <p>chiens de chargement...</p>
         ) : filteredDogs.length === 0 ? (
           <p>Aucun chien disponible pour cette sélection.</p>
         ) : (
