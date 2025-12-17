@@ -6,6 +6,7 @@ export default function News() {
   const [activeCategory, setActiveCategory] = useState("2025");
 
   const categories = [
+    { id: "2026", label: "2026" },
     { id: "2025", label: "2025" },
     { id: "2024", label: "2024" },
   ];
@@ -32,21 +33,45 @@ export default function News() {
 
       {/* Category Content */}
       <div className="news-content">
+
+        {/* 2026 – same placeholder as 2024 */}
+        {activeCategory === "2026" && (
+          <div className="news-2024">
+            <p>
+              Découvrez nos actualités et événements de l’année 2026.
+            </p>
+          </div>
+        )}
+
+        {/* 2025 – existing article */}
         {activeCategory === "2025" && (
           <div className="update-section">
             <h2>Portée 2025</h2>
+
             <div className="update-content update-vertical">
-            <div className="update-image">
-                <img src={updateImg} alt="Portée 2025 Ruby & Roberto"  loading="lazy" />
+              <div className="update-image">
+                <img
+                  src={updateImg}
+                  alt="Portée 2025 Ruby & Roberto"
+                  loading="lazy"
+                />
               </div>
+
               <div className="update-list">
                 <p>🐾 Les chiots de Ruby & Roberto arrivent cet automne ! 🐾</p>
+
                 <p>
-                  Nous sommes heureux d’annoncer la prochaine portée à l’Élevage des Ruby de Jade.
+                  Nous sommes heureux d’annoncer la prochaine portée à l’Élevage
+                  des Ruby de Jade.
                 </p>
+
                 <p>
-                  Une union exceptionnelle entre Ruby (Severka III Oduhoste) et Roberto (Robert Plant Sing Immigrant Song Athanor Lupus) — deux lignées soigneusement sélectionnées pour leur tempérament équilibré, leur santé irréprochable et leur beauté naturelle.
+                  Une union exceptionnelle entre Ruby (Severka III Oduhoste)
+                  et Roberto (Robert Plant Sing Immigrant Song Athanor Lupus),
+                  deux lignées soigneusement sélectionnées pour leur tempérament
+                  équilibré, leur santé irréprochable et leur beauté naturelle.
                 </p>
+
                 <p>🐾 Ce qu’il faut savoir :</p>
                 <ul>
                   <li>0% de consanguinité sur 5 générations</li>
@@ -54,9 +79,13 @@ export default function News() {
                   <li>Hanches et coudes contrôlés</li>
                   <li>CSAU et TAN validés (Roberto)</li>
                 </ul>
+
                 <p>
-                  Nos chiots grandiront dans un environnement familial, socialisés dès leurs premières semaines et habitués à différents stimuli pour rejoindre vos foyers sereinement.
+                  Nos chiots grandiront dans un environnement familial,
+                  socialisés dès leurs premières semaines et habitués à
+                  différents stimuli pour rejoindre vos foyers sereinement.
                 </p>
+
                 <p>🐾 Chiots attendus cet automne – les réservations sont ouvertes !</p>
                 <p>📞 Infos & réservations : Sophie – 06 50 87 91 80</p>
                 <p>✉️ schneider.sof68@hotmail.fr</p>
@@ -65,6 +94,7 @@ export default function News() {
           </div>
         )}
 
+        {/* 2024 – placeholder */}
         {activeCategory === "2024" && (
           <div className="news-2024">
             <p>
@@ -72,6 +102,7 @@ export default function News() {
             </p>
           </div>
         )}
+
       </div>
     </main>
   );

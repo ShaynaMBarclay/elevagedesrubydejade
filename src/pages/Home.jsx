@@ -9,7 +9,6 @@ export default function Home() {
     { id: "chiens", label: "Chiens" },
     { id: "males", label: "Mâles" },
     { id: "femelles", label: "Femelles" },
-    { id: "resultats", label: "Résultats" },
     { id: "retraites", label: "Retraités" },
     { id: "memoire", label: "En mémoire" },
   ];
