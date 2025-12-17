@@ -79,6 +79,12 @@ export default function PedigreePage({ collection = "dogs" }) {
 
   return (
     <div className="pedigree-page">
+        {/* Link to Chiens de France */}
+      <p className="external-link">
+        <a href="https://www.chiens-de-france.com/" target="_blank" rel="noopener noreferrer">
+          Visitez Chiens de France
+        </a>
+      </p>
       <h1>Pédigree de {dog.pedigree.subject.name}</h1>
 
       {isAdmin && (

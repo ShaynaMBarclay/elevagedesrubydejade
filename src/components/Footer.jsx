@@ -35,6 +35,10 @@ export default function Footer() {
             Chiots de France
           </a>
         </p>
+
+        <p className="footer-disclaimer">
+          Les textes et les images sont la propriété exclusive de ce site - Reproduction Interdite
+        </p>
       </div>
     </footer>
   );
