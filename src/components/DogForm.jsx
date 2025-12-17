@@ -219,13 +219,26 @@ export default function DogForm({ dogId, isEdit = false, defaultCategory }) {
           </>
         )}
 
-        <h2>Santé</h2>
-        {["elbowDysplasia", "hipDysplasia", "md", "mdr1", "nah"].map((f) => (
-          <div key={f}>
-            <label>{f}</label>
-            <input name={f} value={formData.health[f]} onChange={(e) => handleNested(e, "health")} />
-          </div>
-        ))}
+         <h2>Santé</h2>
+
+{[
+  { key: "elbowDysplasia", label: "Dysplasie du coude (ED)" },
+  { key: "hipDysplasia", label: "Dysplasie de la hanche (HD)" },
+  { key: "md", label: "Myélopathie dégénérative (MD)" },
+  { key: "mdr1", label: "Mutation MDR1" },
+  { key: "nah", label: "Nanisme hypophysaire (NAH)" },
+].map(({ key, label }) => (
+  <div key={key}>
+    <label>{label}</label>
+    <input
+      name={key}
+      value={formData.health[key]}
+      onChange={(e) => handleNested(e, "health")}
+      placeholder="Ex : A, B, N/N, Clear…"
+    />
+  </div>
+))}
+
 
         <h2>Parents</h2>
         {["father", "mother"].map((parent) => (
