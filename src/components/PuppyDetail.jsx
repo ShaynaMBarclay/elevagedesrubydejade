@@ -154,15 +154,28 @@ export default function PuppyDetail() {
         <p><strong>N° origine:</strong> {puppy.originNumber}</p>
         <p><strong>Cotation:</strong> {puppy.rating}</p>
         <p><strong>ADN:</strong> {puppy.dna}</p>
-        <p><strong>Tares:</strong></p>
-        <ul>
-          <li>Dysplasie Coude (ED): {puppy.health?.elbowDysplasia || "N/A"}</li>
-          <li>Dysplasie Hanche (HD): {puppy.health?.hipDysplasia || "N/A"}</li>
-          <li>MD: {puppy.health?.md || "N/A"}</li>
-          <li>Mutation MDR1: {puppy.health?.mdr1 || "N/A"}</li>
-          <li>Nanisme hypophysaire (NAH): {puppy.health?.nah || "N/A"}</li>
-        </ul>
-      </div>
+        
+        
+  {/* Tares / Health */}
+  {puppy.health && Object.values(puppy.health).some(v => v) && (
+    <div className="puppy-category tares">
+      <h2>Tares</h2>
+      <ul>
+        {Object.entries(puppy.health).map(([key, value]) => {
+          if (!value) return null; // Skip empty values
+          const labels = {
+            elbowDysplasia: "Dysplasie Coude (ED)",
+            hipDysplasia: "Dysplasie Hanche (HD)",
+            md: "MD",
+            mdr1: "Mutation MDR1",
+            nah: "Nanisme hypophysaire (NAH)",
+          };
+          return <li key={key}>{labels[key]}: {value}</li>;
+        })}
+      </ul>
+    </div>
+  )}
+</div>
 
       {/* Pedigree */}
       <Link to={`/chiots/${puppy.id}/pedigree`} className="pedigree-btn">
