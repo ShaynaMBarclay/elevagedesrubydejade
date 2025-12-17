@@ -33,6 +33,13 @@ export default function Footer() {
             rel="noopener noreferrer"
           >
             Chiots de France
+          </a> |{" "}
+          <a
+            href="https://www.chiens-de-france.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Chiens de France
           </a>
         </p>
 

@@ -66,7 +66,10 @@ export default function Navbar() {
               <img className="facebook-logo" src={facebookLogo} alt="Facebook" />
             </a>
             <a className="cdf-link" href="https://www.chiens-de-france.com/" target="_blank" rel="noopener noreferrer">
-              Chiens-de-France
+              Chiens de France
+            </a>
+             <a className="cdf-link" href="https://www.chiots-de-france.com/" target="_blank" rel="noopener noreferrer">
+             Chiots de France
             </a>
           </div>
 

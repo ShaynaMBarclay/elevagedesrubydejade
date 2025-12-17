@@ -77,7 +77,12 @@ export default function PuppyPedigreePage() {
 
   return (
     <div className="pedigree-page">
-      <Link to={`/chiots/${id}`}>← Retour au chiot</Link>
+      <p className="external-link">
+        <a href="https://www.chiots-de-france.com/" target="_blank" rel="noopener noreferrer">
+          Visitez Chiots de France
+        </a>
+      </p>
+      
       <h1>Pédigree de {puppy.pedigree.subject.name}</h1>
 
       {isAdmin && (
@@ -90,6 +95,8 @@ export default function PuppyPedigreePage() {
       )}
 
       <Pedigree dog={puppy} />
+      <Link to={`/chiots/${id}`}>← Retour au chiot</Link>
     </div>
+    
   );
 }

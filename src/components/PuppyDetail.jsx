@@ -166,7 +166,7 @@ export default function PuppyDetail() {
 
       {/* Pedigree */}
       <Link to={`/chiots/${puppy.id}/pedigree`} className="pedigree-btn">
-       Voir le pédigree complet
+       Voir l'arbre généalogique
       </Link>
 
       {/* Lightbox */}
