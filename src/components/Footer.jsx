@@ -47,8 +47,16 @@ export default function Footer() {
           Les textes et les images sont la propriété exclusive de ce site - Reproduction Interdite
         </p>
         <p className="footer-admin">
-          <Link to="/seconnector">Administration</Link>
-        </p>
+       <Link to="/seconnector">Administration</Link>
+       {" · "}
+        <a
+        href="https://aboutshayna.dev/"
+        target="_blank"
+         rel="noopener noreferrer"
+         >
+        Site par SitesByShayna
+       </a>
+       </p>
       </div>
     </footer>
   );
