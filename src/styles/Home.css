@@ -96,6 +96,12 @@ section {
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
+.about-logo {
+  width: 350px;
+  max-width: 40%;
+  opacity: 0.9;
+  margin-top: 1rem;
+}
 
 /* === Update section === */
 

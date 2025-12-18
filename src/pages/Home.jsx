@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "../styles/Home.css";
 import homeImg from "../assets/homeimg.jpg"; 
 import updateImg from "../assets/updateimg.jpg";
+import logoImg from "../assets/logo.jpeg";
 
 export default function Home() {
   const dogCategories = [
@@ -36,9 +37,21 @@ export default function Home() {
             <p>Sophie KNOPF</p>
           </div>
           <div className="about-image">
-            <img src={homeImg} alt="Élevage des Ruby de Jade"  loading="lazy"/>
-          </div>
-        </div>
+              <img
+              src={homeImg}
+              alt="Élevage des Ruby de Jade"
+              loading="lazy"
+              className="about-main-img"
+             />
+
+               <img
+               src={logoImg}
+               alt="Logo Élevage des Ruby de Jade"
+               loading="lazy"
+               className="about-logo"
+              />
+             </div>
+             </div>
       </section>
 
         {/* === Update Section === */}
