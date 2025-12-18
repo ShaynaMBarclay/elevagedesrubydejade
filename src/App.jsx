@@ -75,7 +75,8 @@ function App() {
             {/* Admin Pages */}
             <Route path="/chiens/:id/achievements" element={<AdminDogAchievements />} />
             <Route path="/admin/messages" element={<AdminMessages />} />
-            <Route path="/login" element={<AdminLogin />} />
+            <Route path="/seconnector" element={<AdminLogin />} />
+
             <Route
               path="/admin"
               element={

@@ -46,6 +46,9 @@ export default function Footer() {
         <p className="footer-disclaimer">
           Les textes et les images sont la propriété exclusive de ce site - Reproduction Interdite
         </p>
+        <p className="footer-admin">
+          <Link to="/seconnector">Administration</Link>
+        </p>
       </div>
     </footer>
   );

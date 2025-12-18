@@ -6,7 +6,7 @@ export default function ProtectedRoute({ children }) {
   const [user, loading] = useAuthState(auth);
 
   if (loading) return <p>Loading...</p>;
-  if (!user) return <Navigate to="/admin/login" />;
+   if (!user) return <Navigate to="/seconnector" replace />;
 
   return children;
 }
